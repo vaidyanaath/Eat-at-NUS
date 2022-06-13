@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
-import { colors } from "../../../assets/colors";
+import { colors } from "../../assets/colors";
 
 export const BigText = styled.Text`
-    font-size: 33 px;
+    font-size: 33px;
     font-family: 'SourceSansPro_600SemiBold';
-    font-color: ${colors.secondary};
+    color: ${ colors.secondary };
 `;

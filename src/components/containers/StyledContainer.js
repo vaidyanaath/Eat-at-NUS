@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import Constants from "expo-constants";
-import { colors } from '../../../assets/colors';
+import { colors } from '../../assets/colors';
 
 const StatusBarHeight = Constants.statusBarHeight;
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { colors } from '../../../assets/colors';
+import { colors } from '../../assets/colors';
 
 
 export const ColoredButton = styled.TouchableOpacity`
