@@ -3,6 +3,6 @@ import { colors } from "../../assets/colors";
 
 export const BigText = styled.Text`
     font-size: 33px;
-    font-family: 'SourceSansPro_600SemiBold';
+    font-family: 'SourceSansPro-SemiBold';
     color: ${ colors.secondary };
 `;

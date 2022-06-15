@@ -37,7 +37,7 @@ const Landing = () => {
     },
     welcomeText: {
         fontSize: 50,
-        fontFamily: 'SourceSansPro_700Bold',
+        fontFamily: 'SourceSansPro-Bold',
         marginBottom: 40,
         textAlign: 'center',
     },

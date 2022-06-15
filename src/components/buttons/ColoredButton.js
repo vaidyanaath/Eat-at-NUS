@@ -10,4 +10,9 @@ export const ColoredButton = styled.TouchableOpacity`
     justify-content: center;
     align-self: center;
     background-color: ${colors.primary};
+    shadowColor: #000;
+    shadowOffset: 0 1px;
+    shadowOpacity: 0.22;
+    shadowRadius: 2.22px;
+    elevation: 3;
 `;

@@ -1,27 +1,29 @@
+import React, { useState } from 'react';
+
 // import fonts
-import {
-  useFonts,
-  SourceSansPro_300Light,
-  SourceSansPro_400Regular,
-  SourceSansPro_600SemiBold,
-  SourceSansPro_700Bold,
-} from '@expo-google-fonts/source-sans-pro';
+import useFonts from "./hooks/useFonts";
 
 // import screens
+import AppLoading from "expo-app-loading";
 import Landing from './screens/auth/Landing';
 
 // set app.js as entrypoint
 import { registerRootComponent } from 'expo';
 
 const App = () => {
-  let [fontsLoaded] = useFonts({
-    SourceSansPro_300Light,
-    SourceSansPro_400Regular,
-    SourceSansPro_600SemiBold,
-    SourceSansPro_700Bold,
-  });
-  if (!fontsLoaded) {
-    console.log("Loading..."); // @TODO use splash screen async
+  const [fontLoaded, setFontLoaded] = useState(false);
+  const loadFonts = async () => {
+    await useFonts();
+  };
+
+  if (!fontLoaded) {
+    return (
+      <AppLoading
+        startAsync={loadFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={() => console.warn("Error loading fonts")}
+      />
+    );
   }
 
   return (
