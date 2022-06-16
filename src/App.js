@@ -6,6 +6,7 @@ import useFonts from "./hooks/useFonts";
 // import screens
 import AppLoading from "expo-app-loading";
 import Landing from './screens/auth/Landing';
+import CustomerSignIn from './screens/auth/CustomerSignIn';
 
 // set app.js as entrypoint
 import { registerRootComponent } from 'expo';
@@ -27,7 +28,7 @@ const App = () => {
   }
 
   return (
-    <Landing />
+    <CustomerSignIn />
   );
 }
 export default registerRootComponent(App);
