@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./src/App.js",
     "name": "code",
     "slug": "code",
     "version": "1.0.0",
