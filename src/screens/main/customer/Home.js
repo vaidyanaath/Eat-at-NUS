@@ -20,6 +20,7 @@ import { TouchableOpacity } from 'react-native';
 import { TextInput, ScrollView } from 'react-native';
 
 import { ListContainer } from '../../../components/containers/ListContainer';
+import { HorizontalListContainer } from '../../../components/containers/HorizontalListContainer';
 
 const SearchBar = () => {
   return(
@@ -27,8 +28,10 @@ const SearchBar = () => {
       <View style={searchBarStyle.searchContainer}>
         <Image source={require('../../../assets/images/search.png')} style={searchBarStyle.searchIcon} />
         <TextInput placeholder='Search' selectionColor={colors.secondary} style={searchBarStyle.searchTextInput}/>
-
       </View>
+      <TouchableOpacity style={searchBarStyle.filterButton}>
+      <Image source={require('../../../assets/images/filter.png')} style={searchBarStyle.filterIcon} />
+      </TouchableOpacity>
 
     </View>
   );
@@ -39,33 +42,47 @@ const searchBarStyle = StyleSheet.create({
     flex: 1, 
     flexDirection: 'row',
     minHeight: 50, 
-    width: '100%', 
-    backgroundColor: 'red'
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // backgroundColor: '#e71837'
   },
   searchContainer : {
     flex: 1,
     flexDirection: 'row',
-    minHeight: 50,
-    width: '80%',
+    minHeight: 20,
+    marginRight: 10,
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 10,
-    padding: 5,
+    paddingHorizontal: 5,
     backgroundColor: colors.gray,
     paddingRight: 20,
   },
   searchIcon: {
     width: 40,
     height: 40,
-    tintColor: colors.black,
+    tintColor: colors.secondary,
     // backgroundColor: 'purple',
+  },
+  filterIcon: {
+    width: 18,
+    height: 18,
+    tintColor: colors.gray,
+  },
+  filterButton: {
+    backgroundColor: colors.primary,
+    padding: 10,
+    borderRadius: 10,
   },
   searchTextInput: {
     flex: 1,
-    backgroundColor: 'turquoise', // turquoise
-  }
+    // backgroundColor: '#fed34a', // turquoise
+  },
+
 });
 
-const discover = () => (<RegularText style={{fontSize: 30}}>Discover</RegularText>);
+const discover = () => (<RegularText style={{fontSize: 25, marginVertical: 10}}>Discover</RegularText>);
 
 
 const Home = () => {
@@ -82,14 +99,15 @@ const Home = () => {
           <InnerContainer style={styles.body}>
               <SearchBar />
               
-              <RegularText style={{ fontSize: 30, alignSelf: 'flex-start', marginVertical: 5, }}>Popular Near You</RegularText>
+              <RegularText style={{ fontSize: 25, alignSelf: 'flex-start', marginVertical: 10, }}>Popular Near You</RegularText>
               <FlatList
                   data={ANIMAL_NAMES}
-                  renderItem={({ item }) => <ListContainer item={item} />}
+                  renderItem={({ item }) => <HorizontalListContainer item={item} />}
                   keyExtractor={item => item.id}
                   showsHorizontalScrollIndicator={false}
                   horizontal={true}
-                  height={250}
+                  minHeight={160}
+                  backgroundColor=  {colors.bg}//'#ff75'
               />
               <FlatList
                   data={ANIMAL_NAMES}
@@ -111,10 +129,10 @@ const Home = () => {
 const styles = StyleSheet.create({
   mainContainer: {
       paddingBottom: 0,
-      paddingHorizontal: 0,
+      paddingHorizontal: 30,
       paddingTop: 10,
-      alignItems: 'flex-start',
-      // backgroundColor: "#ff234a",
+      // alignItems: 'flex-start',
+      backgroundColor: colors.bg//"#ff234a",
   },
   header: {
       flexDirection: 'row',
@@ -132,7 +150,8 @@ const styles = StyleSheet.create({
       borderRadius: 20,
   },
   body: {
-      padding: 0,
+      padding: 10,
+      // backgroundColor: "#ff2"
   },
   discoverList: {
     width: '100%',
