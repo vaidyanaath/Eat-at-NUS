@@ -52,9 +52,9 @@ button: {
     marginVertical: 5,
     marginHorizontal: 10,
     activeOpacity: 0.8,
-    // borderTopLeftRadius: 20,
-    // borderTopRightRadius: 20,
-    // borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderRadius: 20,
 
     borderColor: colors.gray,
     borderWidth: 0,
@@ -74,8 +74,8 @@ container: {
 },
 topContainer: {
     flex: 1,
-    // borderTopLeftRadius: 20,
-    // borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     alignItems: 'center',
     justifyContent: 'flex-start',
     minHeight: 50,
@@ -85,13 +85,13 @@ image: {
 
     height: '95%',
     width: '100%',
-    // borderRadius: 20,
+    borderRadius: 20,
     
 },
 bottomContainer: {
     flex: 1,
-    // borderBottomRightRadius: 20,
-    // borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     flexDirection: 'row',
