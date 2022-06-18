@@ -10,6 +10,6 @@ export const StyledContainer = styled.View`
     width: 100%;
     height: 100%;
     padding: 15px;
-    padding-top: ${ StatusBarHeight }px;
+    padding-top: ${ StatusBarHeight + 10 }px;
     background-color: ${ colors.bg };
 `;
