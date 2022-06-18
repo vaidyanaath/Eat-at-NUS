@@ -8,6 +8,7 @@ import AppLoading from "expo-app-loading";
 import Landing from './screens/auth/Landing';
 import CustomerSignIn from './screens/auth/CustomerSignIn';
 import Home from './screens/main/customer/Home';
+import CustomerSignUp from './screens/auth/CustomerSignUp';
 
 // set app.js as entrypoint
 import { registerRootComponent } from 'expo';
@@ -29,7 +30,7 @@ const App = () => {
   }
 
   return (
-    <Home />
+    <CustomerSignUp />
   );
 }
 export default registerRootComponent(App);
