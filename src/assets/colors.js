@@ -4,7 +4,7 @@ export const colors = {
     tertiary: "#4CBBA1",
     bg: "#FFFFFF",
     turquoise: "#AFEEEE",
-    gray: "#D1D0DB",
+    gray: "#F5F5F5",
     white: "#FFFFFF",
     black: "#000000",
     pale: "#FFFAF4",
