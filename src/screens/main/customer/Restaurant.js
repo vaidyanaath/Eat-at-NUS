@@ -19,41 +19,25 @@ import { HorizontalListContainer } from '../../../components/containers/Horizont
 
 import { TouchableOpacity } from 'react-native';
 
-const discover = () => (<RegularText style={{fontSize: 25, marginVertical: 10}}>Discover</RegularText>);
-
-const Home = ({ navigation }) => {
+const Restaurant = ({ navigation, name }) => {
   
 
   return (
       <StyledContainer style={styles.mainContainer}>
           <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
-          <InnerContainer style={styles.header}>
-              <RegularText style={styles.greeting}>Hello, Foodie</RegularText>
-              <ProfileButton source={require('../../../assets/images/avatar.jpg')} />
-          </InnerContainer>
           <InnerContainer style={styles.body}>
-              <SearchBar />
               
-              <RegularText style={{ fontSize: 25, alignSelf: 'flex-start', marginVertical: 10, }}>Popular Near You</RegularText>
-              <FlatList
-                  data={DUMMY_DATA.sort((a, b) => b.rating.localeCompare(a.rating))}
-                  renderItem={({ item }) => <HorizontalListContainer item={item} />}
-                  keyExtractor={item => item.id}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal={true}
-                  minHeight={165}
-                  backgroundColor=  {colors.bg}//'#ff75'
-              />
-              <FlatList
-                  data={DUMMY_DATA}
-                  renderItem={({ item }) => <ListContainer item={item} onPress={() => navigation.navigate('Restaurant', {name: item.name})}/>}
-                  keyExtractor={item => item.id}
-                  ListHeaderComponent={discover}
-                  style={styles.discoverList}
-                  ListFooterComponent={<View marginBottom={20}></View>}
-                  showsVerticalScrollIndicator={false}
-                  vertical={true}
-              />
+            <RegularText style={{fontSize: 25, marginBottom: 5, alignSelf: 'flex-start',}}>Dishes</RegularText>
+              
+            <FlatList
+                data={DUMMY_DATA.sort((a, b) => b.rating.localeCompare(a.rating))}
+                renderItem={({ item }) => <ListContainer item={item} />}
+                keyExtractor={item => item.id}
+                style={styles.discoverList}
+                ListFooterComponent={<View marginBottom={20}></View>}
+                showsVerticalScrollIndicator={false}
+                vertical={true}
+            />
 
           </InnerContainer>
       </StyledContainer>
@@ -67,7 +51,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 30,
       paddingTop: 10,
       // alignItems: 'flex-start',
-      backgroundColor: colors.bg//"#ff234a",
+    //   backgroundColor: "#ff234a",
   },
   header: {
       flexDirection: 'row',
@@ -161,4 +145,4 @@ const DUMMY_DATA = [
 
 
 
-export default Home;
+export default Restaurant;

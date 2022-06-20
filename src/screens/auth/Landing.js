@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar, StyleSheet, Text, Image } from 'react-native';
 
 // import components
@@ -9,9 +9,16 @@ import { RegularText } from '../../components/texts/RegularText';
 
 // import colors
 import { colors } from '../../assets/colors';
+import { onAuthStateChanged } from 'firebase/auth';
 
-const Landing = () => {
-    const handleIsCustomer = () => {}
+// import auth
+import { auth } from '../../firebase/config';
+
+const Landing = ({ navigation }) => {
+
+    
+
+    const handleIsCustomer = () => {navigation.navigate('CustomerSignIn')}
     const handleIsFoodStallOwner = () => {}
 
     return (

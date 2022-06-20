@@ -14,13 +14,34 @@ import { RegularText } from '../../components/texts/RegularText';
 // import colors
 import { colors } from '../../assets/colors';
 
+// import {} from 'firebase/auth';
+// import auth from firebase config
+import { auth } from '../../firebase/config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 const CustomerSignUp = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSignUp = () => {}
+    const handleSignUp = () => {
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errMessage = error.message;
+                console.log(errorCode);
+                alert(errMessage);
+            });
+    }
 
     return (
         <StyledContainer>
