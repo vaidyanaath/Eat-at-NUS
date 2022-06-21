@@ -17,7 +17,7 @@ import { colors } from '../../assets/colors';
 // import {} from 'firebase/auth';
 // import auth from firebase config
 import { auth } from '../../firebase/config';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const CustomerSignUp = () => {
     const [name, setName] = useState("");
@@ -34,6 +34,14 @@ const CustomerSignUp = () => {
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
+                updateProfile(user, {
+                    displayName: name,
+                }).then(() => {
+                    // Update successful
+                }).catch((error) => {
+                    // An error happened
+                    console.log(error);
+                });
             })
             .catch((error) => {
                 const errorCode = error.code;

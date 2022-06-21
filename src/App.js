@@ -4,7 +4,6 @@ import React from 'react';
 import { useFonts } from 'expo-font'
 
 // import screens
-
 import RootStack from "./navigation/RootStack";
 
 // set app.js as entrypoint

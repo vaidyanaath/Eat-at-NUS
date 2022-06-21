@@ -15,11 +15,16 @@ import { RegularText } from '../../../components/texts/RegularText';
 import { ListContainer } from '../../../components/containers/ListContainer';
 import { HorizontalListContainer } from '../../../components/containers/HorizontalListContainer';
 
-
+import { auth } from '../../../firebase/config';
 
 import { TouchableOpacity } from 'react-native';
 
 const discover = () => (<RegularText style={{fontSize: 25, marginVertical: 10}}>Discover</RegularText>);
+
+const user = auth.currentUser;
+const placeholderAvatar = "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
+const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
+// { user.displayName.split(' ')[0] }
 
 const Home = ({ navigation }) => {
   
@@ -28,8 +33,8 @@ const Home = ({ navigation }) => {
       <StyledContainer style={styles.mainContainer}>
           <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
           <InnerContainer style={styles.header}>
-              <RegularText style={styles.greeting}>Hello, Foodie</RegularText>
-              <ProfileButton source={require('../../../assets/images/avatar.jpg')} />
+              <RegularText style={styles.greeting}>Hello, foodie</RegularText>
+              <ProfileButton source={{ uri : avatar }} />
           </InnerContainer>
           <InnerContainer style={styles.body}>
               <SearchBar />

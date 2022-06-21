@@ -3,23 +3,14 @@ import { StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer'
-import { SearchBar } from '../../../components/SearchBar';
-import { ProfileButton } from '../../../components/buttons/ProfileButton';
+import { InnerContainer } from '../../../components/containers/InnerContainer';
+import { ListContainer } from '../../../components/containers/ListContainer';
+import { RegularText } from '../../../components/texts/RegularText';
 
 // import colors
 import { colors } from '../../../assets/colors';
-import { InnerContainer } from '../../../components/containers/InnerContainer';
 
-import { RegularText } from '../../../components/texts/RegularText';
-
-import { ListContainer } from '../../../components/containers/ListContainer';
-import { HorizontalListContainer } from '../../../components/containers/HorizontalListContainer';
-
-
-
-import { TouchableOpacity } from 'react-native';
-
-const Restaurant = ({ navigation, name }) => {
+const Restaurant = () => {
   
 
   return (

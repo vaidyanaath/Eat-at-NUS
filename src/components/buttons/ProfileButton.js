@@ -29,8 +29,8 @@ export const ProfileButton = ({ source }) => (
 
 const styles = StyleSheet.create({
     profilePic: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         borderRadius: 20,
     }
 })
