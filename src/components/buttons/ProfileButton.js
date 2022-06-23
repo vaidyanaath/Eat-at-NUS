@@ -1,7 +1,7 @@
 import React from 'react';
-
 import { TouchableOpacity, StyleSheet, Image } from 'react-native';
 
+// import colors
 import { colors } from '../../assets/colors';
 
 // import auth

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StatusBar, StyleSheet, Text, TextInput } from 'react-native';
+import { StatusBar, StyleSheet, TextInput } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../components/containers/StyledContainer';
@@ -14,8 +14,7 @@ import { RegularText } from '../../components/texts/RegularText';
 // import colors
 import { colors } from '../../assets/colors';
 
-// import {} from 'firebase/auth';
-// import auth from firebase config
+// import auth
 import { auth } from '../../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 

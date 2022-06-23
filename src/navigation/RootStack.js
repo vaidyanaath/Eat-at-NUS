@@ -16,6 +16,7 @@ import CustomerSignIn from '../screens/auth/CustomerSignIn';
 import Home from '../screens/main/customer/Home';
 import CustomerSignUp from '../screens/auth/CustomerSignUp';
 import Restaurant from '../screens/main/customer/Restaurant';
+import Dish from '../screens/main/customer/Dish';
 
 // import auth
 import { auth } from '../firebase/config';
@@ -56,7 +57,6 @@ const RootStack = () => {
                 paddingLeft: 25,	
             },
             }}
-            // animation="" // suggest animations
         >
             
             {
@@ -64,6 +64,7 @@ const RootStack = () => {
                     <>
                         <Stack.Screen name="Home" component={Home} options={{ headerShown: false}}/>
                         <Stack.Screen name="Restaurant" component={Restaurant} options={({ route }) => ({ title: route.params.name })} />
+                        <Stack.Screen name="Dish" component={Dish} options={{title: null}} />
                     </>
                   ) : (
                     <>

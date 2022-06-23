@@ -17,8 +17,6 @@ import { HorizontalListContainer } from '../../../components/containers/Horizont
 
 import { auth } from '../../../firebase/config';
 
-import { TouchableOpacity } from 'react-native';
-
 const discover = () => (<RegularText style={{fontSize: 25, marginVertical: 10}}>Discover</RegularText>);
 
 const user = auth.currentUser;

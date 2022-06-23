@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import { StatusBar, StyleSheet, Text, TextInput } from 'react-native';
+import { StatusBar, StyleSheet, TextInput } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../components/containers/StyledContainer';
 import { InnerContainer } from '../../components/containers/InnerContainer';
 import { ColoredButton } from '../../components/buttons/ColoredButton';
-
+import { RegularButton } from '../../components/buttons/RegularButton';
 import { KeyboardAvoidingWrapper } from '../../components/KeyboardAvoidingWrapper';
 
 // import texts
-import { BigText } from '../../components/texts/BigText';
 import { RegularText } from '../../components/texts/RegularText';
 import { SmallText } from '../../components/texts/SmallText'; 
 
 // import colors
 import { colors } from '../../assets/colors';
-import { RegularButton } from '../../components/buttons/RegularButton';
 
 // import auth
 import { auth } from '../../firebase/config';

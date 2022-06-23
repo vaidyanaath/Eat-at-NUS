@@ -10,7 +10,7 @@ import { RegularText } from '../../../components/texts/RegularText';
 // import colors
 import { colors } from '../../../assets/colors';
 
-const Restaurant = () => {
+const Restaurant = ({ navigation }) => {
   
 
   return (
@@ -22,7 +22,7 @@ const Restaurant = () => {
               
             <FlatList
                 data={DUMMY_DATA.sort((a, b) => b.rating.localeCompare(a.rating))}
-                renderItem={({ item }) => <ListContainer item={item} />}
+                renderItem={({ item }) => <ListContainer item={item} onPress={() => navigation.navigate('Dish', {name: item.name})}/>}
                 keyExtractor={item => item.id}
                 style={styles.discoverList}
                 ListFooterComponent={<View marginBottom={20}></View>}

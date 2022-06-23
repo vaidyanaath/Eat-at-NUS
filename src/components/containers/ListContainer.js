@@ -7,8 +7,6 @@ import {
     StyleSheet,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
-
 // import texts
 import { RegularText } from '../../components/texts/RegularText';
 

@@ -1,69 +1,77 @@
-import React, { useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, Image } from 'react-native';
+import React from 'react';
+import { StatusBar, StyleSheet, Image, View } from 'react-native';
 
 // import components
-import { StyledContainer } from '../../components/containers/StyledContainer';
+import { InnerContainer } from '../../components/containers/InnerContainer';
 import { ColoredButton } from '../../components/buttons/ColoredButton';
 import { BigText } from '../../components/texts/BigText';
 import { RegularText } from '../../components/texts/RegularText';
 
 // import colors
 import { colors } from '../../assets/colors';
-import { onAuthStateChanged } from 'firebase/auth';
 
-// import auth
-import { auth } from '../../firebase/config';
 
 const Landing = ({ navigation }) => {
-
-    
-
     const handleIsCustomer = () => {navigation.navigate('CustomerSignIn')}
     const handleIsFoodStallOwner = () => {}
 
     return (
-      <StyledContainer style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
-        <BigText style={styles.welcomeText}> Welcome to Eat@NUS </BigText>
-        <Image source={require('../../assets/images/adaptive-icon.png')} style={styles.logo} />
-        <BigText style={styles.subText}> I am a . . . </BigText>
+      <InnerContainer style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor={colors.secondary}  />
+        
+        <Image source={require('../../assets/images/logo_big.png')} style={styles.logo} />
+        <BigText style={styles.welcomeText}> Eat@NUS </BigText>
+        
+        <RegularText style={styles.subText}> I am a . . . </RegularText>
         <ColoredButton onPress={handleIsCustomer} style={styles.button}>
-            <RegularText style={styles.buttonText}> Customer </RegularText>
+            <BigText style={styles.buttonText}> Customer </BigText>
         </ColoredButton>
         <ColoredButton onPress={handleIsFoodStallOwner} style={styles.button}>
-            <RegularText style={styles.buttonText}> Food Stall Owner </RegularText>
+            <BigText style={styles.buttonText}> Food Stall Owner </BigText>
         </ColoredButton>
-      </StyledContainer>
+        
+        
+      </InnerContainer>
     );
   };
   
   const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        flexDirection: 'column',
+        padding: 0,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: colors.secondary,
     },
     welcomeText: {
-        fontSize: 50,
+        fontSize: 35,
         fontFamily: 'SourceSansPro-Bold',
-        marginBottom: 40,
+        marginTop: 10,
+        marginBottom: 60,
         textAlign: 'center',
+        color: colors.white,
+        justifyContent: 'flex-end',
     },
     logo: {
-        width: 200,
-        height: 200,
-        marginBottom: 40,
+        width: 150,
+        height: 150,
+        // backgroundColor: '#324',
     },
     subText: {
-        fontSize: 33,
-        marginBottom: 5,
+        fontSize: 30,
+        marginBottom: 10,
+        color: colors.white,
     },
     button: {
         width: 280, 
         height: 70, 
         marginBottom: 10,
+        backgroundColor: colors.primary
     },
     buttonText: {
-        color: colors.white,
+        color: colors.gray,
+        fontSize: 25,
     },
   });
   
