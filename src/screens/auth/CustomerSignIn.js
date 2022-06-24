@@ -1,30 +1,46 @@
 import React, { useState } from 'react';
-import { StatusBar, StyleSheet, Text, TextInput } from 'react-native';
+import { StatusBar, StyleSheet, TextInput } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../components/containers/StyledContainer';
 import { InnerContainer } from '../../components/containers/InnerContainer';
 import { ColoredButton } from '../../components/buttons/ColoredButton';
-
+import { RegularButton } from '../../components/buttons/RegularButton';
 import { KeyboardAvoidingWrapper } from '../../components/KeyboardAvoidingWrapper';
 
 // import texts
-import { BigText } from '../../components/texts/BigText';
 import { RegularText } from '../../components/texts/RegularText';
 import { SmallText } from '../../components/texts/SmallText'; 
 
 // import colors
 import { colors } from '../../assets/colors';
-import { RegularButton } from '../../components/buttons/RegularButton';
 
-const CustomerSignIn = () => {
-    const [isSignedIn, setIsSignedIn] = useState(false);
+// import auth
+import { auth } from '../../firebase/config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+
+const CustomerSignIn = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSignIn = () => {}
+    const handleSignIn = () => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                // console.log(user);
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                alert(errorMessage);
+                console.log(errorMessage);
+            });
+    }
     const handleForgotPassword = () => {}
-    const handleSignUpPageLink = () => {}
+    const handleSignUpPageLink = () => {
+        navigation.navigate('CustomerSignUp');
+    }
 
     return (
        
@@ -38,6 +54,7 @@ const CustomerSignIn = () => {
                         value={email}
                         placeholder="Email"
                         autoCorrect={false}
+                        keyboardType="email-address"
                     />
                     <TextInput
                         style={styles.input}
@@ -68,7 +85,8 @@ const CustomerSignIn = () => {
   
   const styles = StyleSheet.create({
     topSection: {
-      minHeight: '80%',
+      minHeight: '90%',
+    //   backgroundColor: "#2311ab"
     },
 
     input: {
@@ -107,6 +125,7 @@ const CustomerSignIn = () => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      minHeight: 80,
     },
 
     noAccountText: {
@@ -115,8 +134,9 @@ const CustomerSignIn = () => {
     },
 
     signUpPageButton: {
+      justifyContent: 'flex-start',
+      alignItems: 'center',
       alignSelf: 'center',
-      minHeight: '80%',
     },
 
     signUpPageText: {

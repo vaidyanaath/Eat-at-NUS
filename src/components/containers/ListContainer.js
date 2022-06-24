@@ -13,8 +13,9 @@ import { RegularText } from '../../components/texts/RegularText';
 // import colors
 import { colors } from '../../assets/colors';
 
-export const ListContainer = ({ item }) => (
-    <TouchableOpacity style={cardStyles.button}>
+export const ListContainer = ({ item, onPress }) => {
+    return (
+        <TouchableOpacity style={cardStyles.button} onPress={onPress}>
         <View style={cardStyles.container}>
             <View style={cardStyles.imageContainer}>
               <Image 
@@ -38,8 +39,10 @@ export const ListContainer = ({ item }) => (
                 
             </View>
         </View>
-    </TouchableOpacity>
-);
+        </TouchableOpacity>
+    );
+}
+
 
   
 const cardStyles = StyleSheet.create({

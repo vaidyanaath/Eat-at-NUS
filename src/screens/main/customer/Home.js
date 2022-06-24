@@ -4,6 +4,7 @@ import { StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer'
 import { SearchBar } from '../../../components/SearchBar';
+import { ProfileButton } from '../../../components/buttons/ProfileButton';
 
 // import colors
 import { colors } from '../../../assets/colors';
@@ -14,20 +15,24 @@ import { RegularText } from '../../../components/texts/RegularText';
 import { ListContainer } from '../../../components/containers/ListContainer';
 import { HorizontalListContainer } from '../../../components/containers/HorizontalListContainer';
 
+import { auth } from '../../../firebase/config';
 
 const discover = () => (<RegularText style={{fontSize: 25, marginVertical: 10}}>Discover</RegularText>);
 
+const user = auth.currentUser;
+const placeholderAvatar = "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
+const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
+// { user.displayName.split(' ')[0] }
 
-const Home = () => {
+const Home = ({ navigation }) => {
+  
+
   return (
       <StyledContainer style={styles.mainContainer}>
           <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
           <InnerContainer style={styles.header}>
-              <RegularText style={styles.greeting}>Hello, Foodie</RegularText>
-              <Image 
-                  style={styles.profilePic} 
-                  source={require('../../../assets/images/avatar.jpg')}
-              />
+              <RegularText style={styles.greeting}>Hello, foodie</RegularText>
+              <ProfileButton source={{ uri : avatar }} />
           </InnerContainer>
           <InnerContainer style={styles.body}>
               <SearchBar />
@@ -44,7 +49,7 @@ const Home = () => {
               />
               <FlatList
                   data={DUMMY_DATA}
-                  renderItem={({ item }) => <ListContainer item={item} />}
+                  renderItem={({ item }) => <ListContainer item={item} onPress={() => navigation.navigate('Restaurant', {name: item.name})}/>}
                   keyExtractor={item => item.id}
                   ListHeaderComponent={discover}
                   style={styles.discoverList}
@@ -77,13 +82,8 @@ const styles = StyleSheet.create({
   }, greeting: {
       fontWeight: 'bold',
   },
-  profilePic: {
-      width: 50,
-      height: 50,
-      borderRadius: 20,
-  },
   body: {
-      padding: 10,
+      paddingHorizontal: 10,
       // backgroundColor: "#ff2"
   },
   discoverList: {

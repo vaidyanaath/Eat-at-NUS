@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StatusBar, StyleSheet, Text, TextInput } from 'react-native';
+import { StatusBar, StyleSheet, TextInput } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../components/containers/StyledContainer';
@@ -14,13 +14,41 @@ import { RegularText } from '../../components/texts/RegularText';
 // import colors
 import { colors } from '../../assets/colors';
 
+// import auth
+import { auth } from '../../firebase/config';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+
 const CustomerSignUp = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSignUp = () => {}
+    const handleSignUp = () => {
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                updateProfile(user, {
+                    displayName: name,
+                }).then(() => {
+                    // Update successful
+                }).catch((error) => {
+                    // An error happened
+                    console.log(error);
+                });
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errMessage = error.message;
+                console.log(errorCode);
+                alert(errMessage);
+            });
+    }
 
     return (
         <StyledContainer>
