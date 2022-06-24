@@ -12,13 +12,14 @@ import { SmallText } from '../../../components/texts/SmallText';
 import { colors } from '../../../assets/colors';
 
 // import icon
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
+
 
 // Content in each list item
 const dishContent = (item) => (
   <View style={cardStyles.textContainer}>
     
-    <View style={cardStyles.topContainer}>
+    <View style={cardStyles.container}>
       <RegularText style={cardStyles.dishName}>
         {item.name}
       </RegularText>
@@ -27,7 +28,12 @@ const dishContent = (item) => (
       </View>
     </View>
 
-    <RegularText style={cardStyles.dishPrice}>S$ {item.id}</RegularText>
+    <View style={cardStyles.container}>
+      <RegularText style={cardStyles.dishPrice}>S$ {item.id}</RegularText>
+      <FontAwesome name="check-circle" size={20} color="green" />
+    </View>
+    
+    
     
     
     
@@ -48,14 +54,14 @@ const cardStyles = StyleSheet.create({
   dishName: {
       fontSize: 20,
   },
-  topContainer: {
+  container: {
     flex: 1,
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
     paddingRight: 20,
-    paddingBottom: 5,
-    alignItems: 'flex-end',
+    paddingVertical: 5,
+    alignItems: 'center',
     // backgroundColor: "#34adcc"
   },
   dishPrice: {
@@ -87,7 +93,7 @@ const Stall = ({ navigation, route }) => {
             
             <RegularText style={styles.infoText}>Opening Time:   8:00 am</RegularText>
             <RegularText style={styles.infoText}>Closing Time:     1:00 pm</RegularText>
-            <RegularText style={styles.infoText}>Rating: {route.params.item.rating}</RegularText>
+            <RegularText style={styles.infoText}>Rating:   {route.params.item.rating}</RegularText>
 
           </InnerContainer>
           <InnerContainer style={styles.body}>

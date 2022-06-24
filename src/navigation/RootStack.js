@@ -47,7 +47,7 @@ const RootStack = () => {
         
                 height: 120,
             },
-            headerRight: () => <ProfileButton />,
+            headerRight: () => isSignedIn ? <ProfileButton /> : null,
             headerShadowVisible: false,
             headerTintColor: colors.secondary,
             headerRightContainerStyle: {
