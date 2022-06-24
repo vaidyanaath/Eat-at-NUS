@@ -22,7 +22,63 @@ const discover = () => (<RegularText style={{fontSize: 25, marginVertical: 10}}>
 const user = auth.currentUser;
 const placeholderAvatar = "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
-// { user.displayName.split(' ')[0] }
+
+const stallContent = (item) => (
+  <View style={{flex: 1, flexDirection: 'row'}}>
+    <View style={cardStyles.textContainer}>
+      <RegularText style={cardStyles.stallName}>
+        {item.name}
+      </RegularText>
+      <RegularText style={cardStyles.stallDistance}>
+        {item.id} Km away
+      </RegularText>
+      <RegularText style={cardStyles.stallDistance}>
+        Cuisine type
+      </RegularText>
+      
+    </View>
+    <View style={cardStyles.ratingContainer}>
+      <View style={cardStyles.ratingBG}>
+          <Text style={cardStyles.stallRating}>
+              {item.rating}
+          </Text>
+        </View>
+    </View>
+  </View>
+)
+
+const cardStyles = StyleSheet.create({
+  textContainer: {
+      flex: 1,
+      borderBottomRightRadius: 20,
+      borderTopRightRadius: 20,
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      flexDirection: 'column',
+      paddingVertical: 10,
+      //backgroundColor: "#abcdef",
+  },
+  stallName: {
+      fontSize: 20,
+  },
+  stallDistance: {
+      flex: 2,
+      fontSize: 15,
+  },
+  ratingContainer: {
+    justifyContent: 'flex-start',
+    padding: 15,
+    //backgroundColor: "#23af"
+  },
+  stallRating: {
+      fontSize: 15,
+  },
+  ratingBG: {
+      paddingHorizontal: 4,
+      borderRadius: 3,
+      backgroundColor: '#FFB81C',
+  }
+});
 
 const Home = ({ navigation }) => {
   
@@ -31,7 +87,7 @@ const Home = ({ navigation }) => {
       <StyledContainer style={styles.mainContainer}>
           <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
           <InnerContainer style={styles.header}>
-              <RegularText style={styles.greeting}>Hello, foodie</RegularText>
+              <RegularText style={styles.greeting}>Hello, {user ? user.displayName.split(' ')[0] : "foodie"}</RegularText>
               <ProfileButton source={{ uri : avatar }} />
           </InnerContainer>
           <InnerContainer style={styles.body}>
@@ -40,7 +96,11 @@ const Home = ({ navigation }) => {
               <RegularText style={{ fontSize: 25, alignSelf: 'flex-start', marginVertical: 10, }}>Popular Near You</RegularText>
               <FlatList
                   data={DUMMY_DATA.sort((a, b) => b.rating.localeCompare(a.rating))}
-                  renderItem={({ item }) => <HorizontalListContainer item={item} />}
+                  renderItem={({ item }) => 
+                    <HorizontalListContainer 
+                      item={item}
+                      onPress={() => navigation.navigate('Dish', {name: item.name})}
+                    />}
                   keyExtractor={item => item.id}
                   showsHorizontalScrollIndicator={false}
                   horizontal={true}
@@ -49,11 +109,16 @@ const Home = ({ navigation }) => {
               />
               <FlatList
                   data={DUMMY_DATA}
-                  renderItem={({ item }) => <ListContainer item={item} onPress={() => navigation.navigate('Restaurant', {name: item.name})}/>}
+                  renderItem={({ item }) => 
+                    <ListContainer 
+                      photo={require('../../../assets/images/food3.jpg')} 
+                      onPress={() => navigation.navigate('Stall', {item: item})}
+                      content={stallContent(item)}
+                    />}
                   keyExtractor={item => item.id}
                   ListHeaderComponent={discover}
                   style={styles.discoverList}
-                  ListFooterComponent={<View marginBottom={20}></View>}
+                  ListFooterComponent={<View marginBottom={15}></View>}
                   showsVerticalScrollIndicator={false}
                   vertical={true}
               />
