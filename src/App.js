@@ -5,6 +5,8 @@ import { useFonts } from 'expo-font'
 
 // import screens
 import RootStack from "./navigation/RootStack";
+import Dish from './screens/main/customer/Dish';
+import Home from './screens/main/customer/Home';
 
 // set app.js as entrypoint
 import { registerRootComponent } from 'expo';
@@ -22,10 +24,9 @@ const App = () => {
   }
 
   return(
-    <RootStack />
+    <Home />
   )
 
 
 }
 export default registerRootComponent(App);
-

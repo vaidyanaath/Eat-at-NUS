@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native';
 
 // import components
@@ -17,6 +17,10 @@ import { HorizontalListContainer } from '../../../components/containers/Horizont
 
 import { auth } from '../../../firebase/config';
 
+// Importing Database
+import { db } from '../../../firebase/config';
+import { ref, onValue } from 'firebase/database';
+
 const discover = () => (<RegularText style={{fontSize: 25, marginVertical: 10}}>Discover</RegularText>);
 
 const user = auth.currentUser;
@@ -25,7 +29,21 @@ const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
 // { user.displayName.split(' ')[0] }
 
 const Home = ({ navigation }) => {
-  
+
+  const getStallsMetadata = () => {
+
+    const [stallsMetadata, setStallsMetadata] = useState({});
+    const stallsMetadataRef = ref(db, 'numberOf/');
+
+    onValue(stallsMetadataRef, (snapshot) => {
+      const data = snapshot.val();
+      setStallsMetadata(data);
+    });
+
+    return stallsMetadata;
+  }
+  console.log(getStallsMetadata());
+
 
   return (
       <StyledContainer style={styles.mainContainer}>

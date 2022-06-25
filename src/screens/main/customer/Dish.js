@@ -10,6 +10,10 @@ import { RegularText } from '../../../components/texts/RegularText';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { SmallText } from '../../../components/texts/SmallText';
 
+// Import Database related stuff
+import { ref, onValue } from 'firebase/database';
+import db from '../../../firebase/config.js';
+
 const Dish = ({ route }) => {
     return(
         <StyledContainer style={styles.mainContainer} >
