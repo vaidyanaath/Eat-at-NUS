@@ -30,21 +30,6 @@ const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
 const Home = ({ navigation }) => {
 
-  const getStallsMetadata = () => {
-
-    const [stallsMetadata, setStallsMetadata] = useState({});
-    const stallsMetadataRef = ref(db, 'numberOf/');
-
-    onValue(stallsMetadataRef, (snapshot) => {
-      const data = snapshot.val();
-      setStallsMetadata(data);
-    });
-
-    return stallsMetadata;
-  }
-  console.log(getStallsMetadata());
-
-
   return (
       <StyledContainer style={styles.mainContainer}>
           <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
@@ -67,7 +52,7 @@ const Home = ({ navigation }) => {
               />
               <FlatList
                   data={DUMMY_DATA}
-                  renderItem={({ item }) => <ListContainer item={item} onPress={() => navigation.navigate('Restaurant', {name: item.name})}/>}
+                  renderItem={({ item }) => <ListContainer item={item} onPress={() => navigation.navigate('Dish', {dishId: "d1"})}/>}
                   keyExtractor={item => item.id}
                   ListHeaderComponent={discover}
                   style={styles.discoverList}

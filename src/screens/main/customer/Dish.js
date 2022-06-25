@@ -13,8 +13,10 @@ import { SmallText } from '../../../components/texts/SmallText';
 // Import Database related stuff
 import { ref, onValue } from 'firebase/database';
 import db from '../../../firebase/config.js';
+import getDishInfo from '../../../firebase/GetDishInfo';
 
 const Dish = ({ route }) => {
+    const dish = getDishInfo(route.params.dishId);
     return(
         <StyledContainer style={styles.mainContainer} >
             <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
@@ -22,8 +24,8 @@ const Dish = ({ route }) => {
             <InnerContainer style={styles.infoContainer}>
                 <InnerContainer style={styles.topContainer}>
                     <InnerContainer style={styles.namePriceContainer}>
-                    <RegularText style={styles.name}>{route.params.name}</RegularText>
-                    <BigText style={styles.price}>S$ 4.80</BigText>
+                    <RegularText style={styles.name}>{dish.name}</RegularText>
+                    <BigText style={styles.price}>S$ {dish.price}</BigText>
                     </InnerContainer>
                     
                     <TouchableOpacity style={styles.heartIconButton}>
@@ -38,7 +40,7 @@ const Dish = ({ route }) => {
                     <InnerContainer style={styles.section}>
                         <View flex={1} flexDirection='row' paddingHorizontal={10} alignItems='center'>
                             <FontAwesome name="check-circle" size={22} color="green" />
-                            <RegularText style={styles.sectionText}>Available</RegularText>
+                            <RegularText style={styles.sectionText}>{dish.availability}</RegularText>
                         </View>
                         
                         
