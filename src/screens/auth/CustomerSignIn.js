@@ -43,8 +43,8 @@ const CustomerSignIn = ({ navigation }) => {
     }
 
     return (
-       
-        <StyledContainer>
+
+        <StyledContainer style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
             <InnerContainer style={styles.topSection}>
                 <KeyboardAvoidingWrapper>
@@ -84,6 +84,10 @@ const CustomerSignIn = ({ navigation }) => {
   };
   
   const styles = StyleSheet.create({
+    container: {
+        // paddingTop: 0,
+        // backgroundColor: '#f5cccc'
+    },
     topSection: {
       minHeight: '90%',
     //   backgroundColor: "#2311ab"

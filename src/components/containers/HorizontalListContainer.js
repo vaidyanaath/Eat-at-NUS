@@ -11,11 +11,14 @@ import {
 import { RegularText } from '../../components/texts/RegularText';
 import { SmallText } from '../../components/texts/SmallText';
 
+// import icon
+import { FontAwesome } from '@expo/vector-icons';
+
 // import colors
 import { colors } from '../../assets/colors';
 
-export const HorizontalListContainer = ({ item }) => (
-    <TouchableOpacity style={cardStyles.button}>
+export const HorizontalListContainer = ({ item, onPress }) => (
+    <TouchableOpacity style={cardStyles.button} onPress={onPress}>
         <View style={cardStyles.container}>
             <View style={cardStyles.topContainer}>
                 <Image 
@@ -26,6 +29,7 @@ export const HorizontalListContainer = ({ item }) => (
                 
             </View>
             <View style={cardStyles.bottomContainer}>
+                {/*left section*/}
                 <View style={cardStyles.textContainer}>
                     <RegularText style={cardStyles.dishName}>
                     {item.name}
@@ -35,11 +39,17 @@ export const HorizontalListContainer = ({ item }) => (
                     </SmallText>
 
                 </View>
-                <View style={cardStyles.ratingBG}>
-                    <Text style={cardStyles.stallRating}>
-                        {item.rating}
-                    </Text>
+                {/*right section*/}
+                <View style={cardStyles.iconContainer}>
+                    <FontAwesome name="check-circle" size={20} color="green" />
+                    <View style={cardStyles.ratingBG}>
+                        <Text style={cardStyles.stallRating}>
+                            {item.rating}
+                        </Text>
+                    </View>
+
                 </View>
+                
             </View>
         </View>
     </TouchableOpacity>
@@ -106,6 +116,12 @@ textContainer: {
     flexDirection: 'column',
     // backgroundColor: "#abcdef",
 },
+iconContainer: {
+    minHeight: 45,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: '#eada'
+},
 dishName: {
     fontSize: 20,
 },
@@ -118,7 +134,6 @@ stallRating: {
 },
 ratingBG: {
     alignSelf: 'flex-end',
-    marginBottom: 5,
     paddingHorizontal: 4,
     borderRadius: 3,
     backgroundColor: '#FFB81C',

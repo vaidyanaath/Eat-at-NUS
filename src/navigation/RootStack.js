@@ -15,7 +15,7 @@ import Landing from '../screens/auth/Landing';
 import CustomerSignIn from '../screens/auth/CustomerSignIn';
 import Home from '../screens/main/customer/Home';
 import CustomerSignUp from '../screens/auth/CustomerSignUp';
-import Restaurant from '../screens/main/customer/Restaurant';
+import Stall from '../screens/main/customer/Stall';
 import Dish from '../screens/main/customer/Dish';
 
 // import auth
@@ -47,7 +47,7 @@ const RootStack = () => {
         
                 height: 120,
             },
-            headerRight: () => <ProfileButton />,
+            headerRight: () => isSignedIn ? <ProfileButton /> : null,
             headerShadowVisible: false,
             headerTintColor: colors.secondary,
             headerRightContainerStyle: {
@@ -63,7 +63,7 @@ const RootStack = () => {
                 isSignedIn ? (
                     <>
                         <Stack.Screen name="Home" component={Home} options={{ headerShown: false}}/>
-                        <Stack.Screen name="Restaurant" component={Restaurant} options={({ route }) => ({ title: route.params.name })} />
+                        <Stack.Screen name="Stall" component={Stall} options={({ route }) => ({ title: route.params.item.name })} />
                         <Stack.Screen name="Dish" component={Dish} options={{title: null}} />
                     </>
                   ) : (

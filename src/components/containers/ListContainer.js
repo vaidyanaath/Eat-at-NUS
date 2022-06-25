@@ -13,31 +13,17 @@ import { RegularText } from '../../components/texts/RegularText';
 // import colors
 import { colors } from '../../assets/colors';
 
-export const ListContainer = ({ item, onPress }) => {
+export const ListContainer = ({ photo, onPress, content }) => {
     return (
         <TouchableOpacity style={cardStyles.button} onPress={onPress}>
         <View style={cardStyles.container}>
             <View style={cardStyles.imageContainer}>
               <Image 
                   style={cardStyles.image} 
-                  source={require('../../assets/images/food3.jpg')} 
+                  source={photo} 
               />
             </View>
-            <View style={cardStyles.textContainer}>
-                <RegularText style={cardStyles.stallName}>
-                  {item.name}
-                </RegularText>
-                <RegularText style={cardStyles.stallDistance}>
-                  {item.id} Km away
-                </RegularText>
-                
-                <View style={cardStyles.ratingBG}>
-                  <Text style={cardStyles.stallRating}>
-                      {item.rating}
-                  </Text>
-                </View>
-                
-            </View>
+            {content}
         </View>
         </TouchableOpacity>
     );

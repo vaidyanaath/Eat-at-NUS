@@ -17,7 +17,7 @@ const Landing = ({ navigation }) => {
 
     return (
       <InnerContainer style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor={colors.secondary}  />
+        <StatusBar barStyle="light-content" backgroundColor={colors.primary}  />
         
         <Image source={require('../../assets/images/logo_big.png')} style={styles.logo} />
         <BigText style={styles.welcomeText}> Eat@NUS </BigText>
@@ -42,7 +42,7 @@ const Landing = ({ navigation }) => {
         padding: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.secondary,
+        backgroundColor: colors.primary,
     },
     welcomeText: {
         fontSize: 35,
@@ -67,7 +67,7 @@ const Landing = ({ navigation }) => {
         width: 280, 
         height: 70, 
         marginBottom: 10,
-        backgroundColor: colors.primary
+        backgroundColor: colors.secondary,
     },
     buttonText: {
         color: colors.gray,
