@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StatusBar, StyleSheet, Text, View, FlatList } from 'react-native';
 
 // import components
-import { StyledContainer } from '../../../components/containers/StyledContainer'
+import { StyledContainer } from '../../../components/containers/StyledContainer';
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 import { ListContainer } from '../../../components/containers/ListContainer';
 import { RegularText } from '../../../components/texts/RegularText';
@@ -17,7 +17,6 @@ import { Ionicons, FontAwesome, Entypo } from '@expo/vector-icons';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
-
 const Stall = ({ navigation, route }) => {
   const stallID = route.params.stallID;
 
@@ -25,13 +24,12 @@ const Stall = ({ navigation, route }) => {
   const [stallData, setStallData] = useState(null);
 
   useEffect(() => {
-      const reference = ref(db, 'stalls/' + stallID);
-      onValue(reference, (snapshot) => {
-          const data = snapshot.val();
-          setStallData(data);          
-      });
+    const reference = ref(db, 'stalls/' + stallID);
+    onValue(reference, (snapshot) => {
+      const data = snapshot.val();
+      setStallData(data);
+    });
   }, [setStallData]);
-
 
   // Fetch dishes metadata
   const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
@@ -47,88 +45,85 @@ const Stall = ({ navigation, route }) => {
           name: child.val().name,
           price: child.val().price,
           rating: child.val().rating,
-        })
-      })
+        });
+      });
       setDishesMetadataArr(items);
     });
-  }, [setDishesMetadataArr])
+  }, [setDishesMetadataArr]);
 
   return (
-    stallData && dishesMetadataArr && // Load data before rendering
-    <StyledContainer style={styles.mainContainer}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
-        
+    stallData &&
+    dishesMetadataArr && ( // Load data before rendering
+      <StyledContainer style={styles.mainContainer}>
+        <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
+
         <InnerContainer style={styles.stallInfo}>
-          <RegularText style={styles.infoText}>
-            {stallData.cuisine}
-          </RegularText>
+          <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
           <View style={styles.locationContainer}>
             <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
-            <RegularText>  {stallData.address}</RegularText>
-          </View>          
-          <RegularText style={styles.infoText}>Opening Time:   {stallData.openingTime}</RegularText>
-          <RegularText style={styles.infoText}>Closing Time:     {stallData.closingTime}</RegularText>
-          <RegularText style={styles.infoText}>Stall Rating:   {stallData.rating}/5</RegularText>
+            <RegularText> {stallData.address}</RegularText>
+          </View>
+          <RegularText style={styles.infoText}>Opening Time: {stallData.openingTime}</RegularText>
+          <RegularText style={styles.infoText}>Closing Time: {stallData.closingTime}</RegularText>
+          <RegularText style={styles.infoText}>Stall Rating: {stallData.rating}/5</RegularText>
         </InnerContainer>
 
         <InnerContainer style={styles.body}>
-          <RegularText style={{fontSize: 25, marginBottom: 5, alignSelf: 'flex-start',}}>Dishes</RegularText>
+          <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
+            Dishes
+          </RegularText>
           <FlatList
-              data={dishesMetadataArr}
-              renderItem={({ item }) => 
-                <ListContainer 
-                  photo={item.imageURL} 
-                  onPress={() => navigation.navigate('Dish', {dishID: item.name})}
-                  content={dishContent(item)}
-                />}
-              style={styles.discoverList}
-              ListFooterComponent={<View marginBottom={10}></View>}
-              showsVerticalScrollIndicator={false}
-              vertical={true}
+            data={dishesMetadataArr}
+            renderItem={({ item }) => (
+              <ListContainer
+                photo={item.imageURL}
+                onPress={() => navigation.navigate('Dish', { dishID: item.name })}
+                content={dishContent(item)}
+              />
+            )}
+            style={styles.discoverList}
+            ListFooterComponent={<View marginBottom={10}></View>}
+            showsVerticalScrollIndicator={false}
+            vertical={true}
           />
-
         </InnerContainer>
-    </StyledContainer>
+      </StyledContainer>
+    )
   );
-}
+};
 
 // Content in each dish item
 const dishContent = (item) => (
-
-  <View style={{flex: 1, flexDirection: 'row'}}>
+  <View style={{ flex: 1, flexDirection: 'row' }}>
     <View style={cardStyles.textContainer}>
-      <RegularText style={cardStyles.dishName}>
-        {item.name}
-      </RegularText>
-      <RegularText style={cardStyles.stallDistance}>
-        S$ {item.price}
-      </RegularText>
-      
+      <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
+      <RegularText style={cardStyles.stallDistance}>S$ {item.price}</RegularText>
     </View>
     <View style={cardStyles.ratingContainer}>
       <View style={cardStyles.ratingBG}>
-          <Text style={cardStyles.stallRating}>{item.rating}</Text>
-        </View>
-        {item.availability == true 
-          ? <FontAwesome name="check-circle" size={20} color="green" /> 
-          : <Entypo name="circle-with-cross" size={20} color="red" />
-        }
+        <Text style={cardStyles.stallRating}>{item.rating}</Text>
+      </View>
+      {item.availability == true ? (
+        <FontAwesome name="check-circle" size={20} color="green" />
+      ) : (
+        <Entypo name="circle-with-cross" size={20} color="red" />
+      )}
     </View>
   </View>
-)
+);
 
 const cardStyles = StyleSheet.create({
   textContainer: {
-      flex: 1,
-      maxWidth: 110,
-      alignItems: 'flex-start',
-      justifyContent: 'space-between',
-      flexDirection: 'column',
-      paddingVertical: 10,
-      // backgroundColor: "#abcdef",
+    flex: 1,
+    maxWidth: 110,
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    paddingVertical: 10,
+    // backgroundColor: "#abcdef",
   },
   dishName: {
-      fontSize: 19,
+    fontSize: 19,
   },
   ratingContainer: {
     alignItems: 'center',
@@ -139,43 +134,44 @@ const cardStyles = StyleSheet.create({
     // backgroundColor: "#23af"
   },
   dishPrice: {
-      flex: 2,
-      fontSize: 23,
+    flex: 2,
+    fontSize: 23,
   },
   dishRating: {
-      fontSize: 15,
+    fontSize: 15,
   },
   ratingBG: {
-      paddingHorizontal: 4,
-      borderRadius: 3,
-      minWidth: 28,
-      alignItems: 'center',
-      backgroundColor: '#FFB81C',
-  }
+    paddingHorizontal: 4,
+    borderRadius: 3,
+    minWidth: 28,
+    alignItems: 'center',
+    backgroundColor: '#FFB81C',
+  },
 });
 
 const styles = StyleSheet.create({
   mainContainer: {
-      paddingBottom: 0,
-      paddingHorizontal: 30,
-      paddingTop: 10,
-      alignItems: 'center',
-      // alignItems: 'flex-start',
+    paddingBottom: 0,
+    paddingHorizontal: 30,
+    paddingTop: 10,
+    alignItems: 'center',
+    // alignItems: 'flex-start',
     //   backgroundColor: "#ff234a",
   },
   header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      maxHeight: '10%',
-      paddingHorizontal: 10,
-      // backgroundColor: '#abcdef',
-  }, greeting: {
-      fontWeight: 'bold',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    maxHeight: '10%',
+    paddingHorizontal: 10,
+    // backgroundColor: '#abcdef',
+  },
+  greeting: {
+    fontWeight: 'bold',
   },
   body: {
-      paddingHorizontal: 10,
-      // backgroundColor: "#ff2"
+    paddingHorizontal: 10,
+    // backgroundColor: "#ff2"
   },
   discoverList: {
     width: '100%',
@@ -208,7 +204,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 2,
   },
-
 });
 
 export default Stall;

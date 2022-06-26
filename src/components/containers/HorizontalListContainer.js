@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-    TouchableOpacity,
-    View,
-    Image,
-    Text,
-    StyleSheet,
-} from 'react-native';
+import { TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native';
 
 // import texts
 import { RegularText } from '../../components/texts/RegularText';
@@ -18,46 +12,35 @@ import { FontAwesome } from '@expo/vector-icons';
 import { colors } from '../../assets/colors';
 
 export const HorizontalListContainer = ({ item, onPress }) => (
-    <TouchableOpacity style={cardStyles.button} onPress={onPress}>
-        <View style={cardStyles.container}>
-            <View style={cardStyles.topContainer}>
-                <Image 
-                    style={cardStyles.image} 
-                    resizeMode='cover'
-                    source={require('../../assets/images/food2.jpg')} 
-                />
-                
-            </View>
-            <View style={cardStyles.bottomContainer}>
-                {/*left section*/}
-                <View style={cardStyles.textContainer}>
-                    <RegularText style={cardStyles.dishName}>
-                    {item.name}
-                    </RegularText>
-                    <SmallText style={cardStyles.dishInfo}>
-                    {item.id} Km away
-                    </SmallText>
-
-                </View>
-                {/*right section*/}
-                <View style={cardStyles.iconContainer}>
-                    <FontAwesome name="check-circle" size={20} color="green" />
-                    <View style={cardStyles.ratingBG}>
-                        <Text style={cardStyles.stallRating}>
-                            {item.rating}
-                        </Text>
-                    </View>
-
-                </View>
-                
-            </View>
+  <TouchableOpacity style={cardStyles.button} onPress={onPress}>
+    <View style={cardStyles.container}>
+      <View style={cardStyles.topContainer}>
+        <Image
+          style={cardStyles.image}
+          resizeMode="cover"
+          source={require('../../assets/images/food2.jpg')}
+        />
+      </View>
+      <View style={cardStyles.bottomContainer}>
+        {/*left section*/}
+        <View style={cardStyles.textContainer}>
+          <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
+          <SmallText style={cardStyles.dishInfo}>{item.id} Km away</SmallText>
         </View>
-    </TouchableOpacity>
+        {/*right section*/}
+        <View style={cardStyles.iconContainer}>
+          <FontAwesome name="check-circle" size={20} color="green" />
+          <View style={cardStyles.ratingBG}>
+            <Text style={cardStyles.stallRating}>{item.rating}</Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </TouchableOpacity>
 );
 
-  
 const cardStyles = StyleSheet.create({
-button: {
+  button: {
     flex: 1,
     marginVertical: 5,
     marginHorizontal: 10,
@@ -76,29 +59,26 @@ button: {
     elevation: 3,
     minHeight: 155,
     minWidth: 150,
-},
-container: {
+  },
+  container: {
     flex: 1,
     flexDirection: 'column',
     minWidth: 130,
-},
-topContainer: {
+  },
+  topContainer: {
     flex: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignItems: 'center',
     justifyContent: 'flex-start',
     minHeight: 50,
-    
-},
-image: {
-
+  },
+  image: {
     height: '95%',
     width: '100%',
     borderRadius: 20,
-    
-},
-bottomContainer: {
+  },
+  bottomContainer: {
     flex: 1,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
@@ -108,35 +88,34 @@ bottomContainer: {
     paddingBottom: 5,
     paddingHorizontal: 10,
     // backgroundColor: "#2ba",
-},
-textContainer: {
+  },
+  textContainer: {
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     flexDirection: 'column',
     // backgroundColor: "#abcdef",
-},
-iconContainer: {
+  },
+  iconContainer: {
     minHeight: 45,
     justifyContent: 'space-between',
     alignItems: 'center',
     // backgroundColor: '#eada'
-},
-dishName: {
+  },
+  dishName: {
     fontSize: 20,
-},
-dishInfo: {
+  },
+  dishInfo: {
     flex: 1,
     fontSize: 15,
-},
-stallRating: {
+  },
+  stallRating: {
     fontSize: 13,
-},
-ratingBG: {
+  },
+  ratingBG: {
     alignSelf: 'flex-end',
     paddingHorizontal: 4,
     borderRadius: 3,
     backgroundColor: '#FFB81C',
-    
-}
+  },
 });
