@@ -49,7 +49,7 @@ const Home = ({ navigation }) => {
               />
               <FlatList
                   data={DUMMY_DATA}
-                  renderItem={({ item }) => <ListContainer item={item} onPress={() => navigation.navigate('Restaurant', {name: item.name})}/>}
+                  renderItem={({ item }) => <ListContainer item={item} onPress={() => navigation.navigate('Dish', {dishId: "d1"})}/>}
                   keyExtractor={item => item.id}
                   ListHeaderComponent={discover}
                   style={styles.discoverList}
