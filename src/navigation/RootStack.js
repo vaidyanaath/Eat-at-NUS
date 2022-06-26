@@ -63,7 +63,7 @@ const RootStack = () => {
                 isSignedIn ? (
                     <>
                         <Stack.Screen name="Home" component={Home} options={{ headerShown: false}}/>
-                        <Stack.Screen name="Stall" component={Stall} options={({ route }) => ({ title: route.params.item.name })} />
+                        <Stack.Screen name="Stall" component={Stall} options={({ route }) => ({ title: route.params.stallID.name })} />
                         <Stack.Screen name="Dish" component={Dish} options={{title: null}} />
                     </>
                   ) : (

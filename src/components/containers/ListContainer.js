@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import {
     TouchableOpacity,
     View,
@@ -20,7 +20,7 @@ export const ListContainer = ({ photo, onPress, content }) => {
             <View style={cardStyles.imageContainer}>
               <Image 
                   style={cardStyles.image} 
-                  source={photo} 
+                  source={{uri : photo}}
               />
             </View>
             {content}

@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getDatabase, set } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: "AIzaSyD8vqpDJDN25sYDAYbg6BgzGJr5kaWTgOg",
@@ -12,5 +13,11 @@ const firebaseConfig = {
     measurementId: "G-MDH1QNYS7W"
   };
 
+// Initialize firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize firebase auth
 export const auth = getAuth(app);
+
+// Initialize firebase realtime database
+export const db = getDatabase(app);

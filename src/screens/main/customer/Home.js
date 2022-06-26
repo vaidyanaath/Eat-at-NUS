@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native';
 
 // import components
@@ -17,35 +17,108 @@ import { HorizontalListContainer } from '../../../components/containers/Horizont
 
 import { auth } from '../../../firebase/config';
 
+// Import Database
+import { ref, onValue } from 'firebase/database';
+import { db } from '../../../firebase/config';
+
 const discover = () => (<RegularText style={{fontSize: 25, marginVertical: 10}}>Discover</RegularText>);
 
 const user = auth.currentUser;
 const placeholderAvatar = "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
-const stallContent = (item) => (
-  <View style={{flex: 1, flexDirection: 'row'}}>
-    <View style={cardStyles.textContainer}>
-      <RegularText style={cardStyles.stallName}>
-        {item.name}
-      </RegularText>
-      <RegularText style={cardStyles.stallDistance}>
-        {item.id} Km away
-      </RegularText>
-      <RegularText style={cardStyles.stallDistance}>
-        Cuisine type
-      </RegularText>
-      
+const Home = ({ navigation }) => {
+  
+  // Fetch stalls Metadata
+  const [stallsMetadataArr, setStallsMetadataArr] = useState(null);
+
+  useEffect(() => {
+      const reference = ref(db, 'stallsMetadata/');
+      onValue(reference, (snapshot) => {
+          var items = [];
+          snapshot.forEach((child) => {
+              items.push({
+                  cuisine: child.val().cuisine,
+                  imageURL: child.val().imageURL,
+                  name: child.val().name,
+                  rating: child.val().rating,
+              })
+          })
+          setStallsMetadataArr(items);            
+      });
+  }, [setStallsMetadataArr]);
+
+  return (
+    stallsMetadataArr && 
+    <StyledContainer style={styles.mainContainer}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
+      <InnerContainer style={styles.header}>
+        <RegularText style={styles.greeting}>Hello, {user ? user.displayName.split(' ')[0] : "foodie"}</RegularText>
+        <ProfileButton source={{ uri : avatar }} />
+      </InnerContainer>
+      <InnerContainer style={styles.body}>
+        <SearchBar />
+          
+        <RegularText style={{ fontSize: 25, alignSelf: 'flex-start', marginVertical: 10, }}>Popular Near You</RegularText>
+        <FlatList
+            data={DUMMY_DATA.sort((a, b) => b.rating.localeCompare(a.rating))}
+            renderItem={({ item }) => 
+              <HorizontalListContainer 
+                item={item}
+                onPress={() => navigation.navigate('Dish', {name: item.name})}
+              />}
+            keyExtractor={item => item.id}
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            minHeight={165}
+            backgroundColor=  {colors.bg}//'#ff75'
+        />
+        <FlatList
+            data={stallsMetadataArr}
+            renderItem={({item}) => 
+              <ListContainer 
+                photo={item.imageURL}
+                onPress={() => navigation.navigate('Stall', {stallID: item.name})}
+                content={stallContent(item)}
+              />
+            }
+            // keyExtractor={item}
+            ListHeaderComponent={discover}
+            style={styles.discoverList}
+            ListFooterComponent={<View marginBottom={15}></View>}
+            showsVerticalScrollIndicator={false}
+            vertical={true}
+        />
+      </InnerContainer>
+    </StyledContainer>
+  );
+}
+
+const stallContent = (stallMetadata) => {
+  return (
+    <View style={{flex: 1, flexDirection: 'row'}}>
+      <View style={cardStyles.textContainer}>
+        <RegularText style={cardStyles.stallName}>
+          {stallMetadata.name}
+        </RegularText>
+        <RegularText style={cardStyles.stallDistance}>
+          {/* 5 Km away */}
+        </RegularText>
+        <RegularText style={cardStyles.stallDistance}>
+          {stallMetadata.cuisine}
+        </RegularText>
+        
+      </View>
+      <View style={cardStyles.ratingContainer}>
+        <View style={cardStyles.ratingBG}>
+            <Text style={cardStyles.stallRating}>
+                {stallMetadata.rating}
+            </Text>
+          </View>
+      </View>
     </View>
-    <View style={cardStyles.ratingContainer}>
-      <View style={cardStyles.ratingBG}>
-          <Text style={cardStyles.stallRating}>
-              {item.rating}
-          </Text>
-        </View>
-    </View>
-  </View>
-)
+  )
+}
 
 const cardStyles = StyleSheet.create({
   textContainer: {
@@ -59,7 +132,7 @@ const cardStyles = StyleSheet.create({
       //backgroundColor: "#abcdef",
   },
   stallName: {
-      fontSize: 20,
+      fontSize: 19,
   },
   stallDistance: {
       flex: 2,
@@ -68,7 +141,7 @@ const cardStyles = StyleSheet.create({
   ratingContainer: {
     justifyContent: 'flex-start',
     padding: 15,
-    //backgroundColor: "#23af"
+    // backgroundColor: "#23af"
   },
   stallRating: {
       fontSize: 15,
@@ -76,58 +149,11 @@ const cardStyles = StyleSheet.create({
   ratingBG: {
       paddingHorizontal: 4,
       borderRadius: 3,
+      minWidth: 28,
+      alignItems: 'center',
       backgroundColor: '#FFB81C',
   }
 });
-
-const Home = ({ navigation }) => {
-  
-
-  return (
-      <StyledContainer style={styles.mainContainer}>
-          <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
-          <InnerContainer style={styles.header}>
-              <RegularText style={styles.greeting}>Hello, {user ? user.displayName.split(' ')[0] : "foodie"}</RegularText>
-              <ProfileButton source={{ uri : avatar }} />
-          </InnerContainer>
-          <InnerContainer style={styles.body}>
-              <SearchBar />
-              
-              <RegularText style={{ fontSize: 25, alignSelf: 'flex-start', marginVertical: 10, }}>Popular Near You</RegularText>
-              <FlatList
-                  data={DUMMY_DATA.sort((a, b) => b.rating.localeCompare(a.rating))}
-                  renderItem={({ item }) => 
-                    <HorizontalListContainer 
-                      item={item}
-                      onPress={() => navigation.navigate('Dish', {name: item.name})}
-                    />}
-                  keyExtractor={item => item.id}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal={true}
-                  minHeight={165}
-                  backgroundColor=  {colors.bg}//'#ff75'
-              />
-              <FlatList
-                  data={DUMMY_DATA}
-                  renderItem={({ item }) => 
-                    <ListContainer 
-                      photo={require('../../../assets/images/food3.jpg')} 
-                      onPress={() => navigation.navigate('Stall', {item: item})}
-                      content={stallContent(item)}
-                    />}
-                  keyExtractor={item => item.id}
-                  ListHeaderComponent={discover}
-                  style={styles.discoverList}
-                  ListFooterComponent={<View marginBottom={15}></View>}
-                  showsVerticalScrollIndicator={false}
-                  vertical={true}
-              />
-
-          </InnerContainer>
-      </StyledContainer>
-  );
-}
-
 
 const styles = StyleSheet.create({
   mainContainer: {

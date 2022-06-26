@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StatusBar, StyleSheet, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 import { StyledContainer } from '../../../components/containers/StyledContainer';
@@ -7,19 +7,37 @@ import { colors } from '../../../assets/colors';
 import { BigText } from '../../../components/texts/BigText';
 import { RegularText } from '../../../components/texts/RegularText';
 
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, Entypo } from '@expo/vector-icons';
 import { SmallText } from '../../../components/texts/SmallText';
 
+// Import Database
+import { ref, onValue } from 'firebase/database';
+import { db } from '../../../firebase/config';
+
 const Dish = ({ route }) => {
+    const dishID = route.params.dishID;
+
+    // Fetch dish data
+    const [dishData, setDishData] = useState(null);
+
+    useEffect(() => {
+        const reference = ref(db, 'dishes/' + dishID);
+        onValue(reference, (snapshot) => {
+            const data = snapshot.val();
+            setDishData(data);          
+        });
+    }, [setDishData]);
+
     return(
+        dishData &&
         <StyledContainer style={styles.mainContainer} >
             <StatusBar barStyle="dark-content" backgroundColor={colors.bg}  />
             
             <InnerContainer style={styles.infoContainer}>
                 <InnerContainer style={styles.topContainer}>
                     <InnerContainer style={styles.namePriceContainer}>
-                    <RegularText style={styles.name}>{route.params.name}</RegularText>
-                    <BigText style={styles.price}>S$ 4.80</BigText>
+                    <RegularText style={styles.name}>{dishData.name}</RegularText>
+                    <BigText style={styles.price}>S$ {dishData.price}</BigText>
                     </InnerContainer>
                     
                     <TouchableOpacity style={styles.heartIconButton}>
@@ -27,38 +45,40 @@ const Dish = ({ route }) => {
                     </TouchableOpacity>
                 </InnerContainer>
                 <InnerContainer style={styles.imageContainer}>
-                    <Image style={styles.image} source={require('../../../assets/images/food.jpg')} />
+                    <Image style={styles.image} source={{ uri : dishData.imageURL }} />
                 </InnerContainer>
-                <ScrollView>
+                <ScrollView style={{flex: 1}}>
                     
                     <InnerContainer style={styles.section}>
                         <View flex={1} flexDirection='row' paddingHorizontal={10} alignItems='center'>
-                            <FontAwesome name="check-circle" size={22} color="green" />
-                            <RegularText style={styles.sectionText}>Available</RegularText>
+                        {dishData.availability == true 
+                            ? <FontAwesome name="check-circle" size={22} color="green" /> 
+                            : <Entypo name="circle-with-cross" size={22} color="red" />
+                        }
+                        {dishData.availability == true 
+                            ? <RegularText style={styles.sectionText}>Available</RegularText>
+                            : <RegularText style={styles.sectionText}>Not Available</RegularText>
+                        }
                         </View>
-                        
-                        
-                        <View flex={1} flexDirection='row' paddingHorizontal={10} alignItems='center'>
+
+                        <View flex={1} flexDirection='row' paddingHorizontal={10} marginHorizontal={10} alignItems='center'>
                             <FontAwesome5 name="fire-alt" size={20} color={colors.primary} />
-                            <RegularText style={styles.sectionText}>600 kcal</RegularText>
+                            <RegularText style={styles.sectionText}>{dishData.calories} kcal</RegularText>
                         </View>
                         
                         <View style={styles.ratingBG}>  
-                            <Text style={styles.stallRating}>{4.2}</Text>
+                            <Text style={styles.stallRating}>{dishData.rating}</Text>
                         </View>
                     </InnerContainer>
 
                     <InnerContainer style={{marginBottom: 15}}>
-                        <SmallText>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi diam, rhoncus nec mollis ac, tincidunt eget nunc. Fusce non.
+                        <SmallText style={{fontSize: 16}}>
+                            {dishData.description}
                         </SmallText>
                     </InnerContainer>
-                    <RegularText style={{marginVertical: 5,}}>Contains: </RegularText>
+                    <RegularText style={{marginVertical: 5,}}>Contains allergens: </RegularText>
                     <InnerContainer style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
-                        
-                        <SmallText>{'\u2022'} Dairy</SmallText>
-                        <SmallText>{'\u2022'} Chicken</SmallText>
-                        <SmallText>{'\u2022'} Fish</SmallText>
+                        <SmallText>{dishData.allergenInfo}</SmallText>
                     </InnerContainer>
                 </ScrollView>
             
@@ -71,23 +91,21 @@ const Dish = ({ route }) => {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        //backgroundColor: colors.primary,
+        // backgroundColor: colors.primary,
         paddingTop: 0,
         paddingLeft: 10,
         paddingRight: 10,
         paddingBottom: 0,
         marginTop: 0,
-        
-        
     },
     imageContainer: {
         flex: 1,
         // backgroundColor: "#343a40",
+        width: '100%',
+        height: '100%',
         borderRadius: 25,
         marginBottom: 20,
         height: 150,
-        
-        
     },
     image: {
         flex: 1,
@@ -113,8 +131,6 @@ const styles = StyleSheet.create({
         elevation: 3,
         // borderColor: 'black',
         // borderWidth: 1,
-
-        
     },
     topContainer: {
         flex: 1,
@@ -124,8 +140,6 @@ const styles = StyleSheet.create({
         maxHeight: 95,
         // backgroundColor: "#34adaa",
         marginBottom: 10,
-    
-
     },
     namePriceContainer: {
         flex: 1, 
@@ -137,15 +151,12 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     price: {
-        
         color: colors.primary,
-
     },
     heartIconButton: {
         maxWidth: 40,
         maxHeight: 40,
         tintColor: colors.secondary,
-        
     },
     heartIcon: {
         width: 40,
@@ -160,11 +171,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 20,
-        
+        marginBottom: 30,
     },
     sectionText: {
-        marginLeft: 5,
+        marginHorizontal: 5,
         fontSize: 15,
     },
     stallRating: {
