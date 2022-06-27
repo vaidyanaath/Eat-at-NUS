@@ -1,38 +1,24 @@
 import React from 'react';
-import {
-    TouchableOpacity,
-    View,
-    Image,
-    Text,
-    StyleSheet,
-} from 'react-native';
-
-// import texts
-import { RegularText } from '../../components/texts/RegularText';
+import { TouchableOpacity, View, Image, StyleSheet } from 'react-native';
 
 // import colors
 import { colors } from '../../assets/colors';
 
 export const ListContainer = ({ photo, onPress, content }) => {
-    return (
-        <TouchableOpacity style={cardStyles.button} onPress={onPress}>
-        <View style={cardStyles.container}>
-            <View style={cardStyles.imageContainer}>
-              <Image 
-                  style={cardStyles.image} 
-                  source={photo} 
-              />
-            </View>
-            {content}
+  return (
+    <TouchableOpacity style={cardStyles.button} onPress={onPress}>
+      <View style={cardStyles.container}>
+        <View style={cardStyles.imageContainer}>
+          <Image style={cardStyles.image} source={{ uri: photo }} />
         </View>
-        </TouchableOpacity>
-    );
-}
+        {content}
+      </View>
+    </TouchableOpacity>
+  );
+};
 
-
-  
 const cardStyles = StyleSheet.create({
-button: {
+  button: {
     flex: 1,
     height: 100,
     width: '98%',
@@ -47,26 +33,26 @@ button: {
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-},
-container: {
+  },
+  container: {
     flex: 1,
     flexDirection: 'row',
-},
-imageContainer: {
+  },
+  imageContainer: {
     flex: 1,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     // backgroundColor: "#fef342",
     maxWidth: 140,
     // width: 150,
-},
-image: {
+  },
+  image: {
     flex: 1,
     borderRadius: 20,
     resizeMode: 'cover',
     width: 125,
-},
-textContainer: {
+  },
+  textContainer: {
     flex: 1,
     borderBottomRightRadius: 20,
     borderTopRightRadius: 20,
@@ -75,20 +61,20 @@ textContainer: {
     flexDirection: 'column',
     paddingVertical: 10,
     //backgroundColor: "#abcdef",
-},
-stallName: {
+  },
+  stallName: {
     fontSize: 20,
-},
-stallDistance: {
+  },
+  stallDistance: {
     flex: 2,
     fontSize: 15,
-},
-stallRating: {
+  },
+  stallRating: {
     fontSize: 15,
-},
-ratingBG: {
+  },
+  ratingBG: {
     paddingHorizontal: 4,
     borderRadius: 3,
     backgroundColor: '#FFB81C',
-}
+  },
 });
