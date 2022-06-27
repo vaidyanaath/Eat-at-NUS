@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const stallsMetadata = getStallsMetadata();
+// const stallsMetadata = getStallsMetadata();
 
 const DUMMY_DATA = [
     {
