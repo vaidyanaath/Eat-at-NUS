@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileButton /> Renders correectly 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "borderRadius": 20,
+      "height": 40,
+      "opacity": 1,
+      "width": 40,
+    }
+  }
+>
+  <Image
+    style={
+      Object {
+        "borderRadius": 20,
+        "height": 40,
+        "width": 40,
+      }
+    }
+  />
+</View>
+`;

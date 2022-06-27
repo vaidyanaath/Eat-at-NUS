@@ -64,17 +64,17 @@ const CustomerSignIn = ({ navigation }) => {
                         autoCorrect={false}
                         secureTextEntry={true}
                     />
-                    <ColoredButton style={styles.signInButton} onPress={handleSignIn}>
+                    <ColoredButton style={styles.signInButton} onPress={handleSignIn} testID="SignInButton">
                         <RegularText style={styles.signInText}>Sign In</RegularText>
                     </ColoredButton>
-                    <RegularButton style={styles.forgotPasswordButton} onPress={handleForgotPassword}>
+                    <RegularButton style={styles.forgotPasswordButton} onPress={handleForgotPassword} testID="ForgotPWButton">
                         <SmallText style={styles.forgotPasswordText}>Forgot Password?</SmallText>
                     </RegularButton>
                 </KeyboardAvoidingWrapper>
             </InnerContainer>
             <InnerContainer style={styles.bottomSection}>
             <SmallText style={styles.noAccountText}> Don't have an account? </SmallText>
-            <RegularButton style={styles.signUpPageButton} onPress={handleSignUpPageLink}>
+            <RegularButton style={styles.signUpPageButton} onPress={handleSignUpPageLink} testID="SIgnUpButton">
                 <SmallText style={styles.signUpPageText}> Sign Up </SmallText>
             </RegularButton>
             </InnerContainer>

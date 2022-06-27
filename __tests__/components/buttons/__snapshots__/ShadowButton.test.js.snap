@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ShadowButton /> Renders correectly 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "borderRadius": 10,
+      "elevation": 3,
+      "justifyContent": "center",
+      "marginBottom": 5,
+      "marginLeft": 5,
+      "marginRight": 5,
+      "marginTop": 5,
+      "opacity": 1,
+      "paddingBottom": 10,
+      "paddingLeft": 10,
+      "paddingRight": 10,
+      "paddingTop": 10,
+      "shadowColor": "#000",
+      "shadowOpacity": 0.22,
+      "shadowRadius": 2.22,
+    }
+  }
+/>
+`;
