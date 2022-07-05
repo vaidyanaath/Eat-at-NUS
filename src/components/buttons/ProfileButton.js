@@ -13,7 +13,7 @@ const handleProfileButton = () => {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
-      console.log('signed out');
+      console.log('signed out (button)');
     })
     .catch((error) => {
       console.log(error);

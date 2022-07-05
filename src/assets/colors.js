@@ -9,3 +9,5 @@ export const colors = {
     black: "#000000",
     pale: "#FFFAF4",
 }
+
+

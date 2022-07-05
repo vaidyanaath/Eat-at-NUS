@@ -18,16 +18,16 @@ const Landing = ({ navigation }) => {
 
   return (
     <InnerContainer style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
-      <Image source={require('../../assets/images/logo_big.png')} style={styles.logo} />
+      <Image source={require('../../assets/images/logo_sidebar.png')} style={styles.logo} />
       <BigText style={styles.welcomeText}> Eat@NUS </BigText>
 
       <RegularText style={styles.subText}> I am a . . . </RegularText>
-      <ColoredButton onPress={handleIsCustomer} style={styles.button}>
+      <ColoredButton onPress={handleIsCustomer} style={styles.customerButton}>
         <BigText style={styles.buttonText}> Customer </BigText>
       </ColoredButton>
-      <ColoredButton onPress={handleIsFoodStallOwner} style={styles.button}>
+      <ColoredButton onPress={handleIsFoodStallOwner} style={styles.foodStallOwnerButton}>
         <BigText style={styles.buttonText}> Food Stall Owner </BigText>
       </ColoredButton>
     </InnerContainer>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     padding: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.bg,
   },
   welcomeText: {
     fontSize: 35,
@@ -53,20 +53,26 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   logo: {
-    width: 150,
+    width: 300,
     height: 150,
     // backgroundColor: '#324',
   },
   subText: {
     fontSize: 30,
     marginBottom: 10,
-    color: colors.white,
+    color: colors.secondary,
   },
-  button: {
+  customerButton: {
     width: 280,
     height: 70,
     marginBottom: 10,
     backgroundColor: colors.secondary,
+  },
+  foodStallOwnerButton: {
+    width: 280,
+    height: 70,
+    marginBottom: 10,
+    backgroundColor: colors.primary,
   },
   buttonText: {
     color: colors.gray,

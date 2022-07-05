@@ -25,12 +25,12 @@ const discover = () => (
   <RegularText style={{ fontSize: 25, marginVertical: 10 }}>Discover</RegularText>
 );
 
-const user = auth.currentUser;
-const placeholderAvatar =
-  'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
-const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
-
 const Home = ({ navigation }) => {
+  const user = auth.currentUser;
+  const placeholderAvatar =
+    'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
+  const avatar = user.photoURL ? user.photoURL : placeholderAvatar;
+
   // Fetch stalls Metadata
   const [stallsMetadataArr, setStallsMetadataArr] = useState(null);
 
@@ -51,6 +51,7 @@ const Home = ({ navigation }) => {
   }, [setStallsMetadataArr]);
 
   return (
+    user &&
     stallsMetadataArr && (
       <StyledContainer style={styles.mainContainer}>
         <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />

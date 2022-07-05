@@ -18,6 +18,11 @@ import { colors } from '../../assets/colors';
 import { auth } from '../../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
+// import db
+import { db } from '../../firebase/config';
+import { ref, set } from 'firebase/database';
+
+
 const CustomerSignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -38,6 +43,12 @@ const CustomerSignUp = () => {
         })
           .then(() => {
             // Update successful
+            // Add user to db
+            // set(ref(db, 'users/' + user.uid), {
+            //   name: name,
+            //   email: email,
+            //   type: 'customer',
+            // });
           })
           .catch((error) => {
             // An error happened

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // import navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,16 +25,31 @@ import { onAuthStateChanged } from 'firebase/auth';
 const RootStack = () => {
   const Stack = createNativeStackNavigator();
   const [isSignedIn, setIsSignedIn] = useState(false);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in.
-      setIsSignedIn(true);
-      console.log('user is signed in');
-    } else {
-      // No user is signed in.
-      setIsSignedIn(false);
-    }
-  });
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        setIsSignedIn(true);
+        console.log("Signed in");
+        console.log(user.displayName);
+      } else {
+        setIsSignedIn(false);
+        console.log("Signed out");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     // User is signed in.
+  //     setIsSignedIn(true);
+  //     console.log('user is signed in');
+  //   } else {
+  //     // No user is signed in.
+  //     setIsSignedIn(false);
+  //   }
+  // });
 
   return (
     <NavigationContainer>
