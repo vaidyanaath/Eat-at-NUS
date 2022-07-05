@@ -49,7 +49,7 @@ const CustomerSignUp = () => {
             set(ref(db, 'users/' + user.uid), {
               name: name,
               email: email,
-              type: 'customer',
+              type: "customer",
             });
           })
           .catch((error) => {
