@@ -25,22 +25,6 @@ const App = () => {
     return null;
   }
 
-  function writeData(stallId, cuisine, imageURL, name, rating) {
-    const reference = ref(db, 'stallsMetadata/' + stallId);
-    set(reference, {
-      cuisine: cuisine,
-      imageURL: imageURL,
-      name: name,
-      rating: rating,
-    });
-  }
-
-  // writeData("Bhaiya khaana dedo",
-  //           "indian",
-  //           "https://cdn.pixabay.com/photo/2017/09/09/12/09/india-2731817_960_720.jpg",
-  //           "Bhaiya khaana dedo",
-  //           4);
-
   return <RootStack />;
 };
 export default registerRootComponent(App);

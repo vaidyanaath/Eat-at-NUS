@@ -23,7 +23,7 @@ import { db } from '../../firebase/config';
 import { ref, set } from 'firebase/database';
 
 
-const CustomerSignUp = () => {
+const FoodStallOwnerSignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,7 +49,7 @@ const CustomerSignUp = () => {
             set(ref(db, 'users/' + user.uid), {
               name: name,
               email: email,
-              type: 'customer',
+              type: 'foodStallOwner',
             });
           })
           .catch((error) => {
@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomerSignUp;
+export default FoodStallOwnerSignUp;

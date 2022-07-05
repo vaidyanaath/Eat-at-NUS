@@ -14,7 +14,9 @@ const Landing = ({ navigation }) => {
   const handleIsCustomer = () => {
     navigation.navigate('CustomerSignIn');
   };
-  const handleIsFoodStallOwner = () => {};
+  const handleIsFoodStallOwner = () => {
+    navigation.navigate('FoodStallOwnerSignIn');
+  };
 
   return (
     <InnerContainer style={styles.container}>
