@@ -17,12 +17,16 @@ import Home from '../screens/main/customer/Home';
 import CustomerSignUp from '../screens/auth/CustomerSignUp';
 import Stall from '../screens/main/customer/Stall';
 import Dish from '../screens/main/customer/Dish';
+
 import FoodStallOwnerSignIn from '../screens/auth/FoodStallOwnerSignIn';
 import StallOwnerHome from '../screens/main/foodStallOwner/StallOwnerHome';
+import StallOwnerDish from '../screens/main/foodStallOwner/StallOwnerDish';
+import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDish';
 
 // import auth
 import { auth } from '../firebase/config';
 import { onAuthStateChanged } from 'firebase/auth';
+
 
 const RootStack = () => {
   const Stack = createNativeStackNavigator();
@@ -72,7 +76,7 @@ const RootStack = () => {
               <Stack.Screen
                 name="Stall"
                 component={Stall}
-                options={({ route }) => ({ title: route.params.stallID.name })}
+                options={({ route }) => ({ title: route.params.stallID })}
               />
               <Stack.Screen name="Dish" component={Dish} options={{ title: null }} />
             </>
@@ -82,6 +86,16 @@ const RootStack = () => {
                 name="StallOwnerHome"
                 component={StallOwnerHome}
                 options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="StallOwnerDish"
+                component={StallOwnerDish}
+                options={{ title: null }}
+              />
+              <Stack.Screen
+                name="StallOwnerEditDish"
+                component={StallOwnerEditDish}
+                options={{ title: null }}
               />
                
             </>

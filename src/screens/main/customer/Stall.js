@@ -97,7 +97,7 @@ const dishContent = (item) => (
   <View style={{ flex: 1, flexDirection: 'row' }}>
     <View style={cardStyles.textContainer}>
       <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
-      <RegularText style={cardStyles.stallDistance}>S$ {item.price}</RegularText>
+      <RegularText style={cardStyles.stallDistance}>$ {item.price}</RegularText>
     </View>
     <View style={cardStyles.ratingContainer}>
       <View style={cardStyles.ratingBG}>

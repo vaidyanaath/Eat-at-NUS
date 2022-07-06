@@ -100,7 +100,7 @@ const StallOwnerHome = ({ navigation }) => {
             renderItem={({ item }) => (
               <ListContainer
                 photo={item.imageURL}
-                onPress={() => navigation.navigate('Dish', { dishID: item.name })}
+                onPress={() => navigation.navigate('StallOwnerDish', { dishID: item.name })}
                 content={dishContent(item)}
               />
             )}
@@ -120,7 +120,7 @@ const dishContent = (item) => (
   <View style={{ flex: 1, flexDirection: 'row' }}>
     <View style={cardStyles.textContainer}>
       <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
-      <RegularText style={cardStyles.stallDistance}>S$ {item.price}</RegularText>
+      <RegularText style={cardStyles.stallDistance}>$ {item.price}</RegularText>
     </View>
     <View style={cardStyles.ratingContainer}>
       <View style={cardStyles.ratingBG}>

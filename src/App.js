@@ -9,10 +9,6 @@ import RootStack from './navigation/RootStack';
 // set app.js as entrypoint
 import { registerRootComponent } from 'expo';
 
-// import db
-import { db } from './firebase/config';
-import { ref, set } from 'firebase/database';
-
 const App = () => {
   let [loaded] = useFonts({
     'SourceSansPro-Light': require('./assets/fonts/SourceSansPro-Light.ttf'),
