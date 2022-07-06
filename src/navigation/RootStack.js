@@ -83,6 +83,7 @@ const RootStack = () => {
                 component={StallOwnerHome}
                 options={{ headerShown: false }}
               />
+               
             </>
           )
         ) : (

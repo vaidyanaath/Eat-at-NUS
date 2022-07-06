@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
-import { InnerContainer } from '../../../components/containers/InnerContainer';
 import { ListContainer } from '../../../components/containers/ListContainer';
-import { RegularText } from '../../../components/texts/RegularText';
 import { ProfileButton } from '../../../components/buttons/ProfileButton';
+import { RegularText } from '../../../components/texts/RegularText';
 
 // import colors
 import { colors } from '../../../assets/colors';
+import { InnerContainer } from '../../../components/containers/InnerContainer';
 
 // import icon
 import { Ionicons, FontAwesome, Entypo } from '@expo/vector-icons';
@@ -21,48 +21,54 @@ import { auth } from '../../../firebase/config';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
-const StallOwnerHome = ({ navigation }) => {
-  const stallID = 'Bhaiya khaana dedo';
+const StallOwner = ({ navigation }) => {
   const user = auth.currentUser;
+  const stallID = 'Bhaiya khaana dedo';
   const placeholderAvatar =
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
   const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
   // Fetch stall data
   const [stallData, setStallData] = useState(null);
+  
 
   useEffect(() => {
     const reference = ref(db, 'stalls/' + stallID);
     onValue(reference, (snapshot) => {
       const data = snapshot.val();
       setStallData(data);
+    }, {
+      once: true
     });
   }, [db]);
 
   // Fetch dishes metadata
-  const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
+  const [dishesMetadataArr, setDishesMetadataArr] = useState([]);
 
   useEffect(() => {
     const reference = ref(db, 'dishesMetadata/' + stallID);
     onValue(reference, (snapshot) => {
-      var items = [];
-      snapshot.forEach((child) => {
-        items.push({
-          availability: child.val().availability,
-          imageURL: child.val().imageURL,
-          name: child.val().name,
-          price: child.val().price,
-          rating: child.val().rating,
+        var items = [];
+        snapshot.forEach((child) => {
+            items.push({
+                availability: child.val().availability,
+                imageURL: child.val().imageURL,
+                name: child.val().name,
+                price: child.val().price,
+                rating: child.val().rating,
+            });
         });
-      });
-      setDishesMetadataArr(items);
+        setDishesMetadataArr(items);
+        console.log(dishesMetadataArr);
     });
+    
   }, [db]);
 
   return (
     user &&
     stallData &&
-    dishesMetadataArr && ( // Load data before rendering
+    dishesMetadataArr && 
+    (
       <StyledContainer style={styles.mainContainer}>
         <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
@@ -84,7 +90,7 @@ const StallOwnerHome = ({ navigation }) => {
           <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
           <View style={styles.locationContainer}>
             <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
-            <RegularText> {stallData.address}</RegularText>
+            <RegularText style={styles.infoText}> {stallData.address}</RegularText>
           </View>
           <RegularText style={styles.infoText}>
             Hours: {stallData.openingTime} - {stallData.closingTime}
@@ -100,7 +106,7 @@ const StallOwnerHome = ({ navigation }) => {
             renderItem={({ item }) => (
               <ListContainer
                 photo={item.imageURL}
-                onPress={() => navigation.navigate('Dish', { dishID: item.name })}
+                onPress={() => {}}
                 content={dishContent(item)}
               />
             )}
@@ -175,12 +181,13 @@ const cardStyles = StyleSheet.create({
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingBottom: 0,
     paddingHorizontal: 10,
+    // alignItems: 'center',
+    // paddingBottom: 0,
+    // paddingHorizontal: 50,
     paddingTop: 5,
-    alignItems: 'center',
     // alignItems: 'flex-start',
-    //   backgroundColor: "#ff234a",
+    // backgroundColor: '#ff234a',
   },
   header: {
     flexDirection: 'row',
@@ -191,15 +198,8 @@ const styles = StyleSheet.create({
     // backgroundColor: '#abcdef',
   },
   greeting: {
-    paddingLeft: 15,
+    paddingLeft: 20,
     fontWeight: 'bold',
-  },
-  body: {
-    paddingHorizontal: 10,
-    // backgroundColor: "#ff2"
-  },
-  discoverList: {
-    width: '100%',
   },
   stallInfo: {
     flex: 1,
@@ -255,6 +255,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFB81C',
   },
+  body: {
+    paddingHorizontal: 10,
+    // backgroundColor: "#ff2"
+  },
 });
 
-export default StallOwnerHome;
+export default StallOwner;
