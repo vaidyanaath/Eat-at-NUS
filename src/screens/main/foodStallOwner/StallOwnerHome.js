@@ -3,8 +3,9 @@ import { StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
-import { SearchBar } from '../../../components/SearchBar';
+import { ListContainer } from '../../../components/containers/ListContainer';
 import { ProfileButton } from '../../../components/buttons/ProfileButton';
+import { RegularText } from '../../../components/texts/RegularText';
 
 // import colors
 import { colors } from '../../../assets/colors';
@@ -13,10 +14,7 @@ import { InnerContainer } from '../../../components/containers/InnerContainer';
 // import icon
 import { Ionicons, FontAwesome, Entypo } from '@expo/vector-icons';
 
-import { RegularText } from '../../../components/texts/RegularText';
-
-import { ListContainer } from '../../../components/containers/ListContainer';
-
+// get current user
 import { auth } from '../../../firebase/config';
 
 // Import Database
@@ -43,31 +41,29 @@ const StallOwnerHome = ({ navigation }) => {
 
   const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
 
-//   useEffect(() => {
-//     const reference = ref(db, 'dishesMetadata/' + stallID);
-//     onValue(reference, (snapshot) => {
-//         var items = [];
-//         snapshot.forEach((child) => {
-//             items.push({
-//                 availability: child.val().availability,
-//                 imageURL: child.val().imageURL,
-//                 name: child.val().name,
-//                 price: child.val().price,
-//                 rating: child.val().rating,
-//             });
-//         });
-//         setDishesMetadataArr(items);
-//     });
-//   }, [db]);
-
-  // Fetch dishes metadata
-//   const [dishesMetadata, setDishesMetadata] = useState(null);
-
+  useEffect(() => {
+    const reference = ref(db, 'dishesMetadata/' + stallID);
+    onValue(reference, (snapshot) => {
+        var items = [];
+        snapshot.forEach((child) => {
+            items.push({
+                availability: child.val().availability,
+                imageURL: child.val().imageURL,
+                name: child.val().name,
+                price: child.val().price,
+                rating: child.val().rating,
+            });
+        });
+        setDishesMetadataArr(items);
+        console.log(dishesMetadataArr);
+    });
+    
+  }, [db]);
 
   return (
     user &&
     stallData &&
-    // dishesMetadataArr && 
+    dishesMetadataArr && 
     (
       <StyledContainer style={styles.mainContainer}>
         <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
@@ -102,12 +98,12 @@ const StallOwnerHome = ({ navigation }) => {
           <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
             Dishes
           </RegularText>
-          {/* <FlatList
+          <FlatList
             data={dishesMetadataArr}
             renderItem={({ item }) => (
               <ListContainer
                 photo={item.imageURL}
-                onPress={() => navigation.navigate('Dish', { dishID: item.name })}
+                onPress={() => {}}
                 content={dishContent(item)}
               />
             )}
@@ -115,32 +111,32 @@ const StallOwnerHome = ({ navigation }) => {
             ListFooterComponent={<View marginBottom={10}></View>}
             showsVerticalScrollIndicator={false}
             vertical={true}
-          /> */}
+          />
         </InnerContainer>
       </StyledContainer>
     )
   );
 };
 
-// // Content in each dish item
-// const dishContent = (item) => (
-//   <View style={{ flex: 1, flexDirection: 'row' }}>
-//     <View style={cardStyles.textContainer}>
-//       <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
-//       <RegularText style={cardStyles.stallDistance}>S$ {item.price}</RegularText>
-//     </View>
-//     <View style={cardStyles.ratingContainer}>
-//       <View style={cardStyles.ratingBG}>
-//         <Text style={cardStyles.stallRating}>{item.rating}</Text>
-//       </View>
-//       {item.availability == true ? (
-//         <FontAwesome name="check-circle" size={20} color="green" />
-//       ) : (
-//         <Entypo name="circle-with-cross" size={20} color="red" />
-//       )}
-//     </View>
-//   </View>
-// );
+// Content in each dish item
+const dishContent = (item) => (
+  <View style={{ flex: 1, flexDirection: 'row' }}>
+    <View style={cardStyles.textContainer}>
+      <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
+      <RegularText style={cardStyles.stallDistance}>S$ {item.price}</RegularText>
+    </View>
+    <View style={cardStyles.ratingContainer}>
+      <View style={cardStyles.ratingBG}>
+        <Text style={cardStyles.stallRating}>{item.rating}</Text>
+      </View>
+      {item.availability == true ? (
+        <FontAwesome name="check-circle" size={20} color="green" />
+      ) : (
+        <Entypo name="circle-with-cross" size={20} color="red" />
+      )}
+    </View>
+  </View>
+);
 
 const cardStyles = StyleSheet.create({
   textContainer: {
