@@ -48,7 +48,7 @@ const Home = ({ navigation }) => {
       });
       setStallsMetadataArr(items);
     });
-  }, [setStallsMetadataArr]);
+  }, [db]);
 
   return (
     user &&

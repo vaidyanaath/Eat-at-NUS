@@ -35,7 +35,7 @@ const Dish = ({ route }) => {
       const data = snapshot.val();
       setDishData(data);
     });
-  }, [setDishData]);
+  }, [db]);
 
   return (
     dishData && (

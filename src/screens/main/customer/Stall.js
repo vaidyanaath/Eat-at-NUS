@@ -29,7 +29,7 @@ const Stall = ({ navigation, route }) => {
       const data = snapshot.val();
       setStallData(data);
     });
-  }, [setStallData]);
+  }, [db]);
 
   // Fetch dishes metadata
   const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
@@ -49,7 +49,7 @@ const Stall = ({ navigation, route }) => {
       });
       setDishesMetadataArr(items);
     });
-  }, [setDishesMetadataArr]);
+  }, [db]);
 
   return (
     stallData &&

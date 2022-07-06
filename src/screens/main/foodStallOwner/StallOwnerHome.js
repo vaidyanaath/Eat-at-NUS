@@ -36,10 +36,13 @@ const StallOwnerHome = ({ navigation }) => {
     onValue(reference, (snapshot) => {
       const data = snapshot.val();
       setStallData(data);
+    }, {
+      once: true
     });
   }, [db]);
 
-  const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
+  // Fetch dishes metadata
+  const [dishesMetadataArr, setDishesMetadataArr] = useState([]);
 
   useEffect(() => {
     const reference = ref(db, 'dishesMetadata/' + stallID);
