@@ -15,13 +15,39 @@ import { RegularText } from '../../../components/texts/RegularText';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
-const StallOwnerEditDish = ({ navigation }) => {
+import { storage } from '../../../firebase/config';
+import { ref } from 'firebase/storage';
+
+import * as ImagePicker from 'expo-image-picker';
+
+const StallOwnerEditDish = ({ navigation, route }) => {
   const [dishName, setDishName] = useState('');
   const [dishPrice, setDishPrice] = useState('');
   const [dishImageURL, setDishImageURL] = useState('');
   const [dishDescription, setDishDescription] = useState('');
   const [dishCalories, setDishCalories] = useState('');
-  const [dishAllergens, setDishAllergens] = useState(['']);
+  const [dishAllergens, setDishAllergens] = useState('');
+
+  const dishID = route.params.dishID;
+  const dishImageRef = ref(storage, 'dishes/');
+
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
 
   return (
     <StyledContainer style={styles.mainContainer}>
@@ -67,14 +93,18 @@ const StallOwnerEditDish = ({ navigation }) => {
           <SmallText style={styles.imageText}>
             There is no dish photo. Items sell better when they have a well-taken photo.
           </SmallText>
-          <TouchableOpacity style={styles.uploadButton}>
+          <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
             <MaterialIcons name="add-photo-alternate" size={24} color="black" />
             <SmallText style={styles.imageText}>Upload Photo</SmallText>
           </TouchableOpacity>
         </InnerContainer>
       </ImageBackground>
 
-      <InnerContainer style={styles.descriptionContainer}>
+      <InnerContainer style={{backgroundColor: "lightblue"}}>
+        {image && <Image source={{ uri : image }} style={{backgroundColor: "yellow", width: 200, height: 200}}/>}
+      </InnerContainer>
+
+      {/* <InnerContainer style={styles.descriptionContainer}>
         <RegularText style={styles.headingText}>Description:</RegularText>
         <TextInput
           style={styles.descriptionInput}
@@ -96,11 +126,11 @@ const StallOwnerEditDish = ({ navigation }) => {
           placeholder="Add details the consumer might need to know (e.g. Halal or Dairy).  Separate with commas"
           autoCorrect={false}
         />
-      </InnerContainer>
+      </InnerContainer> */}
 
       <InnerContainer style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button}>
-            <RegularText style={styles.buttonText}>Save</RegularText>
+          <RegularText style={styles.buttonText}>Save</RegularText>
         </TouchableOpacity>
       </InnerContainer>
     </StyledContainer>
@@ -185,10 +215,10 @@ const styles = StyleSheet.create({
     flex: 1,
     maxHeight: '7%',
     alignItems: 'flex-end',
-    // backgroundColor: '#123456',	
+    // backgroundColor: '#123456',
   },
   button: {
-    borderColor: "green",
+    borderColor: 'green',
     borderWidth: 2,
     paddingHorizontal: 10,
     paddingVertical: 1,
@@ -196,7 +226,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'green',
-  }
+  },
 });
 
 export default StallOwnerEditDish;

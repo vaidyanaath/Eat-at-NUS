@@ -48,7 +48,10 @@ const StallOwnerDish = ({ navigation, route }) => {
             <BigText style={styles.price}>$ {dishData.price}</BigText>
           </InnerContainer>
 
-          <TouchableOpacity style={styles.editIconButton} onPress={() => navigation.navigate('StallOwnerEditDish')}>
+          <TouchableOpacity
+            style={styles.editIconButton}
+            onPress={() => navigation.navigate('StallOwnerEditDish', { dishID: dishID })}
+          >
             <Feather name="edit" size={24} color="green" />
           </TouchableOpacity>
         </InnerContainer>
