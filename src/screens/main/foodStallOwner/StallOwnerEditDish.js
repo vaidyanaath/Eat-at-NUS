@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,12 +15,25 @@ import { RegularText } from '../../../components/texts/RegularText';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
-import { storage } from '../../../firebase/config';
+import { db, storage } from '../../../firebase/config';
 import { ref } from 'firebase/storage';
 
 import * as ImagePicker from 'expo-image-picker';
 
 const StallOwnerEditDish = ({ navigation, route }) => {
+  const dishID = route.params.dishID;
+
+  // Fetch dish data
+  const [dishData, setDishData] = useState(null);
+
+  // useEffect(() => {
+  //   const reference = ref(db, 'dishes/' + dishID);
+  //   onValue(reference, (snapshot) => {
+  //     const data = snapshot.val();
+  //     setDishData(data);
+  //   });
+  // }, [db]);
+
   const [dishName, setDishName] = useState('');
   const [dishPrice, setDishPrice] = useState('');
   const [dishImageURL, setDishImageURL] = useState('');
@@ -28,8 +41,6 @@ const StallOwnerEditDish = ({ navigation, route }) => {
   const [dishCalories, setDishCalories] = useState('');
   const [dishAllergens, setDishAllergens] = useState('');
 
-  const dishID = route.params.dishID;
-  const dishImageRef = ref(storage, 'dishes/');
 
   const [image, setImage] = useState(null);
 
@@ -101,10 +112,10 @@ const StallOwnerEditDish = ({ navigation, route }) => {
       </ImageBackground>
 
       <InnerContainer style={{backgroundColor: "lightblue"}}>
-        {image && <Image source={{ uri : image }} style={{backgroundColor: "yellow", width: 200, height: 200}}/>}
+        {image && <Image source={{ uri : image }} style={{flex: 1, maxHeight: 200, width: 210,}}/>}
       </InnerContainer>
 
-      {/* <InnerContainer style={styles.descriptionContainer}>
+      {/* {/* <InnerContainer style={styles.descriptionContainer}>
         <RegularText style={styles.headingText}>Description:</RegularText>
         <TextInput
           style={styles.descriptionInput}
@@ -114,7 +125,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
           placeholder="Max 100 characters"
           autoCorrect={false}
         />
-      </InnerContainer>
+      </InnerContainer> */}
 
       <InnerContainer style={styles.descriptionContainer}>
         <RegularText style={styles.headingText}>Allergens:</RegularText>
@@ -126,7 +137,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
           placeholder="Add details the consumer might need to know (e.g. Halal or Dairy).  Separate with commas"
           autoCorrect={false}
         />
-      </InnerContainer> */}
+      </InnerContainer>
 
       <InnerContainer style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button}>
