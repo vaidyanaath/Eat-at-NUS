@@ -1,8 +1,23 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 // import { render, fireEvent } from '@testing-library/react-native';
+import { getAuth } from 'firebase/auth';
 
 import CustomerSignIn from '../../../src/screens/auth/CustomerSignIn';
+
+jest.mock('firebase/auth', () => {
+    return {
+        getAuth: jest.fn();
+    }
+});
+
+describe('Firebase Auth Mock', () => {
+
+    it('Should return user', () => {
+        const auth = getAuth();
+        
+    });
+});
 
 describe('<CustomerSignIn />', () => {
 
