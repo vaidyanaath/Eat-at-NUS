@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // import navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -18,23 +18,34 @@ import CustomerSignUp from '../screens/auth/CustomerSignUp';
 import Stall from '../screens/main/customer/Stall';
 import Dish from '../screens/main/customer/Dish';
 
+import FoodStallOwnerSignIn from '../screens/auth/FoodStallOwnerSignIn';
+import StallOwnerHome from '../screens/main/foodStallOwner/StallOwnerHome';
+import StallOwnerDish from '../screens/main/foodStallOwner/StallOwnerDish';
+import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDish';
+
 // import auth
 import { auth } from '../firebase/config';
 import { onAuthStateChanged } from 'firebase/auth';
 
+
 const RootStack = () => {
   const Stack = createNativeStackNavigator();
   const [isSignedIn, setIsSignedIn] = useState(false);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in.
-      setIsSignedIn(true);
-      console.log('user is signed in');
-    } else {
-      // No user is signed in.
-      setIsSignedIn(false);
-    }
-  });
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsSignedIn(true);
+        console.log('Signed in');
+        console.log(user.displayName);
+      } else {
+        setIsSignedIn(false);
+        console.log('Signed out');
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <NavigationContainer>
@@ -59,15 +70,36 @@ const RootStack = () => {
         }}
       >
         {isSignedIn ? (
-          <>
-            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-            <Stack.Screen
-              name="Stall"
-              component={Stall}
-              options={({ route }) => ({ title: route.params.stallID.name })}
-            />
-            <Stack.Screen name="Dish" component={Dish} options={{ title: null }} />
-          </>
+          auth.currentUser.type == 'customer' ? (
+            <>
+              <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+              <Stack.Screen
+                name="Stall"
+                component={Stall}
+                options={({ route }) => ({ title: route.params.stallID })}
+              />
+              <Stack.Screen name="Dish" component={Dish} options={{ title: null }} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen
+                name="StallOwnerHome"
+                component={StallOwnerHome}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="StallOwnerDish"
+                component={StallOwnerDish}
+                options={{ title: null }}
+              />
+              <Stack.Screen
+                name="StallOwnerEditDish"
+                component={StallOwnerEditDish}
+                options={{ title: null }}
+              />
+               
+            </>
+          )
         ) : (
           <>
             <Stack.Screen
@@ -83,6 +115,11 @@ const RootStack = () => {
             <Stack.Screen
               name="CustomerSignUp"
               component={CustomerSignUp}
+              options={{ title: null }}
+            />
+            <Stack.Screen
+              name="FoodStallOwnerSignIn"
+              component={FoodStallOwnerSignIn}
               options={{ title: null }}
             />
           </>

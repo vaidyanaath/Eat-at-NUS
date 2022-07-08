@@ -6,6 +6,7 @@ import { StyledContainer } from '../../../components/containers/StyledContainer'
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 import { ListContainer } from '../../../components/containers/ListContainer';
 import { RegularText } from '../../../components/texts/RegularText';
+import { ProfileButton } from '../../../components/buttons/ProfileButton';
 
 // import colors
 import { colors } from '../../../assets/colors';
@@ -13,12 +14,19 @@ import { colors } from '../../../assets/colors';
 // import icon
 import { Ionicons, FontAwesome, Entypo } from '@expo/vector-icons';
 
+// get current user
+import { auth } from '../../../firebase/config';
+
 // Import Database
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
-const Stall = ({ navigation, route }) => {
-  const stallID = route.params.stallID;
+const StallOwnerHome = ({ navigation }) => {
+  const stallID = 'Bhaiya khaana dedo';
+  const user = auth.currentUser;
+  const placeholderAvatar =
+    'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
+  const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
   // Fetch stall data
   const [stallData, setStallData] = useState(null);
@@ -52,20 +60,35 @@ const Stall = ({ navigation, route }) => {
   }, [db]);
 
   return (
+    user &&
     stallData &&
     dishesMetadataArr && ( // Load data before rendering
       <StyledContainer style={styles.mainContainer}>
         <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
+        <InnerContainer style={styles.header}>
+          <RegularText style={styles.greeting}>My Stall:</RegularText>
+          <ProfileButton source={{ uri: avatar }} />
+        </InnerContainer>
+
         <InnerContainer style={styles.stallInfo}>
+          <View style={styles.nameSection}>
+            <RegularText style={styles.name}>{stallID}</RegularText>
+            <View style={styles.ratingContainer}>
+              <View style={styles.ratingBG}>
+                <Text style={styles.stallRating}>{stallData.rating}</Text>
+              </View>
+            </View>
+          </View>
+
           <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
           <View style={styles.locationContainer}>
             <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
             <RegularText> {stallData.address}</RegularText>
           </View>
-          <RegularText style={styles.infoText}>Opening Time: {stallData.openingTime}</RegularText>
-          <RegularText style={styles.infoText}>Closing Time: {stallData.closingTime}</RegularText>
-          <RegularText style={styles.infoText}>Stall Rating: {stallData.rating}/5</RegularText>
+          <RegularText style={styles.infoText}>
+            Hours: {stallData.openingTime} - {stallData.closingTime}
+          </RegularText>
         </InnerContainer>
 
         <InnerContainer style={styles.body}>
@@ -77,7 +100,7 @@ const Stall = ({ navigation, route }) => {
             renderItem={({ item }) => (
               <ListContainer
                 photo={item.imageURL}
-                onPress={() => navigation.navigate('Dish', { dishID: item.name })}
+                onPress={() => navigation.navigate('StallOwnerDish', { dishID: item.name })}
                 content={dishContent(item)}
               />
             )}
@@ -151,9 +174,10 @@ const cardStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
   mainContainer: {
+    flex: 1,
     paddingBottom: 0,
-    paddingHorizontal: 30,
-    paddingTop: 10,
+    paddingHorizontal: 10,
+    paddingTop: 5,
     alignItems: 'center',
     // alignItems: 'flex-start',
     //   backgroundColor: "#ff234a",
@@ -167,6 +191,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#abcdef',
   },
   greeting: {
+    paddingLeft: 15,
     fontWeight: 'bold',
   },
   body: {
@@ -178,12 +203,14 @@ const styles = StyleSheet.create({
   },
   stallInfo: {
     flex: 1,
-    maxHeight: '30%',
-    padding: 30,
+    maxHeight: '20%',
+    paddingHorizontal: 25,
+    paddingVertical: 10,
     borderRadius: 25,
     width: '95%',
     marginBottom: 20,
     alignItems: 'flex-start',
+    alignSelf: 'center',
     backgroundColor: colors.bg, //"#fa2",
     shadowColor: '#000',
     shadowOffset: { width: 5, height: 5 },
@@ -191,19 +218,43 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 3,
   },
+  nameSection: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    maxHeight: '25%',
+    // backgroundColor: "#ae2",
+  },
+  name: {},
   locationContainer: {
     flex: 1,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
-    minHeight: 40,
-    //backgroundColor: '#afaa'
+    marginVertical: 1,
+    maxHeight: 30,
+    // backgroundColor: '#afaa'
   },
   infoText: {
-    fontSize: 18,
-    marginVertical: 2,
+    fontSize: 16,
+    marginVertical: 1,
+  },
+  ratingContainer: {
+    justifyContent: 'flex-start',
+    // backgroundColor: "#23af"
+  },
+  stallRating: {
+    fontSize: 15,
+  },
+  ratingBG: {
+    paddingHorizontal: 4,
+    borderRadius: 3,
+    minWidth: 28,
+    alignItems: 'center',
+    backgroundColor: '#FFB81C',
   },
 });
 
-export default Stall;
+export default StallOwnerHome;

@@ -23,7 +23,7 @@ import { db } from '../../firebase/config';
 import { ref, set } from 'firebase/database';
 
 
-const CustomerSignUp = () => {
+const FoodStallOwnerSignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,23 +39,31 @@ const CustomerSignUp = () => {
         // Signed in
         const user = userCredential.user;
 
-        // Update profile
-        updateProfile(user, {
-          displayName: name,
-        })
-          .then(() => {
-            // Update successful
-            // Add user to db
-            set(ref(db, 'users/' + user.uid), {
-              name: name,
-              email: email,
-              type: "customer",
-            });
-          })
-          .catch((error) => {
-            // An error happened
-            console.log(error);
-          });
+        // Add user to db
+        set(ref(db, 'users/' + user.uid), {
+          name: name,
+          email: email,
+          type: "foodStallOwner",
+        });
+
+        // Make a stall
+        set(ref(db, 'stalls/' + user.uid), {
+          address: "",
+          cuisine: "",
+          openingTime: "",
+          closingTime: "",
+          imageURL: "",
+          name: "",
+          rating: 0,
+        });
+
+        set(ref(db, 'stallsMetadata/' + user.uid), {
+          cuisine: "",
+          imageURL: "",
+          name: "",
+          rating: "",
+        });
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -136,4 +144,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomerSignUp;
+export default FoodStallOwnerSignUp;

@@ -35,7 +35,7 @@ const Dish = ({ route }) => {
       const data = snapshot.val();
       setDishData(data);
     });
-  }, [setDishData]);
+  }, [db]);
 
   return (
     dishData && (
@@ -46,7 +46,7 @@ const Dish = ({ route }) => {
           <InnerContainer style={styles.topContainer}>
             <InnerContainer style={styles.namePriceContainer}>
               <RegularText style={styles.name}>{dishData.name}</RegularText>
-              <BigText style={styles.price}>S$ {dishData.price}</BigText>
+              <BigText style={styles.price}>$ {dishData.price}</BigText>
             </InnerContainer>
 
             <TouchableOpacity style={styles.heartIconButton}>
