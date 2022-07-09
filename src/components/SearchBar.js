@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-nati
 
 import { colors } from '../assets/colors';
 
-export const SearchBar = () => {
+export const SearchBar = ({ onPress }) => {
   return (
     <View style={searchBarStyle.container}>
       <View style={searchBarStyle.searchContainer}>
@@ -14,7 +14,7 @@ export const SearchBar = () => {
           style={searchBarStyle.searchTextInput}
         />
       </View>
-      <TouchableOpacity style={searchBarStyle.filterButton}>
+      <TouchableOpacity style={searchBarStyle.filterButton} onPress={onPress}>
         <Image source={require('../assets/images/filter.png')} style={searchBarStyle.filterIcon} />
       </TouchableOpacity>
     </View>

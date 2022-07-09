@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, FlatList, Image, Modal } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
 import { SearchBar } from '../../../components/SearchBar';
 import { ProfileButton } from '../../../components/buttons/ProfileButton';
+import { FilterSection } from '../../../components/FilterSection';
+
+import Overlay from 'react-native-modal-overlay';
 
 // import colors
 import { colors } from '../../../assets/colors';
@@ -50,6 +53,13 @@ const Home = ({ navigation }) => {
     });
   }, [db]);
 
+  const [showFilter, setShowFilter] = useState(false);
+
+  const handleFilter = () => {
+    setShowFilter(true);
+    console.log('Filter button pressed!');
+  };
+
   return (
     user &&
     stallsMetadataArr && (
@@ -62,7 +72,17 @@ const Home = ({ navigation }) => {
           <ProfileButton source={{ uri: avatar }} />
         </InnerContainer>
         <InnerContainer style={styles.body}>
-          <SearchBar />
+          <SearchBar onPress={handleFilter} />
+          <Overlay
+            visible={showFilter}
+            onClose={() => setShowFilter(false)}
+            closeOnTouchOutside
+            animationType="zoomIn"
+            containerStyle={styles.overlayWrapper}
+            childrenWrapperStyle={styles.filterOverlay}
+          >
+            <FilterSection />
+          </Overlay>
 
           <RegularText style={{ fontSize: 25, alignSelf: 'flex-start', marginVertical: 10 }}>
             Popular Near You
@@ -169,6 +189,19 @@ const styles = StyleSheet.create({
     maxHeight: '10%',
     paddingHorizontal: 10,
     // backgroundColor: '#abcdef',
+  },
+  overlayWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(96,96,96,0.3)',
+  },
+  filterOverlay: {
+    flex: 1,
+    borderRadius: 25,
+    maxHeight: '60%',
+    width: '90%',
+    padding: 0,
   },
   greeting: {
     fontWeight: 'bold',
