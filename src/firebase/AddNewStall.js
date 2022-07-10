@@ -12,7 +12,10 @@ const addStall = (stallID, name, address, openingTime, closingTime, cuisine) => 
         openingTime: openingTime,
         closingTime: closingTime,
         cuisine: cuisine,
+
+        // Average Rating 0 => No Ratings Yet
         averageRating: 0,
+
         numberOfRatings: 0
     });
 
