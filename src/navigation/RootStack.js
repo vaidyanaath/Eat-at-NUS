@@ -13,12 +13,13 @@ import { colors } from '../assets/colors';
 // import screens
 import Landing from '../screens/auth/Landing';
 import CustomerSignIn from '../screens/auth/CustomerSignIn';
-import Home from '../screens/main/customer/Home';
 import CustomerSignUp from '../screens/auth/CustomerSignUp';
+import Home from '../screens/main/customer/Home';
 import Stall from '../screens/main/customer/Stall';
 import Dish from '../screens/main/customer/Dish';
 
 import FoodStallOwnerSignIn from '../screens/auth/FoodStallOwnerSignIn';
+import FoodStallOwnerSignUp from '../screens/auth/FoodStallOwnerSignUp';
 import StallOwnerHome from '../screens/main/foodStallOwner/StallOwnerHome';
 import StallOwnerDish from '../screens/main/foodStallOwner/StallOwnerDish';
 import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDish';
@@ -26,7 +27,6 @@ import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDis
 // import auth
 import { auth } from '../firebase/config';
 import { onAuthStateChanged } from 'firebase/auth';
-
 
 const RootStack = () => {
   const Stack = createNativeStackNavigator();
@@ -97,7 +97,6 @@ const RootStack = () => {
                 component={StallOwnerEditDish}
                 options={{ title: null }}
               />
-               
             </>
           )
         ) : (
@@ -120,6 +119,11 @@ const RootStack = () => {
             <Stack.Screen
               name="FoodStallOwnerSignIn"
               component={FoodStallOwnerSignIn}
+              options={{ title: null }}
+            />
+            <Stack.Screen
+              name="FoodStallOwnerSignUp"
+              component={FoodStallOwnerSignUp}
               options={{ title: null }}
             />
           </>
