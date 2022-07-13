@@ -9,6 +9,9 @@ import RootStack from './navigation/RootStack';
 // set app.js as entrypoint
 import { registerRootComponent } from 'expo';
 
+// toast notifications
+import { RootSiblingParent } from 'react-native-root-siblings';
+
 const App = () => {
   let [loaded] = useFonts({
     'SourceSansPro-Light': require('./assets/fonts/SourceSansPro-Light.ttf'),
@@ -21,6 +24,10 @@ const App = () => {
     return null;
   }
 
-  return <RootStack />;
+  return (
+    <RootSiblingParent>
+      <RootStack />
+    </RootSiblingParent>
+  );
 };
 export default registerRootComponent(App);

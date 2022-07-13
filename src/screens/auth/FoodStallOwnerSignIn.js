@@ -19,26 +19,47 @@ import { colors } from '../../assets/colors';
 import { auth } from '../../firebase/config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
+// show toast notifs
+import Toast from 'react-native-root-toast';
+
 const FoodStallOwnerSignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const toastOptions = {
+    duration: Toast.durations.LONG,
+    position: -160,
+    shadow: true,
+    shadowColor: colors.pale,
+    animation: true,
+    hideOnPress: true,
+    delay: 0,
+    opacity: 1,
+    backgroundColor: colors.primary, //'#FFDC7C', // FFDC7C // FFF7D6
+    textColor: colors.white, //'red',
+  };
+
   const handleSignIn = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // console.log(user);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        alert(errorMessage);
-        console.log(errorMessage);
-      });
+    if (email === '' || password === '') {
+      Toast.show('Please enter your email and password', toastOptions);
+      return;
+    }
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
+
+      if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Invalid email address';
+      }
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        errorMessage = 'Your email or password is incorrect';
+      }
+
+      Toast.show(errorMessage, toastOptions);
+    });
   };
   const handleForgotPassword = () => {};
   const handleSignUpPageLink = () => {
-    navigation.navigate('CustomerSignUp');
+    navigation.navigate('FoodStallOwnerSignUp');
   };
 
   return (

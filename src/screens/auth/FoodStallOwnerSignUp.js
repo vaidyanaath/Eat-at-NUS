@@ -22,6 +22,8 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { db } from '../../firebase/config';
 import { ref, set } from 'firebase/database';
 
+// show toast notifs
+import Toast from 'react-native-root-toast';
 
 const FoodStallOwnerSignUp = () => {
   const [name, setName] = useState('');
@@ -29,9 +31,27 @@ const FoodStallOwnerSignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const toastOptions = {
+    duration: Toast.durations.LONG,
+    position: -120,
+    shadow: true,
+    shadowColor: colors.pale,
+    animation: true,
+    hideOnPress: true,
+    delay: 0,
+    opacity: 1,
+    backgroundColor: colors.primary, //'#FFDC7C', // FFDC7C // FFF7D6
+    textColor: colors.white, //'red',
+  };
+
   const handleSignUp = () => {
+    if (!name.replace(/\s/g, '').length || email == '' || password == '' || confirmPassword == '') {
+      // regex to check if name is empty
+      Toast.show('Please fill in all the fields', toastOptions);
+      return;
+    }
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      Toast.show("Passwords don't match", toastOptions);
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
@@ -43,33 +63,41 @@ const FoodStallOwnerSignUp = () => {
         set(ref(db, 'users/' + user.uid), {
           name: name,
           email: email,
-          type: "foodStallOwner",
+          type: 'foodStallOwner',
         });
 
         // Make a stall
         set(ref(db, 'stalls/' + user.uid), {
-          address: "",
-          cuisine: "",
-          openingTime: "",
-          closingTime: "",
-          imageURL: "",
-          name: "",
+          address: '',
+          cuisine: '',
+          openingTime: '',
+          closingTime: '',
+          imageURL: '',
+          name: '',
           rating: 0,
         });
 
         set(ref(db, 'stallsMetadata/' + user.uid), {
-          cuisine: "",
-          imageURL: "",
-          name: "",
-          rating: "",
+          cuisine: '',
+          imageURL: '',
+          name: '',
+          rating: '',
         });
-
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errMessage = error.message;
-        console.log(errorCode);
-        alert(errMessage);
+        let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
+
+        if (error.code === 'auth/invalid-email') {
+          errorMessage = 'Invalid email address';
+        }
+        if (error.code === 'auth/email-already-in-use') {
+          errorMessage = 'Email already in use';
+        }
+        if (error.code === 'auth/weak-password') {
+          errorMessage = 'Password should be at least 6 characters';
+        }
+
+        Toast.show(errorMessage, toastOptions);
       });
   };
 
