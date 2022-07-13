@@ -15,6 +15,10 @@ export const FilterSection = () => {
   const [priceEnd, setPriceEnd] = React.useState(0);
   const [distance, setDistance] = React.useState(0);
 
+  const handleApplyFilter = () => {
+    console.log("Apply filter button pressed!");
+  }
+
   return (
     <StyledContainer style={styles.mainContainer}>
       <InnerContainer style={styles.headerContainer}>
@@ -58,7 +62,7 @@ export const FilterSection = () => {
       <InnerContainer style={styles.sliderContainer}>
         <InnerContainer style={styles.sliderHeader}>
           <RegularText style={styles.subHeadingRow}>Distance</RegularText>
-          <RegularText>&lt; {distance} m</RegularText>
+          <RegularText>&lt; {distance >= 1000 ? distance / 1000  + " km": distance + " m"} </RegularText>
         </InnerContainer>
         <Slider
           onValueChange={(value) => setDistance(value)}
@@ -67,7 +71,11 @@ export const FilterSection = () => {
           step={100}
           style={styles.slider}
         />
+        
       </InnerContainer>
+      <RegularButton style={styles.applyButton} onPress={handleApplyFilter}>
+          <RegularText style={styles.applyButtonText}>Apply</RegularText>
+        </RegularButton>
     </StyledContainer>
   );
 };
@@ -80,7 +88,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#ffc',
     borderRadius: 25,
     paddingTop: 10,
-    paddingBottom: 20,
+    paddingBottom: 10,
     paddingLeft: 30,
     paddingRight: 30,
   },
@@ -89,12 +97,13 @@ const styles = StyleSheet.create({
     // alignItems: "flex-start",
     justifyContent: 'flex-start',
     // backgroundColor: "#ac3",
+    maxHeight: 160,
   },
   headerContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    maxHeight: 60,
+    maxHeight: 50,
     // backgroundColor: "#ffcdcc",
   },
   sliderContainer: {
@@ -107,10 +116,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    // backgroundColor: '#aaf',
   },
   subHeading: {
     alignSelf: 'flex-start',
     marginVertical: 5,
+    // backgroundColor: '#ffc',
   },
   subHeadingRow: {
     justifyContent: 'flex-start',
@@ -138,6 +149,15 @@ const styles = StyleSheet.create({
     width: "100%",
     // width: 200,
     // backgroundColor: "#23ada4",
+  },
+  applyButton: {
+    paddingBottom: 5,
+    paddingTop: 5,
+    backgroundColor: colors.primary,
+  },
+  applyButtonText: {
+    color: colors.bg,
+    fontSize: 19,
   },
 
 });

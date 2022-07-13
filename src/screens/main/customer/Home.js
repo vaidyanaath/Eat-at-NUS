@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   filterOverlay: {
     flex: 1,
     borderRadius: 25,
-    maxHeight: '60%',
+    maxHeight: '65%',
     width: '90%',
     padding: 0,
   },
