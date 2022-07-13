@@ -70,7 +70,7 @@ const RootStack = () => {
         }}
       >
         {isSignedIn ? (
-          auth.currentUser.type == 'customer' ? (
+          auth.currentUser.type != 'customer' ? (
             <>
               <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
               <Stack.Screen
