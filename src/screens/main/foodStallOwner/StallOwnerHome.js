@@ -6,13 +6,17 @@ import { StyledContainer } from '../../../components/containers/StyledContainer'
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 import { ListContainer } from '../../../components/containers/ListContainer';
 import { RegularText } from '../../../components/texts/RegularText';
+import { SmallText } from '../../../components/texts/SmallText';
 import { ProfileButton } from '../../../components/buttons/ProfileButton';
+import { RegularButton } from '../../../components/buttons/RegularButton';
+
+import SwitchToggle from 'react-native-switch-toggle';
 
 // import colors
 import { colors } from '../../../assets/colors';
 
 // import icon
-import { Ionicons, FontAwesome, Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // get current user
 import { auth } from '../../../firebase/config';
@@ -58,6 +62,40 @@ const StallOwnerHome = ({ navigation }) => {
       setDishesMetadataArr(items);
     });
   }, [db]);
+
+  // Add dish footer
+  const addDishFooter = () => {
+    return (
+      <InnerContainer
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingVertical: 15,
+          paddingHorizontal: 20,
+        }}
+      >
+        <SmallText style={{ flex: 1 }}></SmallText>
+        <SmallText style={{ flex: 4, justifyContent: 'center' }}>
+          Click  '+' to add a new dish
+        </SmallText>
+        <RegularButton
+          style={{
+            flex: 1,
+            backgroundColor: colors.primary,
+            maxHeight: 30,
+            maxWidth: 30,
+            borderRadius: 30,
+            paddingTop: 0,
+            paddingBottom: 0,
+            paddingLeft: 0,
+            paddingRight: 0,
+          }}
+        >
+          <RegularText style={{color: colors.white}}>+</RegularText>
+        </RegularButton>
+      </InnerContainer>
+    );
+  };
 
   return (
     user &&
@@ -105,7 +143,7 @@ const StallOwnerHome = ({ navigation }) => {
               />
             )}
             style={styles.discoverList}
-            ListFooterComponent={<View marginBottom={10}></View>}
+            ListFooterComponent={addDishFooter}
             showsVerticalScrollIndicator={false}
             vertical={true}
           />
@@ -116,24 +154,47 @@ const StallOwnerHome = ({ navigation }) => {
 };
 
 // Content in each dish item
-const dishContent = (item) => (
-  <View style={{ flex: 1, flexDirection: 'row' }}>
-    <View style={cardStyles.textContainer}>
-      <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
-      <RegularText style={cardStyles.stallDistance}>$ {item.price}</RegularText>
-    </View>
-    <View style={cardStyles.ratingContainer}>
-      <View style={cardStyles.ratingBG}>
-        <Text style={cardStyles.stallRating}>{item.rating}</Text>
+const dishContent = (item) => {
+  const availability = item.availability;
+  return (
+    <View style={{ flex: 1, flexDirection: 'row' }}>
+      <View style={cardStyles.textContainer}>
+        <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
+        <RegularText style={cardStyles.stallDistance}>$ {item.price}</RegularText>
       </View>
-      {item.availability == true ? (
-        <FontAwesome name="check-circle" size={20} color="green" />
-      ) : (
-        <Entypo name="circle-with-cross" size={20} color="red" />
-      )}
+      <View style={cardStyles.ratingContainer}>
+        <View style={cardStyles.ratingBG}>
+          <Text style={cardStyles.stallRating}>{item.rating}</Text>
+        </View>
+        <SwitchToggle
+          switchOn={availability}
+          onPress={() => {}}
+          circleColorOff="#ffffff"
+          circleColorOn="#ffffff"
+          backgroundColorOn="green"
+          backgroundColorOff="#D21F3C"
+          containerStyle={{
+            marginTop: 0,
+            width: 35,
+            height: 20,
+            borderRadius: 25,
+            padding: 5,
+          }}
+          circleStyle={{
+            width: 13,
+            height: 13,
+            borderRadius: 10,
+          }}
+        />
+        {/* {item.availability == true ? (
+          <FontAwesome name="check-circle" size={20} color="green" />
+        ) : (
+          <Entypo name="circle-with-cross" size={20} color="red" />
+        )} */}
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 const cardStyles = StyleSheet.create({
   textContainer: {

@@ -52,7 +52,7 @@ const StallOwnerDish = ({ navigation, route }) => {
             style={styles.editIconButton}
             onPress={() => navigation.navigate('StallOwnerEditDish', { dishID: dishID })}
           >
-            <Feather name="edit" size={24} color="green" />
+            <Feather name="edit-2" size={16} color={colors.secondary}/>
           </TouchableOpacity>
         </InnerContainer>
 
@@ -93,7 +93,7 @@ const StallOwnerDish = ({ navigation, route }) => {
           <InnerContainer style={{ marginBottom: 15 }}>
             <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
           </InnerContainer>
-          <RegularText style={{ marginVertical: 5 }}>Contains allergens: </RegularText>
+          <RegularText style={{ marginTop: 5, marginBottom: 10, fontSize: 20, }}>Contains allergens: </RegularText>
           <InnerContainer
             style={{
               flex: 1,
@@ -160,9 +160,14 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   editIconButton: {
-    maxWidth: 40,
-    maxHeight: 40,
-    // backgroundColor: '#caf',
+    minWidth: 30,
+    minHeight: 30,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: colors.primary,
+    borderWidth: 2,
+    // backgroundColor: colors.secondary,
     marginTop: 7,
   },
   section: {
