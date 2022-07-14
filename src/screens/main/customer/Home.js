@@ -67,7 +67,7 @@ const Home = ({ navigation }) => {
         <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
         <InnerContainer style={styles.header}>
           <RegularText style={styles.greeting}>
-            Hello, {user ? user.displayName.split(' ')[0] : 'foodie'}
+            Hello, {user.displayName ? user.displayName.split(' ')[0] : 'foodie'}
           </RegularText>
           <ProfileButton source={{ uri: avatar }} />
         </InnerContainer>

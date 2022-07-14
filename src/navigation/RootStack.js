@@ -28,24 +28,35 @@ import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDis
 import { auth } from '../firebase/config';
 import { onAuthStateChanged } from 'firebase/auth';
 
+// Import Database
+import { ref, onValue } from 'firebase/database';
+import { db } from '../firebase/config';
+
 const RootStack = () => {
   const Stack = createNativeStackNavigator();
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userType, setUserType] = useState('anonymous');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsSignedIn(true);
+        onValue(ref(db, 'users/' + user.uid), (snapshot) => {
+          const type = snapshot.val() && snapshot.val().type;
+          setUserType(type);
+        });
         console.log('Signed in');
-        console.log(user.displayName);
+        console.log(user.email);
+        console.log(userType);
       } else {
         setIsSignedIn(false);
+        setUserType('anonymous');
         console.log('Signed out');
       }
     });
 
-    return () => unsubscribe();
-  }, []);
+    return unsubscribe;
+  }, [db]);
 
   return (
     <NavigationContainer>
@@ -54,9 +65,8 @@ const RootStack = () => {
           headerStyle: {
             backgroundColor: colors.bg,
             borderBottomWidth: 0,
-            // shadowColor: "transparent",
-
             height: 120,
+            // shadowColor: "transparent",
           },
           headerRight: () => (isSignedIn ? <ProfileButton /> : null),
           headerShadowVisible: false,
@@ -70,7 +80,7 @@ const RootStack = () => {
         }}
       >
         {isSignedIn ? (
-          auth.currentUser.type != 'customer' ? (
+          userType === 'customer' ? (
             <>
               <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
               <Stack.Screen

@@ -17,7 +17,7 @@ import { colors } from '../../assets/colors';
 
 // import auth
 import { auth } from '../../firebase/config';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
 // show toast notifs
 import Toast from 'react-native-root-toast';
@@ -45,19 +45,39 @@ const CustomerSignIn = ({ navigation }) => {
       return;
     }
     signInWithEmailAndPassword(auth, email, password).catch((error) => {
-      let errorMessage = error.message.replace('Firebase: ', '').replace('.', '' );
-
+      let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
       if (error.code === 'auth/invalid-email') {
         errorMessage = 'Invalid email address';
       }
       if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         errorMessage = 'Your email or password is incorrect';
       }
-
       Toast.show(errorMessage, toastOptions);
     });
   };
-  const handleForgotPassword = () => {};
+
+  const handleForgotPassword = () => {
+    if (email === '') {
+      Toast.show('Please enter your email', toastOptions);
+      return;
+    }
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        const message = 'Password reset email sent';
+        Toast.show(message, toastOptions);
+      })
+      .catch((error) => {
+        let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
+        if (error.code === 'auth/invalid-email') {
+          errorMessage = 'Invalid email address';
+        }
+        if (error.code === 'auth/user-not-found') {
+          errorMessage = 'Your email is not registered';
+        }
+        Toast.show(errorMessage, toastOptions);
+      });
+  };
+
   const handleSignUpPageLink = () => {
     navigation.navigate('CustomerSignUp');
   };
