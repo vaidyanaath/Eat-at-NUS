@@ -23,4 +23,5 @@ const App = () => {
 
   return <RootStack />;
 };
+
 export default registerRootComponent(App);
