@@ -21,7 +21,7 @@ const addStall = (stallID, name, address, openingTime, closingTime, cuisine) => 
     });
 
     // Adding the data to stallsMetadata
-    const stallsMetadataReference = ref(db, 'stalls/' + stallID);
+    const stallsMetadataReference = ref(db, 'stallsMetadata/' + stallID);
     set(stallsMetadataReference, {
         name: name,
         cuisine: cuisine,
