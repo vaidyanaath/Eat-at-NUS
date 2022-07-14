@@ -35,47 +35,29 @@ import { db } from '../firebase/config';
 const RootStack = () => {
   const Stack = createNativeStackNavigator();
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [userType, setUserType] = useState();
+  const [userType, setUserType] = useState('anonymous');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsSignedIn(true);
+        onValue(ref(db, 'users/' + user.uid), (snapshot) => {
+          const type = snapshot.val() && snapshot.val().type;
+          setUserType(type);
+        });
         console.log('Signed in');
-        console.log(user.displayName);
+        console.log(user.email);
+        console.log(userType);
       } else {
         setIsSignedIn(false);
+        setUserType('anonymous');
         console.log('Signed out');
       }
     });
+    
+    return unsubscribe;
+  }, [db]);
 
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = () => {
-      const user = auth.currentUser;
-      if (user) {
-        onValue(
-          ref(db, 'users/' + user.uid),
-          (snapshot) => {
-            const type = snapshot.val() && snapshot.val().type;
-            setUserType(type);
-            console.log(type);
-          },
-          {
-            onlyOnce: true,
-          }
-        );
-      } else {
-        setUserType('anonymous'); // fix here
-        console.log('No user');
-      }
-    }
-
-    return () => unsubscribe();
-  }, []);
-  
   return (
     <NavigationContainer>
       <Stack.Navigator

@@ -59,6 +59,13 @@ const FoodStallOwnerSignUp = () => {
         // Signed in
         const user = userCredential.user;
 
+        // Update profile
+        updateProfile(user, {
+          displayName: name,
+        }).catch((error) => {
+          console.log(error);
+        });
+        
         // Add user to db
         set(ref(db, 'users/' + user.uid), {
           name: name,
