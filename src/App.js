@@ -30,4 +30,5 @@ const App = () => {
     </RootSiblingParent>
   );
 };
+
 export default registerRootComponent(App);
