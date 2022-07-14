@@ -14,6 +14,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo) => {
         price: price,
         description: description,
         calories: calories,
+        imageURL: '',
 
         // Setting availability to false when a new dish is added
         // Food Stall Owners have to make it available after adding
@@ -22,7 +23,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo) => {
         allergenInfo: allergenInfo,
 
         // Average Rating = 0 => No Ratings Yet
-        averageRating: 0,
+        rating: 0,
         
         numberOfRatings: 0
     })
@@ -33,7 +34,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo) => {
     set(dishMetadataReference, {
         name: name,
         price: price,
-        averageRating: 0,
+        rating: 0,
         availability: false
     })
 }
