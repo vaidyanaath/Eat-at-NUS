@@ -54,7 +54,7 @@ const RootStack = () => {
         console.log('Signed out');
       }
     });
-    
+
     return unsubscribe;
   }, [db]);
 
