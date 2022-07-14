@@ -10,14 +10,9 @@ import { signOut } from 'firebase/auth';
 
 const handleProfileButton = () => {
   console.log('profile button pressed!');
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-      console.log('signed out (button)');
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  signOut(auth).catch((error) => {
+    console.log(error);
+  });
 };
 
 export const ProfileButton = ({ source }) => (
