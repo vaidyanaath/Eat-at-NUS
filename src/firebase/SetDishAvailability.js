@@ -5,12 +5,12 @@ import { db } from "./config";
 const setDishAvailability = (stallID, dishID, value) => {
 
     // Updating the data in dishes
-    const dishReference = ref(db, 'dishes/' + dishID + '/availability');
-    update(dishReference, value);
+    const dishReference = ref(db, 'dishes/' + dishID);
+    update(dishReference, { availability: value });
 
     // Updating the data in dishesMetadata
-    const dishMetadataReference = ref(db, 'dishesMetadata/' + stallID + '/' + dishID + '/availability');
-    update(dishMetadataReference, value);
+    const dishMetadataReference = ref(db, 'dishesMetadata/' + stallID + '/' + dishID);
+    update(dishMetadataReference, { availability: value });
 
 }
 
