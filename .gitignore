@@ -11,8 +11,8 @@ npm-debug.*
 web-build/
 
 # Testing
-src\firebase\AddReview.js
-src\screens\TestingScreen.js
+src/firebase/AddReview.js
+src/screens/TestingScreen.js
 
 # macOS
 .DS_Store
