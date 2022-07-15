@@ -22,6 +22,10 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { db } from '../../firebase/config';
 import { ref, set } from 'firebase/database';
 
+// import db writing functions
+import addUser from '../../firebase/AddUser';
+import addStall from '../../firebase/AddNewStall';
+
 // show toast notifs
 import Toast from 'react-native-root-toast';
 
@@ -67,29 +71,41 @@ const FoodStallOwnerSignUp = () => {
         });
         
         // Add user to db
-        set(ref(db, 'users/' + user.uid), {
-          name: name,
-          email: email,
-          type: 'foodStallOwner',
-        });
+        addUser(email, 'foodStallOwner');
+
+        // set(ref(db, 'users/' + user.uid), {
+        //   name: name,
+        //   email: email,
+        //   type: 'foodStallOwner',
+        // });
 
         // Make a stall
-        set(ref(db, 'stalls/' + user.uid), {
-          address: '',
-          cuisine: '',
-          openingTime: '',
-          closingTime: '',
-          imageURL: '',
-          name: '',
-          rating: 0,
-        });
+        addStall(
+          user.uid,
+          '',
+          '',
+          '',
+          '',
+          ''
+        );
 
-        set(ref(db, 'stallsMetadata/' + user.uid), {
-          cuisine: '',
-          imageURL: '',
-          name: '',
-          rating: '',
-        });
+        // set(ref(db, 'stalls/' + user.uid), {
+        //   address: '',
+        //   cuisine: '',
+        //   openingTime: '',
+        //   closingTime: '',
+        //   imageURL: '',
+        //   name: '',
+        //   rating: 0,
+        // });
+
+        // set(ref(db, 'stallsMetadata/' + user.uid), {
+        //   cuisine: '',
+        //   imageURL: '',
+        //   name: '',
+        //   rating: '',
+        // });
+
       })
       .catch((error) => {
         let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
