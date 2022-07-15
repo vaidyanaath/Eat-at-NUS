@@ -5,6 +5,7 @@ export const colors = {
     bg: "#FFFFFF", // "#F5F5F5", //"#ffe5c4",
     turquoise: "#AFEEEE",
     gray: "#F5F5F5",
+    darkGray: "#828282",
     white: "#FFFFFF",
     black: "#000000",
     pale: "#FFFAF4",

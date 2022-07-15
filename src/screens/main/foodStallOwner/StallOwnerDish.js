@@ -52,7 +52,7 @@ const StallOwnerDish = ({ navigation, route }) => {
             style={styles.editIconButton}
             onPress={() => navigation.navigate('StallOwnerEditDish', { dishID: dishID })}
           >
-            <Feather name="edit-2" size={16} color={colors.secondary}/>
+            <Feather name="edit-2" size={20} color={colors.secondary}/>
           </TouchableOpacity>
         </InnerContainer>
 
@@ -162,11 +162,11 @@ const styles = StyleSheet.create({
   editIconButton: {
     minWidth: 30,
     minHeight: 30,
-    borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: colors.primary,
-    borderWidth: 2,
+    // borderRadius: 30,
+    // borderColor: colors.primary,
+    // borderWidth: 2,
     // backgroundColor: colors.secondary,
     marginTop: 7,
   },
