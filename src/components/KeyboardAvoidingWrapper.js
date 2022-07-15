@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 
-export const KeyboardAvoidingWrapper = ({ children }) => {
+export const KeyboardAvoidingWrapper = ({ children, style }) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -17,7 +17,7 @@ export const KeyboardAvoidingWrapper = ({ children }) => {
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.viewContainer}>{children}</View>
+          <View style={style}>{children}</View>
         </TouchableWithoutFeedback>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -31,9 +31,5 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
-  },
-  viewContainer: {
-    flex: 1,
-    flexDirection: 'column',
   },
 });

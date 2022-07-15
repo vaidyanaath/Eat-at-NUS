@@ -91,7 +91,7 @@ const StallOwnerEditStall = ({ navigation, route }) => {
 
   return (
     <StyledContainer style={styles.mainContainer}>
-      <KeyboardAvoidingWrapper style={styles.mainContainer}>
+      <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
       <InnerContainer style={styles.fieldContainer}>
         <RegularText style={styles.headingText}>Stall Name:</RegularText>
         <TextInput
@@ -186,7 +186,11 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingLeft: 25,
     paddingRight: 25,
-    //backgroundColor: '#fedcba',
+    // backgroundColor: '#fedcba',
+  },
+  keyboardWrapper: {
+    flex: 1,
+    alignItems: 'center',
   },
   fieldContainer: {
     flex: 1,

@@ -86,7 +86,7 @@ const CustomerSignIn = ({ navigation }) => {
     <StyledContainer style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
-        <KeyboardAvoidingWrapper>
+        <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
           <TextInput
             style={styles.input}
             onChangeText={(email) => setEmail(email)}
@@ -129,6 +129,11 @@ const styles = StyleSheet.create({
   topSection: {
     minHeight: '90%',
     //   backgroundColor: "#2311ab"
+  },
+  keyboardWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   input: {
