@@ -15,13 +15,17 @@ import { RegularText } from '../../../components/texts/RegularText';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
-import { db, storage } from '../../../firebase/config';
+import { auth, db, storage } from '../../../firebase/config';
 import { ref } from 'firebase/storage';
+
+import editDishInfo from '../../../firebase/EditDishInfo';
 
 import * as ImagePicker from 'expo-image-picker';
 
 const StallOwnerEditDish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
+  const user = auth.currentUser;
+
 
   // Fetch dish data
   const [dishData, setDishData] = useState(null);
@@ -41,9 +45,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
   const [dishCalories, setDishCalories] = useState('');
   const [dishAllergens, setDishAllergens] = useState('');
 
-
-  const [image, setImage] = useState(null);
-
+  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -55,7 +57,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
     console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setDishImageURL(result.uri);
     }
   };
 
@@ -115,7 +117,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
         {image && <Image source={{ uri : image }} style={{flex: 1, maxHeight: 200, width: 210,}}/>}
       </InnerContainer>
 
-      {/* {/* <InnerContainer style={styles.descriptionContainer}>
+       <InnerContainer style={styles.descriptionContainer}>
         <RegularText style={styles.headingText}>Description:</RegularText>
         <TextInput
           style={styles.descriptionInput}
@@ -125,7 +127,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
           placeholder="Max 100 characters"
           autoCorrect={false}
         />
-      </InnerContainer> */}
+      </InnerContainer>
 
       <InnerContainer style={styles.descriptionContainer}>
         <RegularText style={styles.headingText}>Allergens:</RegularText>
@@ -140,7 +142,8 @@ const StallOwnerEditDish = ({ navigation, route }) => {
       </InnerContainer>
 
       <InnerContainer style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress = {() => editDishInfo(user.uid, dishID, dishName, dishPrice, dishDescription, dishCalories, dishAllergens, dishImageURL)}>
           <RegularText style={styles.buttonText}>Save</RegularText>
         </TouchableOpacity>
       </InnerContainer>
