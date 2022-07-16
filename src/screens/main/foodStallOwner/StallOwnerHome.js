@@ -25,9 +25,12 @@ import { auth } from '../../../firebase/config';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
+import setDishAvailability from '../../../firebase/SetDishAvailability';
+
 const StallOwnerHome = ({ navigation }) => {
-  const stallID = 'Bhaiya khaana dedo';
   const user = auth.currentUser;
+  const stallID = user.uid; //'Bhaiya khaana dedo';
+
   const placeholderAvatar =
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
   const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
@@ -52,6 +55,7 @@ const StallOwnerHome = ({ navigation }) => {
       var items = [];
       snapshot.forEach((child) => {
         items.push({
+          id: child.key,
           availability: child.val().availability,
           imageURL: child.val().imageURL,
           name: child.val().name,
@@ -76,9 +80,10 @@ const StallOwnerHome = ({ navigation }) => {
       >
         <SmallText style={{ flex: 1 }}></SmallText>
         <SmallText style={{ flex: 4, justifyContent: 'center' }}>
-          Click  '+' to add a new dish
+          Click '+' to add a new dish
         </SmallText>
         <RegularButton
+          onPress={() => navigation.navigate('StallOwnerAddDish')}
           style={{
             flex: 1,
             backgroundColor: colors.primary,
@@ -91,7 +96,7 @@ const StallOwnerHome = ({ navigation }) => {
             paddingRight: 0,
           }}
         >
-          <RegularText style={{color: colors.white}}>+</RegularText>
+          <RegularText style={{ color: colors.white }}>+</RegularText>
         </RegularButton>
       </InnerContainer>
     );
@@ -111,7 +116,7 @@ const StallOwnerHome = ({ navigation }) => {
 
         <InnerContainer style={styles.stallInfo}>
           <View style={styles.nameSection}>
-            <RegularText style={styles.name}>{stallID}</RegularText>
+            <RegularText style={styles.name}>{stallData.name}</RegularText>
             <View style={styles.ratingContainer}>
               <View style={styles.ratingBG}>
                 <Text style={styles.stallRating}>{stallData.rating}</Text>
@@ -122,7 +127,7 @@ const StallOwnerHome = ({ navigation }) => {
           <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
           <View style={styles.locationContainer}>
             <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
-            <RegularText> {stallData.address}</RegularText>
+            <RegularText style={styles.infoText}> {stallData.address}</RegularText>
           </View>
           <RegularText style={styles.infoText}>
             Hours: {stallData.openingTime} - {stallData.closingTime}
@@ -138,7 +143,9 @@ const StallOwnerHome = ({ navigation }) => {
             renderItem={({ item }) => (
               <ListContainer
                 photo={item.imageURL}
-                onPress={() => navigation.navigate('StallOwnerDish', { dishID: item.name })}
+                onPress={() => 
+                  navigation.navigate('StallOwnerDish', { dishID: item.id })
+                }
                 content={dishContent(item)}
               />
             )}
@@ -155,7 +162,6 @@ const StallOwnerHome = ({ navigation }) => {
 
 // Content in each dish item
 const dishContent = (item) => {
-  const availability = item.availability;
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={cardStyles.textContainer}>
@@ -167,8 +173,8 @@ const dishContent = (item) => {
           <Text style={cardStyles.stallRating}>{item.rating}</Text>
         </View>
         <SwitchToggle
-          switchOn={availability}
-          onPress={() => {}}
+          switchOn={item.availability}
+          onPress={() => setDishAvailability(auth.currentUser.uid, item.id, !item.availability)}
           circleColorOff="#ffffff"
           circleColorOn="#ffffff"
           backgroundColorOn="green"

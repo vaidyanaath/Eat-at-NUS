@@ -35,6 +35,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo) => {
         name: name,
         price: price,
         rating: 0,
+        imageURL: '',
         availability: false
     })
 }

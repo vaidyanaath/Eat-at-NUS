@@ -67,7 +67,7 @@ const FoodStallOwnerSignUp = () => {
             // Add user to db
             addUser(user, 'foodStallOwner');
             // Add stall to db
-            // addStall(user.uid, '', '', '', '', '');
+            addStall(user.uid, 'New Stall', '', '', '', '');
           })
           .catch((error) => {
             console.log(error);

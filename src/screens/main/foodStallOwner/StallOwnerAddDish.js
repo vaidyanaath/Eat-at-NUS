@@ -16,45 +16,25 @@ import { RegularText } from '../../../components/texts/RegularText';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { auth, db, storage } from '../../../firebase/config';
-import { ref as storageRef } from 'firebase/storage';
+import { ref } from 'firebase/storage';
 
-// Import Database
-import { ref, onValue } from 'firebase/database';
-
-import editDishInfo from '../../../firebase/EditDishInfo';
+import addDish from '../../../firebase/AddNewDish';
 
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../../assets/colors';
 
-const StallOwnerEditDish = ({ navigation, route }) => {
-  const dishID = route.params.dishID;
+const StallOwnerAddDish = ({ navigation, route }) => {
   const user = auth.currentUser;
 
   // Fetch dish data
+  const [dishData, setDishData] = useState(null);
+
   const [dishName, setDishName] = useState('');
   const [dishPrice, setDishPrice] = useState('');
   const [dishImageURL, setDishImageURL] = useState(null);
   const [dishDescription, setDishDescription] = useState('');
   const [dishCalories, setDishCalories] = useState('');
   const [dishAllergens, setDishAllergens] = useState('');
-
-  useEffect(() => {
-    const reference = ref(db, 'dishes/' + dishID);
-    onValue(reference, (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        setDishName(data.name);
-        setDishPrice(data.price);
-        setDishImageURL(data.imageURL);
-        setDishDescription(data.description);
-        setDishCalories(data.calories);
-        setDishAllergens(data.allergenInfo);
-      } else {
-        setDishData(null);
-        console.log('No data found!');
-      }
-    });
-  }, [db]);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -175,18 +155,8 @@ const StallOwnerEditDish = ({ navigation, route }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            editDishInfo(
-              user.uid,
-              dishID,
-              dishName,
-              dishPrice,
-              dishDescription,
-              dishCalories,
-              dishAllergens,
-              dishImageURL
-            );
+            addDish(user.uid, dishName, dishPrice, dishDescription, dishCalories, dishAllergens);
             navigation.navigate('StallOwnerHome');
-            //navigation.navigate('StallOwnerDish', { dishID: dishID });
           }}
         >
           <RegularText style={styles.buttonText}>Save</RegularText>
@@ -289,4 +259,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StallOwnerEditDish;
+export default StallOwnerAddDish;
