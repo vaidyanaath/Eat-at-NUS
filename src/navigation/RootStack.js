@@ -41,22 +41,27 @@ const RootStack = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsSignedIn(true);
-        onValue(ref(db, 'users/' + user.uid), (snapshot) => {
-          const type = snapshot.val() && snapshot.val().type;
-          setUserType(type);
-        });
         console.log('Signed in');
         console.log(user.email);
-        console.log(userType);
       } else {
         setIsSignedIn(false);
-        setUserType('anonymous');
         console.log('Signed out');
       }
     });
-
     return unsubscribe;
   }, [db]);
+
+  // get user type of entered email
+  useEffect(() => {
+    if (isSignedIn) {
+      const email_key = auth.currentUser.email.replace('.', '%2E');
+      const userTypeReference = ref(db, 'userType/' + email_key);
+      onValue(userTypeReference, (snapshot) => {
+        setUserType(snapshot.val());
+        console.log('Fetching user type: ' + userType);
+      });
+    }
+  });
 
   return (
     <NavigationContainer>

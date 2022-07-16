@@ -18,9 +18,7 @@ import { colors } from '../../assets/colors';
 import { auth } from '../../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
-// import db
-import { db } from '../../firebase/config';
-import { ref, set } from 'firebase/database';
+import addUser from '../../firebase/AddUser';
 
 // show toast notifs
 import Toast from 'react-native-root-toast';
@@ -32,7 +30,7 @@ const CustomerSignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const toastOptions = {
-    duration: Toast.durations.LONG,
+    duration: 5000,
     position: -120,
     shadow: true,
     shadowColor: colors.pale,
@@ -61,19 +59,17 @@ const CustomerSignUp = () => {
         // Update profile
         updateProfile(user, {
           displayName: name,
-        }).catch((error) => {
-          console.log(error);
-        });
-
-        // Add user to db
-        set(ref(db, 'users/' + user.uid), {
-          name: name,
-          email: email,
-          type: 'customer',
-        });
+        })
+          .then(() => {
+            // Add user to db
+            addUser(user, 'customer');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
-        let errorMessage = error.message.replace('Firebase: ', '').replace('.', '' );
+        let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
 
         if (error.code === 'auth/invalid-email') {
           errorMessage = 'Invalid email address';

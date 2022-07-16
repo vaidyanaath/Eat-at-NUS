@@ -18,10 +18,6 @@ import { colors } from '../../assets/colors';
 import { auth } from '../../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
-// import db
-import { db } from '../../firebase/config';
-import { ref, set } from 'firebase/database';
-
 // import db writing functions
 import addUser from '../../firebase/AddUser';
 import addStall from '../../firebase/AddNewStall';
@@ -36,7 +32,7 @@ const FoodStallOwnerSignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const toastOptions = {
-    duration: Toast.durations.LONG,
+    duration: 5000,
     position: -120,
     shadow: true,
     shadowColor: colors.pale,
@@ -66,12 +62,19 @@ const FoodStallOwnerSignUp = () => {
         // Update profile
         updateProfile(user, {
           displayName: name,
-        }).catch((error) => {
-          console.log(error);
-        });
-        
+        })
+          .then(() => {
+            // Add user to db
+            addUser(user, 'foodStallOwner');
+            // Add stall to db
+            // addStall(user.uid, '', '', '', '', '');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
         // Add user to db
-        addUser(email, 'foodStallOwner');
+        // addUser(user, 'foodStallOwner');
 
         // set(ref(db, 'users/' + user.uid), {
         //   name: name,
@@ -80,14 +83,7 @@ const FoodStallOwnerSignUp = () => {
         // });
 
         // Make a stall
-        addStall(
-          user.uid,
-          '',
-          '',
-          '',
-          '',
-          ''
-        );
+        // addStall(user.uid, '', '', '', '', '');
 
         // set(ref(db, 'stalls/' + user.uid), {
         //   address: '',
@@ -105,7 +101,6 @@ const FoodStallOwnerSignUp = () => {
         //   name: '',
         //   rating: '',
         // });
-
       })
       .catch((error) => {
         let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');

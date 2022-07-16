@@ -15,6 +15,10 @@ import { SmallText } from '../../components/texts/SmallText';
 // import colors
 import { colors } from '../../assets/colors';
 
+// Import Database
+import { ref, onValue } from 'firebase/database';
+import { db } from '../../firebase/config';
+
 // import auth
 import { auth } from '../../firebase/config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -44,6 +48,21 @@ const FoodStallOwnerSignIn = ({ navigation }) => {
       Toast.show('Please enter your email and password', toastOptions);
       return;
     }
+
+    // get user type of entered email
+    let userType = '';
+    const email_key = email.replace('.', '%2E');
+    const userTypeReference = ref(db, 'userType/' + email_key);
+    onValue(userTypeReference, (snapshot) => {
+      userType = snapshot.val();
+      console.log("Fetching user type: " + userType);
+    });
+
+    if (userType !== 'foodStallOwner') {
+      Toast.show('Your email is not registered as a Food Stall Owner', toastOptions);
+      return;
+    }
+
     signInWithEmailAndPassword(auth, email, password).catch((error) => {
       let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
       if (error.code === 'auth/invalid-email') {
@@ -61,6 +80,7 @@ const FoodStallOwnerSignIn = ({ navigation }) => {
       Toast.show('Please enter your email', toastOptions);
       return;
     }
+
     sendPasswordResetEmail(auth, email)
       .then(() => {
         const message = 'Password reset email sent';
@@ -87,6 +107,7 @@ const FoodStallOwnerSignIn = ({ navigation }) => {
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
         <KeyboardAvoidingWrapper>
+          <RegularText>Food Stall Owner</RegularText>
           <TextInput
             style={styles.input}
             onChangeText={(email) => setEmail(email)}
