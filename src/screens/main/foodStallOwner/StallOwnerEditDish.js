@@ -21,11 +21,11 @@ import { ref } from 'firebase/storage';
 import editDishInfo from '../../../firebase/EditDishInfo';
 
 import * as ImagePicker from 'expo-image-picker';
+import { colors } from '../../../assets/colors';
 
 const StallOwnerEditDish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
   const user = auth.currentUser;
-
 
   // Fetch dish data
   const [dishData, setDishData] = useState(null);
@@ -40,17 +40,16 @@ const StallOwnerEditDish = ({ navigation, route }) => {
 
   const [dishName, setDishName] = useState('');
   const [dishPrice, setDishPrice] = useState('');
-  const [dishImageURL, setDishImageURL] = useState('');
+  const [dishImageURL, setDishImageURL] = useState(null);
   const [dishDescription, setDishDescription] = useState('');
   const [dishCalories, setDishCalories] = useState('');
   const [dishAllergens, setDishAllergens] = useState('');
 
-  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [10, 9],
       quality: 1,
     });
 
@@ -61,6 +60,9 @@ const StallOwnerEditDish = ({ navigation, route }) => {
     }
   };
 
+  const deleteImage = () => {
+    setDishImageURL(null);
+  };
 
   return (
     <StyledContainer style={styles.mainContainer}>
@@ -100,24 +102,41 @@ const StallOwnerEditDish = ({ navigation, route }) => {
       <ImageBackground
         style={styles.ImageBackground}
         resizeMode={'contain'}
-        source={require('../../../assets/images/bgbannerlight.png')}
+        source={
+          dishImageURL ? { uri: dishImageURL } : require('../../../assets/images/bgbannerlight.png')
+        }
       >
-        <InnerContainer style={styles.imageUploadContainer}>
-          <SmallText style={styles.imageText}>
-            There is no dish photo. Items sell better when they have a well-taken photo.
-          </SmallText>
-          <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
-            <MaterialIcons name="add-photo-alternate" size={24} color="black" />
-            <SmallText style={styles.imageText}>Upload Photo</SmallText>
-          </TouchableOpacity>
-        </InnerContainer>
+        {dishImageURL ? (
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'flex-end',
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              justifyContent: 'space-between',
+            }}
+          >
+            <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
+              <MaterialIcons name="add-photo-alternate" size={24} color={colors.secondary} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.uploadButton} onPress={deleteImage}>
+              <MaterialIcons name="delete" size={24} color={colors.secondary} />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <InnerContainer style={styles.imageUploadContainer}>
+            <SmallText style={styles.imageText}>
+              There is no dish photo. Items sell better when they have a well-taken photo.
+            </SmallText>
+            <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
+              <MaterialIcons name="add-photo-alternate" size={24} color="black" />
+              <SmallText style={styles.imageText}>Upload Photo</SmallText>
+            </TouchableOpacity>
+          </InnerContainer>
+        )}
       </ImageBackground>
 
-      <InnerContainer style={{backgroundColor: "lightblue"}}>
-        {image && <Image source={{ uri : image }} style={{flex: 1, maxHeight: 200, width: 210,}}/>}
-      </InnerContainer>
-
-       <InnerContainer style={styles.descriptionContainer}>
+      <InnerContainer style={styles.descriptionContainer}>
         <RegularText style={styles.headingText}>Description:</RegularText>
         <TextInput
           style={styles.descriptionInput}
@@ -142,8 +161,21 @@ const StallOwnerEditDish = ({ navigation, route }) => {
       </InnerContainer>
 
       <InnerContainer style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}
-        onPress = {() => editDishInfo(user.uid, dishID, dishName, dishPrice, dishDescription, dishCalories, dishAllergens, dishImageURL)}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            editDishInfo(
+              user.uid,
+              dishID,
+              dishName,
+              dishPrice,
+              dishDescription,
+              dishCalories,
+              dishAllergens,
+              dishImageURL
+            )
+          }
+        >
           <RegularText style={styles.buttonText}>Save</RegularText>
         </TouchableOpacity>
       </InnerContainer>
@@ -206,7 +238,8 @@ const styles = StyleSheet.create({
     maxHeight: '25%',
     // backgroundColor: '#fcc',
     resizeMode: 'contain',
-    marginVertical: 10,
+    marginVertical: 20,
+    justifyContent: 'center',
   },
   imageText: {
     color: '#123456',
