@@ -25,6 +25,7 @@ import { db } from '../../../firebase/config';
 
 const Dish = ({ route }) => {
   const dishID = route.params.dishID;
+  console.log(dishID);
 
   // Fetch dish data
   const [dishData, setDishData] = useState(null);
@@ -93,7 +94,7 @@ const Dish = ({ route }) => {
             <InnerContainer style={{ marginBottom: 15 }}>
               <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
             </InnerContainer>
-            <RegularText style={{ marginVertical: 5 }}>Contains allergens: </RegularText>
+            <RegularText style={{ marginVertical: 5, fontSize: 20, paddingHorizontal: 10, }}>Contains allergens: </RegularText>
             <InnerContainer
               style={{
                 flex: 1,
@@ -206,6 +207,7 @@ const styles = StyleSheet.create({
   ratingBG: {
     maxWidth: 30,
     flex: 1,
+    alignItems: 'center',
     paddingHorizontal: 4,
     borderRadius: 3,
     backgroundColor: '#FFB81C',

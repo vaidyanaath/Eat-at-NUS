@@ -18,7 +18,7 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
 const Stall = ({ navigation, route }) => {
-  const stallID = route.params.stallID;
+  const stallID = route.params.stall.id;
 
   // Fetch stall data
   const [stallData, setStallData] = useState(null);
@@ -40,6 +40,7 @@ const Stall = ({ navigation, route }) => {
       var items = [];
       snapshot.forEach((child) => {
         items.push({
+          id: child.key,
           availability: child.val().availability,
           imageURL: child.val().imageURL,
           name: child.val().name,
@@ -77,7 +78,7 @@ const Stall = ({ navigation, route }) => {
             renderItem={({ item }) => (
               <ListContainer
                 photo={item.imageURL}
-                onPress={() => navigation.navigate('Dish', { dishID: item.name })}
+                onPress={() => navigation.navigate('Dish', { dishID: item.id })}
                 content={dishContent(item)}
               />
             )}

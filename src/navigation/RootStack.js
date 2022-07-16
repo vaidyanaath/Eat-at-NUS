@@ -92,7 +92,7 @@ const RootStack = () => {
               <Stack.Screen
                 name="Stall"
                 component={Stall}
-                options={({ route }) => ({ title: route.params.stallID })}
+                options={({ route }) => ({ title: route.params.stall.name })}
               />
               <Stack.Screen name="Dish" component={Dish} options={{ title: null }} />
             </>
