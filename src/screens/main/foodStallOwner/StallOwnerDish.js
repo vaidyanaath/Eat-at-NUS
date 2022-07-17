@@ -21,10 +21,13 @@ import { SmallText } from '../../../components/texts/SmallText';
 
 // Import Database
 import { ref, onValue } from 'firebase/database';
-import { db } from '../../../firebase/config';
+import { db, auth } from '../../../firebase/config';
+
+import retrieveDishImage from '../../../firebase/RetrieveDishImage';
 
 const StallOwnerDish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
+  const user = auth.currentUser;
 
   // Fetch dish data
   const [dishData, setDishData] = useState(null);
@@ -57,7 +60,7 @@ const StallOwnerDish = ({ navigation, route }) => {
         </InnerContainer>
 
         <InnerContainer style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: dishData.imageURL }} />
+          <Image style={styles.image} source={{ uri: retrieveDishImage(user.uid, dishID).url }} />
         </InnerContainer>
         <ScrollView style={{ flex: 1 }}>
           <InnerContainer style={styles.section}>

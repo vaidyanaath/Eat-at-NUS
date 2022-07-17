@@ -22,6 +22,7 @@ import { ref as storageRef } from 'firebase/storage';
 import { ref, onValue } from 'firebase/database';
 
 import editDishInfo from '../../../firebase/EditDishInfo';
+import uploadDishImage from '../../../firebase/UploadDishImage';
 
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../../assets/colors';
@@ -74,6 +75,23 @@ const StallOwnerEditDish = ({ navigation, route }) => {
   const deleteImage = () => {
     setDishImageURL(null);
   };
+
+  const handleSave = () => {
+    editDishInfo(
+      user.uid,
+      dishID,
+      dishName,
+      dishPrice,
+      dishDescription,
+      dishCalories,
+      dishAllergens,
+      dishImageURL
+    );
+    uploadDishImage(user.uid, dishID, dishImageURL);
+    navigation.navigate('StallOwnerHome');
+    //navigation.navigate('StallOwnerDish', { dishID: dishID });
+
+  }
 
   return (
     <StyledContainer style={styles.mainContainer}>
@@ -174,20 +192,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
       <InnerContainer style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => {
-            editDishInfo(
-              user.uid,
-              dishID,
-              dishName,
-              dishPrice,
-              dishDescription,
-              dishCalories,
-              dishAllergens,
-              dishImageURL
-            );
-            navigation.navigate('StallOwnerHome');
-            //navigation.navigate('StallOwnerDish', { dishID: dishID });
-          }}
+          onPress={handleSave}
         >
           <RegularText style={styles.buttonText}>Save</RegularText>
         </TouchableOpacity>

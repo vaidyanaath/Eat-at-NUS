@@ -19,6 +19,7 @@ import { auth, db, storage } from '../../../firebase/config';
 import { ref } from 'firebase/storage';
 
 import addDish from '../../../firebase/AddNewDish';
+import uploadDishImage from '../../../firebase/UploadDishImage';
 
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../../assets/colors';
@@ -155,7 +156,7 @@ const StallOwnerAddDish = ({ navigation, route }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            addDish(user.uid, dishName, dishPrice, dishDescription, dishCalories, dishAllergens);
+            addDish(user.uid, dishName, dishPrice, dishDescription, dishCalories, dishAllergens, dishImageURL);
             navigation.navigate('StallOwnerHome');
           }}
         >
