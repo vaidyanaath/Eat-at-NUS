@@ -43,6 +43,7 @@ const Home = ({ navigation }) => {
       var items = [];
       snapshot.forEach((child) => {
         items.push({
+          id: child.key,
           cuisine: child.val().cuisine,
           imageURL: child.val().imageURL,
           name: child.val().name,
@@ -106,7 +107,7 @@ const Home = ({ navigation }) => {
             renderItem={({ item }) => (
               <ListContainer
                 photo={item.imageURL}
-                onPress={() => navigation.navigate('Stall', { stallID: item.name })}
+                onPress={() => navigation.navigate('Stall', { stall: item })}
                 content={stallContent(item)}
               />
             )}

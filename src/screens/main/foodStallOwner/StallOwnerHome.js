@@ -25,33 +25,41 @@ import { auth } from '../../../firebase/config';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
+import setDishAvailability from '../../../firebase/SetDishAvailability';
+
 const StallOwnerHome = ({ navigation }) => {
-  const stallID = 'Bhaiya khaana dedo';
   const user = auth.currentUser;
+  const stallID = user.uid; //'Bhaiya khaana dedo';
+
   const placeholderAvatar =
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
   const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
-  // Fetch stall data
   const [stallData, setStallData] = useState(null);
+  const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
+  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
 
+  // Fetch stall data
   useEffect(() => {
     const reference = ref(db, 'stalls/' + stallID);
     onValue(reference, (snapshot) => {
       const data = snapshot.val();
       setStallData(data);
     });
+
+    return () => {
+      setStallData(null);
+    }
   }, [db]);
 
   // Fetch dishes metadata
-  const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
-
   useEffect(() => {
     const reference = ref(db, 'dishesMetadata/' + stallID);
     onValue(reference, (snapshot) => {
       var items = [];
       snapshot.forEach((child) => {
         items.push({
+          id: child.key,
           availability: child.val().availability,
           imageURL: child.val().imageURL,
           name: child.val().name,
@@ -61,6 +69,10 @@ const StallOwnerHome = ({ navigation }) => {
       });
       setDishesMetadataArr(items);
     });
+
+    return () => {
+      setDishesMetadataArr(null);
+    }
   }, [db]);
 
   // Add dish footer
@@ -79,6 +91,7 @@ const StallOwnerHome = ({ navigation }) => {
           Click '+' to add a new dish
         </SmallText>
         <RegularButton
+          onPress={() => navigation.navigate('StallOwnerAddDish')}
           style={{
             flex: 1,
             backgroundColor: colors.primary,
@@ -112,7 +125,7 @@ const StallOwnerHome = ({ navigation }) => {
         <InnerContainer style={styles.stallInfo}>
           <View style={styles.leftSection}>
             <View style={styles.nameSection}>
-              <RegularText style={styles.name}>{stallID}</RegularText>
+              <RegularText style={styles.name}>{stallData.name}</RegularText>
             </View>
 
             <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
@@ -149,8 +162,10 @@ const StallOwnerHome = ({ navigation }) => {
             data={dishesMetadataArr}
             renderItem={({ item }) => (
               <ListContainer
-                photo={item.imageURL}
-                onPress={() => navigation.navigate('StallOwnerDish', { dishID: item.name })}
+                photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
+                onPress={() => 
+                  navigation.navigate('StallOwnerDish', { dishID: item.id })
+                }
                 content={dishContent(item)}
               />
             )}
@@ -167,7 +182,6 @@ const StallOwnerHome = ({ navigation }) => {
 
 // Content in each dish item
 const dishContent = (item) => {
-  const availability = item.availability;
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={cardStyles.textContainer}>
@@ -179,8 +193,12 @@ const dishContent = (item) => {
           <Text style={cardStyles.stallRating}>{item.rating}</Text>
         </View>
         <SwitchToggle
-          switchOn={availability}
-          onPress={() => {}}
+          switchOn={item.availability}
+          onPress={() => {
+            if (item) {
+              setDishAvailability(auth.currentUser.uid, item.id, !item.availability)
+            }
+          }}
           circleColorOff="#ffffff"
           circleColorOn="#ffffff"
           backgroundColorOn="green"
@@ -198,11 +216,6 @@ const dishContent = (item) => {
             borderRadius: 10,
           }}
         />
-        {/* {item.availability == true ? (
-          <FontAwesome name="check-circle" size={20} color="green" />
-        ) : (
-          <Entypo name="circle-with-cross" size={20} color="red" />
-        )} */}
       </View>
     </View>
   );

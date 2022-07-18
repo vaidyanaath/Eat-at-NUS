@@ -18,7 +18,8 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
 const Stall = ({ navigation, route }) => {
-  const stallID = route.params.stallID;
+  const stallID = route.params.stall.id;
+  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
 
   // Fetch stall data
   const [stallData, setStallData] = useState(null);
@@ -40,6 +41,7 @@ const Stall = ({ navigation, route }) => {
       var items = [];
       snapshot.forEach((child) => {
         items.push({
+          id: child.key,
           availability: child.val().availability,
           imageURL: child.val().imageURL,
           name: child.val().name,
@@ -76,8 +78,8 @@ const Stall = ({ navigation, route }) => {
             data={dishesMetadataArr}
             renderItem={({ item }) => (
               <ListContainer
-                photo={item.imageURL}
-                onPress={() => navigation.navigate('Dish', { dishID: item.name })}
+                photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
+                onPress={() => navigation.navigate('Dish', { dishID: item.id })}
                 content={dishContent(item)}
               />
             )}

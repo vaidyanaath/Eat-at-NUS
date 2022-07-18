@@ -18,9 +18,9 @@ import { colors } from '../../assets/colors';
 import { auth } from '../../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
-// import db
-import { db } from '../../firebase/config';
-import { ref, set } from 'firebase/database';
+// import db writing functions
+import addUser from '../../firebase/AddUser';
+import addStall from '../../firebase/AddNewStall';
 
 // show toast notifs
 import Toast from 'react-native-root-toast';
@@ -32,7 +32,7 @@ const FoodStallOwnerSignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const toastOptions = {
-    duration: Toast.durations.LONG,
+    duration: 5000,
     position: -120,
     shadow: true,
     shadowColor: colors.pale,
@@ -62,34 +62,45 @@ const FoodStallOwnerSignUp = () => {
         // Update profile
         updateProfile(user, {
           displayName: name,
-        }).catch((error) => {
-          console.log(error);
-        });
-        
+        })
+          .then(() => {
+            // Add user to db
+            addUser(user, 'foodStallOwner');
+            // Add stall to db
+            addStall(user.uid, 'New Stall', '', '', '', '');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
         // Add user to db
-        set(ref(db, 'users/' + user.uid), {
-          name: name,
-          email: email,
-          type: 'foodStallOwner',
-        });
+        addUser(user, 'foodStallOwner');
+
+        // set(ref(db, 'users/' + user.uid), {
+        //   name: name,
+        //   email: email,
+        //   type: 'foodStallOwner',
+        // });
 
         // Make a stall
-        set(ref(db, 'stalls/' + user.uid), {
-          address: '',
-          cuisine: '',
-          openingTime: '',
-          closingTime: '',
-          imageURL: '',
-          name: '',
-          rating: 0,
-        });
+        addStall(user.uid, '', '', '', '', '');
 
-        set(ref(db, 'stallsMetadata/' + user.uid), {
-          cuisine: '',
-          imageURL: '',
-          name: '',
-          rating: '',
-        });
+        // set(ref(db, 'stalls/' + user.uid), {
+        //   address: '',
+        //   cuisine: '',
+        //   openingTime: '',
+        //   closingTime: '',
+        //   imageURL: '',
+        //   name: '',
+        //   rating: 0,
+        // });
+
+        // set(ref(db, 'stallsMetadata/' + user.uid), {
+        //   cuisine: '',
+        //   imageURL: '',
+        //   name: '',
+        //   rating: '',
+        // });
       })
       .catch((error) => {
         let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
@@ -156,13 +167,11 @@ const styles = StyleSheet.create({
   topSection: {
     minHeight: '80%',
   },
-
   keyboardWrapper: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   input: {
     height: 45,
     width: 280,

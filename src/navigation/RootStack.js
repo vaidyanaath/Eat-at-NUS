@@ -24,6 +24,7 @@ import StallOwnerHome from '../screens/main/foodStallOwner/StallOwnerHome';
 import StallOwnerDish from '../screens/main/foodStallOwner/StallOwnerDish';
 import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDish';
 import StallOwnerEditStall from '../screens/main/foodStallOwner/StallOwnerEditStall';
+import StallOwnerAddDish from '../screens/main/foodStallOwner/StallOwnerAddDish';
 
 // import auth
 import { auth } from '../firebase/config';
@@ -42,22 +43,27 @@ const RootStack = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsSignedIn(true);
-        onValue(ref(db, 'users/' + user.uid), (snapshot) => {
-          const type = snapshot.val() && snapshot.val().type;
-          setUserType(type);
-        });
         console.log('Signed in');
         console.log(user.email);
-        console.log(userType);
       } else {
         setIsSignedIn(false);
-        setUserType('anonymous');
         console.log('Signed out');
       }
     });
-
     return unsubscribe;
   }, [db]);
+
+  // get user type of entered email
+  useEffect(() => {
+    if (isSignedIn) {
+      const email_key = auth.currentUser.email.replace('.', '%2E');
+      const userTypeReference = ref(db, 'userType/' + email_key);
+      onValue(userTypeReference, (snapshot) => {
+        setUserType(snapshot.val());
+        console.log('Fetching user type: ' + userType);
+      });
+    }
+  });
 
   return (
     <NavigationContainer>
@@ -87,7 +93,7 @@ const RootStack = () => {
               <Stack.Screen
                 name="Stall"
                 component={Stall}
-                options={({ route }) => ({ title: route.params.stallID })}
+                options={({ route }) => ({ title: route.params.stall.name })}
               />
               <Stack.Screen name="Dish" component={Dish} options={{ title: null }} />
             </>
@@ -106,6 +112,11 @@ const RootStack = () => {
               <Stack.Screen
                 name="StallOwnerEditDish"
                 component={StallOwnerEditDish}
+                options={{ title: null }}
+              />
+              <Stack.Screen
+                name="StallOwnerAddDish"
+                component={StallOwnerAddDish}
                 options={{ title: null }}
               />
               <Stack.Screen
