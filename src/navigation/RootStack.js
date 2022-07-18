@@ -23,6 +23,7 @@ import FoodStallOwnerSignUp from '../screens/auth/FoodStallOwnerSignUp';
 import StallOwnerHome from '../screens/main/foodStallOwner/StallOwnerHome';
 import StallOwnerDish from '../screens/main/foodStallOwner/StallOwnerDish';
 import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDish';
+import StallOwnerEditStall from '../screens/main/foodStallOwner/StallOwnerEditStall';
 import StallOwnerAddDish from '../screens/main/foodStallOwner/StallOwnerAddDish';
 
 // import auth
@@ -117,6 +118,11 @@ const RootStack = () => {
                 name="StallOwnerAddDish"
                 component={StallOwnerAddDish}
                 options={{ title: null }}
+              />
+              <Stack.Screen
+              name="StallOwnerEditStall"
+              component={StallOwnerEditStall}
+              options={{ title: null }}
               />
             </>
           )

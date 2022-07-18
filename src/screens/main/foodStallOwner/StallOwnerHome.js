@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
@@ -16,7 +16,7 @@ import SwitchToggle from 'react-native-switch-toggle';
 import { colors } from '../../../assets/colors';
 
 // import icon
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 
 // get current user
 import { auth } from '../../../firebase/config';
@@ -123,23 +123,35 @@ const StallOwnerHome = ({ navigation }) => {
         </InnerContainer>
 
         <InnerContainer style={styles.stallInfo}>
-          <View style={styles.nameSection}>
-            <RegularText style={styles.name}>{stallData.name}</RegularText>
+          <View style={styles.leftSection}>
+            <View style={styles.nameSection}>
+              <RegularText style={styles.name}>{stallData.name}</RegularText>
+            </View>
+
+            <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
+            <View style={styles.locationContainer}>
+              <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
+              <RegularText style={styles.infoText}> {stallData.address}</RegularText>
+            </View>
+            <RegularText style={styles.infoText}>
+              Hours: {stallData.openingTime} - {stallData.closingTime}
+            </RegularText>
+          </View>
+
+          <View style={styles.rightSection}>
+            <TouchableOpacity
+              style={styles.editIconButton}
+              onPress={() => navigation.navigate('StallOwnerEditStall')}
+            >
+              <Feather name="edit-2" size={20} color={colors.secondary} />
+            </TouchableOpacity>
+
             <View style={styles.ratingContainer}>
               <View style={styles.ratingBG}>
                 <Text style={styles.stallRating}>{stallData.rating}</Text>
               </View>
             </View>
           </View>
-
-          <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
-          <View style={styles.locationContainer}>
-            <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
-            <RegularText style={styles.infoText}> {stallData.address}</RegularText>
-          </View>
-          <RegularText style={styles.infoText}>
-            Hours: {stallData.openingTime} - {stallData.closingTime}
-          </RegularText>
         </InnerContainer>
 
         <InnerContainer style={styles.body}>
@@ -204,11 +216,6 @@ const dishContent = (item) => {
             borderRadius: 10,
           }}
         />
-        {/* {item.availability == true ? (
-          <FontAwesome name="check-circle" size={20} color="green" />
-        ) : (
-          <Entypo name="circle-with-cross" size={20} color="red" />
-        )} */}
       </View>
     </View>
   );
@@ -282,20 +289,28 @@ const styles = StyleSheet.create({
   },
   stallInfo: {
     flex: 1,
+    flexDirection: 'row',
     maxHeight: '20%',
     paddingHorizontal: 25,
     paddingVertical: 10,
     borderRadius: 25,
-    width: '95%',
+    maxWidth: '95%',
     marginBottom: 20,
-    alignItems: 'flex-start',
-    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: colors.bg, //"#fa2",
     shadowColor: '#000',
     shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
+  },
+  rightSection: {
+    height: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: "#f44",
+    paddingVertical: 10,
   },
   nameSection: {
     flex: 1,

@@ -106,7 +106,7 @@ const FoodStallOwnerSignIn = ({ navigation }) => {
     <StyledContainer style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
-        <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
+        <KeyboardAvoidingWrapper style={styles.keyboardWrapperz}>
           <RegularText>Food Stall Owner</RegularText>
           <TextInput
             style={styles.input}
@@ -146,6 +146,11 @@ const styles = StyleSheet.create({
   container: {
     // paddingTop: 0,
     // backgroundColor: '#f5cccc'
+  },
+  keyboardWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   topSection: {
     minHeight: '90%',

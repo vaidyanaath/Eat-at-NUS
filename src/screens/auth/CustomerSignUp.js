@@ -89,7 +89,7 @@ const CustomerSignUp = () => {
     <StyledContainer>
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
-        <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
+        <KeyboardAvoidingWrapper style={styles.keyboardWrapperz}>
           <TextInput
             style={styles.input}
             onChangeText={(name) => setName(name)}
