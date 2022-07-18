@@ -123,7 +123,7 @@ const FoodStallOwnerSignUp = () => {
     <StyledContainer>
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
-        <KeyboardAvoidingWrapper>
+        <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
           <TextInput
             style={styles.input}
             onChangeText={(name) => setName(name)}
@@ -167,7 +167,11 @@ const styles = StyleSheet.create({
   topSection: {
     minHeight: '80%',
   },
-
+  keyboardWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   input: {
     height: 45,
     width: 280,
