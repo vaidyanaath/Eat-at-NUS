@@ -5,8 +5,9 @@ import { ref, uploadBytes, uploadString } from "firebase/storage";
 const uploadDishImage = (stallID, dishID, dataURI) => {
     const dishImageReference = ref(storage, 'dishes/' + stallID + '/' + dishID + '.jpeg');
     // uploadString(dishImageReference, dataURI, 'data_url');
-    const bytes = dataURI.blob();
-    uploadBytes(dishImageReference, bytes);
+    const imgBlob = Blob([dataURI]);
+    uploadBytes(dishImageReference, imgBlob);
 }
 
 export default uploadDishImage;
+
