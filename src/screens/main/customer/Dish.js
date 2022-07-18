@@ -25,6 +25,7 @@ import { db } from '../../../firebase/config';
 
 const Dish = ({ route }) => {
   const dishID = route.params.dishID;
+  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
 
   // Fetch dish data
   const [dishData, setDishData] = useState(null);
@@ -35,6 +36,10 @@ const Dish = ({ route }) => {
       const data = snapshot.val();
       setDishData(data);
     });
+
+    return () => {
+      setDishData(null);
+    }
   }, [db]);
 
   return (
@@ -57,7 +62,7 @@ const Dish = ({ route }) => {
             </TouchableOpacity>
           </InnerContainer>
           <InnerContainer style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: dishData.imageURL }} />
+            <Image style={styles.image} source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }} />
           </InnerContainer>
           <ScrollView style={{ flex: 1 }}>
             <InnerContainer style={styles.section}>
@@ -93,7 +98,7 @@ const Dish = ({ route }) => {
             <InnerContainer style={{ marginBottom: 15 }}>
               <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
             </InnerContainer>
-            <RegularText style={{ marginVertical: 5 }}>Contains allergens: </RegularText>
+            <RegularText style={{ marginVertical: 5, fontSize: 20, paddingHorizontal: 10, }}>Contains allergens: </RegularText>
             <InnerContainer
               style={{
                 flex: 1,
@@ -206,6 +211,7 @@ const styles = StyleSheet.create({
   ratingBG: {
     maxWidth: 30,
     flex: 1,
+    alignItems: 'center',
     paddingHorizontal: 4,
     borderRadius: 3,
     backgroundColor: '#FFB81C',

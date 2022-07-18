@@ -1,8 +1,9 @@
 // Importing the required stuff
 import { push, ref, set } from "firebase/database";
 import { db } from "./config";
+import uploadDishImage from "./UploadDishImage";
 
-const addDish = (stallID, name, price, description, calories, allergenInfo) => {
+const addDish = (stallID, name, price, description, calories, allergenInfo, dishImageURL) => {
 
     // Adding the data to dishes
     const dishesReference = ref(db, 'dishes')
@@ -26,7 +27,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo) => {
         rating: 0,
         
         numberOfRatings: 0
-    })
+    });
 
     // Adding the data to dishesMetadata
     const dishMetadataReference = ref(db, 'dishesMetadata/' + stallID + '/' + newDishID);
@@ -35,8 +36,11 @@ const addDish = (stallID, name, price, description, calories, allergenInfo) => {
         name: name,
         price: price,
         rating: 0,
+        imageURL: '',
         availability: false
-    })
+    });
+
+    // uploadDishImage(stallID, newDishID, dishImageURL);
 }
 
 export default addDish;

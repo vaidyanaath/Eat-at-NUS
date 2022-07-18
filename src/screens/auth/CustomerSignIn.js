@@ -15,6 +15,10 @@ import { SmallText } from '../../components/texts/SmallText';
 // import colors
 import { colors } from '../../assets/colors';
 
+// Import Database
+import { ref, onValue } from 'firebase/database';
+import { db } from '../../firebase/config';
+
 // import auth
 import { auth } from '../../firebase/config';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
@@ -44,6 +48,21 @@ const CustomerSignIn = ({ navigation }) => {
       Toast.show('Please enter your email and password', toastOptions);
       return;
     }
+
+    // get user type of entered email
+    let userType = '';
+    const email_key = email.toLowerCase().replace('.', '%2E');
+    const userTypeReference = ref(db, 'userType/' + email_key);
+    onValue(userTypeReference, (snapshot) => {
+      userType = snapshot.val();
+      console.log(userType);
+    });
+
+    if (userType !== 'customer') {
+      Toast.show('Your email is not registered as a customer', toastOptions);
+      return;
+    }
+
     signInWithEmailAndPassword(auth, email, password).catch((error) => {
       let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
       if (error.code === 'auth/invalid-email') {
@@ -86,7 +105,8 @@ const CustomerSignIn = ({ navigation }) => {
     <StyledContainer style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
-        <KeyboardAvoidingWrapper>
+        <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
+          <RegularText>Customer</RegularText>
           <TextInput
             style={styles.input}
             onChangeText={(email) => setEmail(email)}
@@ -130,7 +150,11 @@ const styles = StyleSheet.create({
     minHeight: '90%',
     //   backgroundColor: "#2311ab"
   },
-
+  keyboardWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   input: {
     height: 45,
     width: 280,
