@@ -19,6 +19,7 @@ import { db } from '../../../firebase/config';
 
 const Stall = ({ navigation, route }) => {
   const stallID = route.params.stall.id;
+  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
 
   // Fetch stall data
   const [stallData, setStallData] = useState(null);
@@ -77,7 +78,7 @@ const Stall = ({ navigation, route }) => {
             data={dishesMetadataArr}
             renderItem={({ item }) => (
               <ListContainer
-                photo={item.imageURL}
+                photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
                 onPress={() => navigation.navigate('Dish', { dishID: item.id })}
                 content={dishContent(item)}
               />

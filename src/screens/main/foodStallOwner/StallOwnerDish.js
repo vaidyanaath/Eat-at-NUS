@@ -28,16 +28,25 @@ import retrieveDishImage from '../../../firebase/RetrieveDishImage';
 const StallOwnerDish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
   const user = auth.currentUser;
+  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
+
+  const [dishData, setDishData] = useState(null);
+  const [dishImage, setDishImage] = useState(null);
+
+  // Fetch dish image
+  // const image = retrieveDishImage(user.uid, dishID);
+  // setDishImage(image.url);
 
   // Fetch dish data
-  const [dishData, setDishData] = useState(null);
-
   useEffect(() => {
     const reference = ref(db, 'dishes/' + dishID);
     onValue(reference, (snapshot) => {
       const data = snapshot.val();
       setDishData(data);
     });
+    return () => {
+      setDishData(null);
+    }
   }, [db]);
 
   return (
@@ -60,7 +69,7 @@ const StallOwnerDish = ({ navigation, route }) => {
         </InnerContainer>
 
         <InnerContainer style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: retrieveDishImage(user.uid, dishID).url }} />
+          <Image style={styles.image} source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }} />
         </InnerContainer>
         <ScrollView style={{ flex: 1 }}>
           <InnerContainer style={styles.section}>

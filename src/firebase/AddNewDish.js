@@ -40,7 +40,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
         availability: false
     });
 
-    uploadDishImage(stallID, newDishID, dishImageURL);
+    // uploadDishImage(stallID, newDishID, dishImageURL);
 }
 
 export default addDish;

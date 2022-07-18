@@ -25,7 +25,7 @@ import { db } from '../../../firebase/config';
 
 const Dish = ({ route }) => {
   const dishID = route.params.dishID;
-  console.log(dishID);
+  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
 
   // Fetch dish data
   const [dishData, setDishData] = useState(null);
@@ -36,6 +36,10 @@ const Dish = ({ route }) => {
       const data = snapshot.val();
       setDishData(data);
     });
+
+    return () => {
+      setDishData(null);
+    }
   }, [db]);
 
   return (
@@ -58,7 +62,7 @@ const Dish = ({ route }) => {
             </TouchableOpacity>
           </InnerContainer>
           <InnerContainer style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: dishData.imageURL }} />
+            <Image style={styles.image} source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }} />
           </InnerContainer>
           <ScrollView style={{ flex: 1 }}>
             <InnerContainer style={styles.section}>

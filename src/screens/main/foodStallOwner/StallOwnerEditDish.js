@@ -55,6 +55,15 @@ const StallOwnerEditDish = ({ navigation, route }) => {
         console.log('No data found!');
       }
     });
+
+    return () => {
+      setDishName('');
+      setDishPrice('');
+      setDishImageURL(null);
+      setDishDescription('');
+      setDishCalories('');
+      setDishAllergens('');
+    };
   }, [db]);
 
   const pickImage = async () => {
@@ -87,11 +96,10 @@ const StallOwnerEditDish = ({ navigation, route }) => {
       dishAllergens,
       dishImageURL
     );
-    uploadDishImage(user.uid, dishID, dishImageURL);
+    // uploadDishImage(user.uid, dishID, dishImageURL);
     navigation.navigate('StallOwnerHome');
     //navigation.navigate('StallOwnerDish', { dishID: dishID });
-
-  }
+  };
 
   return (
     <StyledContainer style={styles.mainContainer}>
@@ -190,10 +198,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
       </InnerContainer>
 
       <InnerContainer style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleSave}
-        >
+        <TouchableOpacity style={styles.button} onPress={handleSave}>
           <RegularText style={styles.buttonText}>Save</RegularText>
         </TouchableOpacity>
       </InnerContainer>

@@ -35,9 +35,11 @@ const StallOwnerHome = ({ navigation }) => {
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
   const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
-  // Fetch stall data
   const [stallData, setStallData] = useState(null);
+  const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
+  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
 
+  // Fetch stall data
   useEffect(() => {
     const reference = ref(db, 'stalls/' + stallID);
     onValue(reference, (snapshot) => {
@@ -51,8 +53,6 @@ const StallOwnerHome = ({ navigation }) => {
   }, [db]);
 
   // Fetch dishes metadata
-  const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
-
   useEffect(() => {
     const reference = ref(db, 'dishesMetadata/' + stallID);
     onValue(reference, (snapshot) => {
@@ -150,7 +150,7 @@ const StallOwnerHome = ({ navigation }) => {
             data={dishesMetadataArr}
             renderItem={({ item }) => (
               <ListContainer
-                photo={item.imageURL}
+                photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
                 onPress={() => 
                   navigation.navigate('StallOwnerDish', { dishID: item.id })
                 }

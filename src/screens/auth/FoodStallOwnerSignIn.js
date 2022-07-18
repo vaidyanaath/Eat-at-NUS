@@ -51,11 +51,11 @@ const FoodStallOwnerSignIn = ({ navigation }) => {
 
     // get user type of entered email
     let userType = '';
-    const email_key = email.replace('.', '%2E');
+    const email_key = email.toLowerCase().replace('.', '%2E');
     const userTypeReference = ref(db, 'userType/' + email_key);
     onValue(userTypeReference, (snapshot) => {
       userType = snapshot.val();
-      console.log("Fetching user type: " + userType);
+      console.log('Fetching user type: ' + userType);
     });
 
     if (userType !== 'foodStallOwner') {

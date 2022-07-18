@@ -74,7 +74,7 @@ const FoodStallOwnerSignUp = () => {
           });
 
         // Add user to db
-        // addUser(user, 'foodStallOwner');
+        addUser(user, 'foodStallOwner');
 
         // set(ref(db, 'users/' + user.uid), {
         //   name: name,
@@ -83,7 +83,7 @@ const FoodStallOwnerSignUp = () => {
         // });
 
         // Make a stall
-        // addStall(user.uid, '', '', '', '', '');
+        addStall(user.uid, '', '', '', '', '');
 
         // set(ref(db, 'stalls/' + user.uid), {
         //   address: '',
