@@ -44,6 +44,10 @@ const StallOwnerHome = ({ navigation }) => {
       const data = snapshot.val();
       setStallData(data);
     });
+
+    return () => {
+      setStallData(null);
+    }
   }, [db]);
 
   // Fetch dishes metadata
@@ -65,6 +69,10 @@ const StallOwnerHome = ({ navigation }) => {
       });
       setDishesMetadataArr(items);
     });
+
+    return () => {
+      setDishesMetadataArr(null);
+    }
   }, [db]);
 
   // Add dish footer
@@ -174,7 +182,11 @@ const dishContent = (item) => {
         </View>
         <SwitchToggle
           switchOn={item.availability}
-          onPress={() => setDishAvailability(auth.currentUser.uid, item.id, !item.availability)}
+          onPress={() => {
+            if (item) {
+              setDishAvailability(auth.currentUser.uid, item.id, !item.availability)
+            }
+          }}
           circleColorOff="#ffffff"
           circleColorOn="#ffffff"
           backgroundColorOn="green"

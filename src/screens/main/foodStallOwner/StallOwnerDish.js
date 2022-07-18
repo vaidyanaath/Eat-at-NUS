@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   stallRating: {
+    alignSelf: 'center',
     fontSize: 15,
   },
   ratingBG: {
