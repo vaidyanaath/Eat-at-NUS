@@ -6,7 +6,7 @@ const LoadingScreen = () => {
   return (
     <View style={styles.container}>
       <LottieView
-        source={require('../../assets/animations/loader.json')}
+        source={require('../../assets/animations/fork_spoon_loader.json')}
         style={styles.lottie}
         autoPlay
       />
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   lottie: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
     alignSelf: 'center',
   },
 });
