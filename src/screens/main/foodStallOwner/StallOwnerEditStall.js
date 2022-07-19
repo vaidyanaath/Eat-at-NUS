@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View,
-  Text,
+  ScrollView,
+  Dimensions,
   StyleSheet,
   TextInput,
   Image,
   ImageBackground,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 import { StyledContainer } from '../../../components/containers/StyledContainer';
@@ -17,24 +18,30 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import { colors } from '../../../assets/colors';
 
-import { db, storage } from '../../../firebase/config';
-import { ref } from 'firebase/storage';
+import { auth, db, storage } from '../../../firebase/config';
+// Import Database
+import { ref, onValue } from 'firebase/database';
+import { ref as storageRef } from 'firebase/storage';
 
 import SelectDropdown from 'react-native-select-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { RegularButton } from '../../../components/buttons/RegularButton';
 import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWrapper';
 
-const StallOwnerEditStall = ({ navigation, route }) => {
-  const stallID = 'Bhaiya khaana dedo';
+import editStallInfo from '../../../firebase/EditStallInfo';
+import LoadingScreen from '../../../components/screens/LoadingScreen';
+
+const StallOwnerEditStall = ({ navigation }) => {
+  const stallID = auth.currentUser.uid;
 
   // Fetch stall data
+  const [loaded, setLoaded] = useState(false);
   const [stallName, setStallName] = useState('');
   const [stallAddress, setStallAddress] = useState('');
   const [stallCuisine, setStallCuisine] = useState('');
   const [stallOpeningTime, setStallOpeningTime] = useState('');
   const [stallClosingTime, setStallClosingTime] = useState('');
-  const cuisines = [
+  const CUISINES = [
     'Chinese',
     'Indian',
     'Japanese',
@@ -44,6 +51,31 @@ const StallOwnerEditStall = ({ navigation, route }) => {
     'Thai',
     'Western',
   ];
+
+  useEffect(() => {
+    const reference = ref(db, 'stalls/' + stallID);
+    onValue(reference, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setLoaded(true);
+        setStallName(data.name);
+        setStallAddress(data.address);
+        setStallCuisine(data.cuisine);
+        setStallOpeningTime(data.openingTime);
+        setStallClosingTime(data.closingTime);
+      }
+    });
+
+    return () => {
+      setStallName('');
+      setStallAddress('');
+      setStallCuisine('');
+      setStallOpeningTime('');
+      setStallClosingTime('');
+      setLoaded(false);
+    };
+  }, [db]);
+
   const [isOpeningClockVisible, setOpeningClockVisibility] = useState(false);
   const [isClosingClockVisible, setClosingClockVisibility] = useState(false);
 
@@ -53,7 +85,7 @@ const StallOwnerEditStall = ({ navigation, route }) => {
 
   const showClosingClock = () => {
     setClosingClockVisibility(true);
-  }
+  };
 
   const hideOpeningClock = () => {
     setOpeningClockVisibility(false);
@@ -61,120 +93,130 @@ const StallOwnerEditStall = ({ navigation, route }) => {
 
   const hideClosingClock = () => {
     setClosingClockVisibility(false);
-  }
+  };
 
   const handleOpeningConfirm = (time) => {
-    const convertedTime = time.getHours() + ':' + time.getMinutes();
+    const convertedTime = time.getHours() + ':' + String(time.getMinutes()).padStart(2, '0');
     setStallOpeningTime(convertedTime);
+    hideOpeningClock();
     hideDatePicker();
   };
 
   const handleClosingConfirm = (time) => {
-    const convertedTime = time.getHours() + ':' + time.getMinutes();
+    const convertedTime = time.getHours() + ':' + String(time.getMinutes()).padStart(2, '0');
     setStallClosingTime(convertedTime);
+    hideClosingClock();
     hideDatePicker();
   };
 
-  //   useEffect(() => {
-  //     const reference = ref(db, 'stalls/' + stallID);
-  //     onValue(reference, (snapshot) => {
-  //       const data = snapshot.val();
-  //       setStallName(data.stallName);
-  //       setStallAddress(data.stallAddress);
-  //       setStallCuisine(data.stallCuisine);
-  //       setStallOpeningTime(data.stallOpeningTime);
-  //       setStallClosingTime(data.stallClosingTime);
-  //     });
-  //   }, [db]);
+  const handleSave = () => {
+    editStallInfo(
+      stallID,
+      stallName,
+      stallAddress,
+      stallOpeningTime,
+      stallClosingTime,
+      stallCuisine
+    );
+    navigation.navigate('StallOwnerHome');
+  };
 
-  const handleSave = () => {};
+  if (!loaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <StyledContainer style={styles.mainContainer}>
-      <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
-      <InnerContainer style={styles.fieldContainer}>
-        <RegularText style={styles.headingText}>Stall Name:</RegularText>
-        <TextInput
-          style={styles.input}
-          onChangeText={(stallName) => setStallName(stallName)}
-          value={stallName}
-          placeholder="Stall Name"
-          autoCorrect={false}
-        />
-      </InnerContainer>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
+          <InnerContainer style={[styles.descriptionContainer, { maxHeight: '15%' }]}>
+            <RegularText style={styles.headingText}>Stall Name:</RegularText>
+            <TextInput
+              style={[styles.descriptionInput, { maxHeight: '50%' }]}
+              onChangeText={(stallName) => setStallName(stallName)}
+              value={stallName}
+              placeholder="Stall Name"
+              autoCorrect={false}
+            />
+          </InnerContainer>
 
-      <InnerContainer style={styles.descriptionContainer}>
-        <RegularText style={styles.headingText}>Address:</RegularText>
-        <TextInput
-          style={styles.descriptionInput}
-          onChangeText={(stallAddress) => setStallAddress(stallAddress)}
-          value={stallAddress}
-          placeholder="Stall Address"
-          autoCorrect={false}
-          multiline={true}
-        />
-      </InnerContainer>
+          <InnerContainer style={styles.descriptionContainer}>
+            <RegularText style={styles.headingText}>Address:</RegularText>
+            <TextInput
+              style={styles.descriptionInput}
+              onChangeText={(stallAddress) => setStallAddress(stallAddress)}
+              value={stallAddress}
+              placeholder="Stall Address"
+              autoCorrect={false}
+              multiline={true}
+            />
+          </InnerContainer>
 
-      <InnerContainer style={styles.fieldContainer}>
-        <RegularText style={styles.headingText}>Cuisine Type:</RegularText>
-        <SelectDropdown
-          data={cuisines}
-          defaultValue={stallCuisine}
-          defaultButtonText={'Click to select'}
-          onSelect={(selectedItem) => {
-            setStallCuisine(selectedItem);
-          }}
-          buttonTextAfterSelection={(selectedItem) => {
-            // text represented after item is selected
-            return selectedItem;
-          }}
-          rowTextForSelection={(item) => {
-            // text represented for each item in dropdown
-            return item;
-          }}
-          buttonStyle={styles.input}
-          buttonTextStyle={{ fontSize: 17, color: colors.secondary, fontFamily: 'SourceSansPro-Regular' }}
-          dropdownOverlayColor="rgba(255, 255, 255, 0)"
-          dropdownStyle={{ backgroundColor: colors.gray }}
-        />
-      </InnerContainer>
+          <InnerContainer style={styles.fieldContainer}>
+            <RegularText style={styles.headingText}>Cuisine Type:</RegularText>
+            <SelectDropdown
+              data={CUISINES}
+              defaultValue={stallCuisine}
+              defaultButtonText={'Click to select'}
+              onSelect={(selectedItem) => {
+                setStallCuisine(selectedItem);
+              }}
+              buttonTextAfterSelection={(selectedItem) => {
+                // text represented after item is selected
+                return selectedItem;
+              }}
+              rowTextForSelection={(item) => {
+                // text represented for each item in dropdown
+                return item;
+              }}
+              buttonStyle={styles.input}
+              buttonTextStyle={{
+                fontSize: 17,
+                color: colors.secondary,
+                fontFamily: 'SourceSansPro-Regular',
+              }}
+              dropdownOverlayColor="rgba(255, 255, 255, 0)"
+              dropdownStyle={{ backgroundColor: colors.gray }}
+            />
+          </InnerContainer>
 
-      <InnerContainer style={styles.fieldContainer}>
-        <RegularText style={styles.headingText}>Opening Time:</RegularText>
-        <RegularButton onPress={showOpeningClock} style={styles.clockButton}>
-          <RegularText style={{fontSize: 17}}>
-            {stallOpeningTime ? stallOpeningTime : 'Open clock'}
-          </RegularText>
-        </RegularButton>
-        <DateTimePickerModal
-          isVisible={isOpeningClockVisible}
-          mode="time"
-          onConfirm={handleOpeningConfirm}
-          onCancel={hideOpeningClock}
-        />
-      </InnerContainer>
+          <InnerContainer style={styles.fieldContainer}>
+            <RegularText style={styles.headingText}>Opening Time:</RegularText>
+            <RegularButton onPress={showOpeningClock} style={styles.clockButton}>
+              <RegularText style={{ fontSize: 17 }}>
+                {stallOpeningTime ? stallOpeningTime : 'Open clock'}
+              </RegularText>
+            </RegularButton>
+            <DateTimePickerModal
+              isVisible={isOpeningClockVisible}
+              mode="time"
+              onConfirm={handleOpeningConfirm}
+              onCancel={hideOpeningClock}
+            />
+          </InnerContainer>
 
-      <InnerContainer style={styles.fieldContainer}>
-        <RegularText style={styles.headingText}>Closing Time:</RegularText>
-        <RegularButton onPress={showClosingClock} style={styles.clockButton}>
-          <RegularText style={{fontSize: 17}}>
-            {stallClosingTime ? stallClosingTime : 'Open clock'}
-          </RegularText>
-        </RegularButton>
-        <DateTimePickerModal
-          isVisible={isClosingClockVisible}
-          mode="time"
-          onConfirm={handleClosingConfirm}
-          onCancel={hideClosingClock}
-        />
-      </InnerContainer>
+          <InnerContainer style={styles.fieldContainer}>
+            <RegularText style={styles.headingText}>Closing Time:</RegularText>
+            <RegularButton onPress={showClosingClock} style={styles.clockButton}>
+              <RegularText style={{ fontSize: 17 }}>
+                {stallClosingTime ? stallClosingTime : 'Open clock'}
+              </RegularText>
+            </RegularButton>
+            <DateTimePickerModal
+              isVisible={isClosingClockVisible}
+              mode="time"
+              onConfirm={handleClosingConfirm}
+              onCancel={hideClosingClock}
+            />
+          </InnerContainer>
 
-      <InnerContainer style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSave}>
-          <RegularText style={styles.buttonText}>Save</RegularText>
-        </TouchableOpacity>
-      </InnerContainer>
-      </KeyboardAvoidingWrapper>
+          <InnerContainer style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={handleSave}>
+              <RegularText style={styles.buttonText}>Save</RegularText>
+            </TouchableOpacity>
+          </InnerContainer>
+        </KeyboardAvoidingWrapper>
+      </ScrollView>
     </StyledContainer>
   );
 };
@@ -190,7 +232,7 @@ const styles = StyleSheet.create({
   },
   keyboardWrapper: {
     flex: 1,
-    alignItems: 'center',
+    minHeight: Dimensions.get('window').height - 80,
   },
   fieldContainer: {
     flex: 1,
@@ -243,7 +285,7 @@ const styles = StyleSheet.create({
   descriptionInput: {
     flex: 1,
     paddingVertical: 3,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     borderWidth: 1,
     borderRadius: 5,
     minWidth: '100%',
@@ -282,7 +324,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     maxHeight: '25%',
     marginVertical: 5,
-    // backgroundColor: "#ff9",
+    // backgroundColor: '#ff9',
   },
   buttonContainer: {
     flex: 1,
