@@ -26,6 +26,7 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
 import setDishAvailability from '../../../firebase/SetDishAvailability';
+import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 const StallOwnerHome = ({ navigation }) => {
   const user = auth.currentUser;
@@ -37,7 +38,7 @@ const StallOwnerHome = ({ navigation }) => {
 
   const [stallData, setStallData] = useState(null);
   const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
-  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
+  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   // Fetch stall data
   useEffect(() => {
@@ -49,7 +50,7 @@ const StallOwnerHome = ({ navigation }) => {
 
     return () => {
       setStallData(null);
-    }
+    };
   }, [db]);
 
   // Fetch dishes metadata
@@ -72,7 +73,7 @@ const StallOwnerHome = ({ navigation }) => {
 
     return () => {
       setDishesMetadataArr(null);
-    }
+    };
   }, [db]);
 
   // Add dish footer
@@ -110,73 +111,71 @@ const StallOwnerHome = ({ navigation }) => {
     );
   };
 
+  if (!(user && stallData && dishesMetadataArr)) {
+    return <LoadingScreen />;
+  }
+
   return (
-    user &&
-    stallData &&
-    dishesMetadataArr && ( // Load data before rendering
-      <StyledContainer style={styles.mainContainer}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
+    <StyledContainer style={styles.mainContainer}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
-        <InnerContainer style={styles.header}>
-          <RegularText style={styles.greeting}>My Stall:</RegularText>
-          <ProfileButton source={{ uri: avatar }} />
-        </InnerContainer>
+      <InnerContainer style={styles.header}>
+        <RegularText style={styles.greeting}>My Stall:</RegularText>
+        <ProfileButton source={{ uri: avatar }} />
+      </InnerContainer>
 
-        <InnerContainer style={styles.stallInfo}>
-          <View style={styles.leftSection}>
-            <View style={styles.nameSection}>
-              <RegularText style={styles.name}>{stallData.name}</RegularText>
-            </View>
-
-            <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
-            <View style={styles.locationContainer}>
-              <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
-              <RegularText style={styles.infoText}> {stallData.address}</RegularText>
-            </View>
-            <RegularText style={styles.infoText}>
-              Hours: {stallData.openingTime} - {stallData.closingTime}
-            </RegularText>
+      <InnerContainer style={styles.stallInfo}>
+        <View style={styles.leftSection}>
+          <View style={styles.nameSection}>
+            <RegularText style={styles.name}>{stallData.name}</RegularText>
           </View>
 
-          <View style={styles.rightSection}>
-            <TouchableOpacity
-              style={styles.editIconButton}
-              onPress={() => navigation.navigate('StallOwnerEditStall')}
-            >
-              <Feather name="edit-2" size={20} color={colors.secondary} />
-            </TouchableOpacity>
-
-            <View style={styles.ratingContainer}>
-              <View style={styles.ratingBG}>
-                <Text style={styles.stallRating}>{stallData.rating}</Text>
-              </View>
-            </View>
+          <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
+          <View style={styles.locationContainer}>
+            <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
+            <RegularText style={styles.infoText}> {stallData.address}</RegularText>
           </View>
-        </InnerContainer>
-
-        <InnerContainer style={styles.body}>
-          <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
-            Dishes
+          <RegularText style={styles.infoText}>
+            Hours: {stallData.openingTime} - {stallData.closingTime}
           </RegularText>
-          <FlatList
-            data={dishesMetadataArr}
-            renderItem={({ item }) => (
-              <ListContainer
-                photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
-                onPress={() => 
-                  navigation.navigate('StallOwnerDish', { dishID: item.id })
-                }
-                content={dishContent(item)}
-              />
-            )}
-            style={styles.discoverList}
-            ListFooterComponent={addDishFooter}
-            showsVerticalScrollIndicator={false}
-            vertical={true}
-          />
-        </InnerContainer>
-      </StyledContainer>
-    )
+        </View>
+
+        <View style={styles.rightSection}>
+          <TouchableOpacity
+            style={styles.editIconButton}
+            onPress={() => navigation.navigate('StallOwnerEditStall')}
+          >
+            <Feather name="edit-2" size={20} color={colors.secondary} />
+          </TouchableOpacity>
+
+          <View style={styles.ratingContainer}>
+            <View style={styles.ratingBG}>
+              <Text style={styles.stallRating}>{stallData.rating}</Text>
+            </View>
+          </View>
+        </View>
+      </InnerContainer>
+
+      <InnerContainer style={styles.body}>
+        <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
+          Dishes
+        </RegularText>
+        <FlatList
+          data={dishesMetadataArr}
+          renderItem={({ item }) => (
+            <ListContainer
+              photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
+              onPress={() => navigation.navigate('StallOwnerDish', { dishID: item.id })}
+              content={dishContent(item)}
+            />
+          )}
+          style={styles.discoverList}
+          ListFooterComponent={addDishFooter}
+          showsVerticalScrollIndicator={false}
+          vertical={true}
+        />
+      </InnerContainer>
+    </StyledContainer>
   );
 };
 
@@ -195,9 +194,7 @@ const dishContent = (item) => {
         <SwitchToggle
           switchOn={item.availability}
           onPress={() => {
-            if (item) {
-              setDishAvailability(auth.currentUser.uid, item.id, !item.availability)
-            }
+            setDishAvailability(auth.currentUser.uid, item.id, !item.availability);
           }}
           circleColorOff="#ffffff"
           circleColorOn="#ffffff"

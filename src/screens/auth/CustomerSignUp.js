@@ -89,7 +89,8 @@ const CustomerSignUp = () => {
     <StyledContainer>
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
-        <KeyboardAvoidingWrapper style={styles.keyboardWrapperz}>
+        <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
+          <RegularText style={styles.title}>Customer</RegularText>
           <TextInput
             style={styles.input}
             onChangeText={(name) => setName(name)}
@@ -132,11 +133,16 @@ const CustomerSignUp = () => {
 const styles = StyleSheet.create({
   topSection: {
     minHeight: '80%',
+    // backgroundColor: colors.primary,
+  },
+  title: {
+    marginVertical: 10,
   },
   keyboardWrapper: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor: colors.tertiary,
   },
   input: {
     height: 45,

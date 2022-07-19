@@ -11,6 +11,8 @@ import { ProfileButton } from '../components/buttons/ProfileButton';
 import { colors } from '../assets/colors';
 
 // import screens
+import LoadingScreen from '../components/screens/LoadingScreen';
+
 import Landing from '../screens/auth/Landing';
 import CustomerSignIn from '../screens/auth/CustomerSignIn';
 import CustomerSignUp from '../screens/auth/CustomerSignUp';
@@ -38,6 +40,7 @@ const RootStack = () => {
   const Stack = createNativeStackNavigator();
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userType, setUserType] = useState('anonymous');
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -47,6 +50,7 @@ const RootStack = () => {
         console.log(user.email);
       } else {
         setIsSignedIn(false);
+        setLoaded(true);
         console.log('Signed out');
       }
     });
@@ -61,9 +65,16 @@ const RootStack = () => {
       onValue(userTypeReference, (snapshot) => {
         setUserType(snapshot.val());
         console.log('Fetching user type: ' + userType);
+        setLoaded(true);
       });
     }
-  });
+    console.log("loaded ? " + loaded);
+    
+  }, [isSignedIn, db]);
+
+  if (!loaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <NavigationContainer>
@@ -120,9 +131,9 @@ const RootStack = () => {
                 options={{ title: null }}
               />
               <Stack.Screen
-              name="StallOwnerEditStall"
-              component={StallOwnerEditStall}
-              options={{ title: null }}
+                name="StallOwnerEditStall"
+                component={StallOwnerEditStall}
+                options={{ title: null }}
               />
             </>
           )
@@ -131,7 +142,7 @@ const RootStack = () => {
             <Stack.Screen
               name="Landing"
               component={Landing}
-              options={{ headerShown: false, animationTypeForReplace: isSignedIn ? 'push' : 'pop' }}
+              options={{ headerShown: false }} // animationTypeForReplace: isSignedIn ? 'push' : 'pop'
             />
             <Stack.Screen
               name="CustomerSignIn"
