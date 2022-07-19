@@ -16,7 +16,7 @@ import { SmallText } from '../../components/texts/SmallText';
 import { colors } from '../../assets/colors';
 
 // Import Database
-import { ref, onValue } from 'firebase/database';
+import { ref, get } from 'firebase/database';
 import { db } from '../../firebase/config';
 
 // import auth
@@ -50,29 +50,34 @@ const CustomerSignIn = ({ navigation }) => {
     }
 
     // get user type of entered email
-    let userType = '';
+    // let userType = '';
     const email_key = email.toLowerCase().replace('.', '%2E');
     const userTypeReference = ref(db, 'userType/' + email_key);
-    onValue(userTypeReference, (snapshot) => {
-      userType = snapshot.val();
-      console.log(userType);
-    });
 
-    if (userType !== 'customer') {
-      Toast.show('Your email is not registered as a customer', toastOptions);
-      return;
-    }
+    get(userTypeReference)
+      .then((snapshot) => {
+        const userType = snapshot.val();
+        console.log(userType);
 
-    signInWithEmailAndPassword(auth, email, password).catch((error) => {
-      let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
-      if (error.code === 'auth/invalid-email') {
-        errorMessage = 'Invalid email address';
-      }
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        errorMessage = 'Your email or password is incorrect';
-      }
-      Toast.show(errorMessage, toastOptions);
-    });
+        if (userType !== 'customer') {
+          Toast.show('Your email is not registered as a customer', toastOptions);
+          return;
+        }
+
+        signInWithEmailAndPassword(auth, email, password).catch((error) => {
+          let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
+          if (error.code === 'auth/invalid-email') {
+            errorMessage = 'Invalid email address';
+          }
+          if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+            errorMessage = 'Your email or password is incorrect';
+          }
+          Toast.show(errorMessage, toastOptions);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleForgotPassword = () => {
