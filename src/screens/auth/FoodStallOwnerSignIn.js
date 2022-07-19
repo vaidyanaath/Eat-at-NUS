@@ -106,8 +106,8 @@ const FoodStallOwnerSignIn = ({ navigation }) => {
     <StyledContainer style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
-        <KeyboardAvoidingWrapper style={styles.keyboardWrapperz}>
-          <RegularText>Food Stall Owner</RegularText>
+        <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
+          <RegularText style={styles.title}>Food Stall Owner</RegularText>
           <TextInput
             style={styles.input}
             onChangeText={(email) => setEmail(email)}
@@ -146,6 +146,9 @@ const styles = StyleSheet.create({
   container: {
     // paddingTop: 0,
     // backgroundColor: '#f5cccc'
+  },
+  title: {
+    marginVertical: 10,
   },
   keyboardWrapper: {
     flex: 1,

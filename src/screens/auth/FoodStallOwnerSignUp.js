@@ -124,6 +124,7 @@ const FoodStallOwnerSignUp = () => {
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
         <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
+          <RegularText style={styles.title}>Food Stall Owner</RegularText>
           <TextInput
             style={styles.input}
             onChangeText={(name) => setName(name)}
@@ -165,12 +166,15 @@ const FoodStallOwnerSignUp = () => {
 
 const styles = StyleSheet.create({
   topSection: {
-    minHeight: '80%',
+    // backgroundColor: colors.primary,
   },
   keyboardWrapper: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    marginVertical: 10,
   },
   input: {
     height: 45,

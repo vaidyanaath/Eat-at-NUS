@@ -106,7 +106,7 @@ const CustomerSignIn = ({ navigation }) => {
       <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <InnerContainer style={styles.topSection}>
         <KeyboardAvoidingWrapper style={styles.keyboardWrapper}>
-          <RegularText>Customer</RegularText>
+          <RegularText style={styles.title}>Customer</RegularText>
           <TextInput
             style={styles.input}
             onChangeText={(email) => setEmail(email)}
@@ -149,6 +149,9 @@ const styles = StyleSheet.create({
   topSection: {
     minHeight: '90%',
     //   backgroundColor: "#2311ab"
+  },
+  title: {
+    marginVertical: 10,
   },
   keyboardWrapper: {
     flex: 1,
