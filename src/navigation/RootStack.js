@@ -22,6 +22,7 @@ import Dish from '../screens/main/customer/Dish';
 
 import FoodStallOwnerSignIn from '../screens/auth/FoodStallOwnerSignIn';
 import FoodStallOwnerSignUp from '../screens/auth/FoodStallOwnerSignUp';
+import FoodStallOwnerRegisterStall from '../screens/auth/FoodStallOwnerRegisterStall';
 import StallOwnerHome from '../screens/main/foodStallOwner/StallOwnerHome';
 import StallOwnerDish from '../screens/main/foodStallOwner/StallOwnerDish';
 import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDish';
@@ -68,8 +69,7 @@ const RootStack = () => {
         setLoaded(true);
       });
     }
-    console.log("loaded ? " + loaded);
-    
+    console.log('loaded ? ' + loaded);
   }, [isSignedIn, db]);
 
   if (!loaded) {
@@ -162,6 +162,11 @@ const RootStack = () => {
             <Stack.Screen
               name="FoodStallOwnerSignUp"
               component={FoodStallOwnerSignUp}
+              options={{ title: null }}
+            />
+            <Stack.Screen
+              name="FoodStallOwnerRegisterStall"
+              component={FoodStallOwnerRegisterStall}
               options={{ title: null }}
             />
           </>

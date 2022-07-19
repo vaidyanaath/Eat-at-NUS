@@ -1,40 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import {
-  ScrollView,
-  Dimensions,
-  StyleSheet,
-  TextInput,
-  Image,
-  ImageBackground,
-  TouchableOpacity,
-} from 'react-native';
-import { InnerContainer } from '../../../components/containers/InnerContainer';
-import { StyledContainer } from '../../../components/containers/StyledContainer';
-import { SmallText } from '../../../components/texts/SmallText';
-import { RegularText } from '../../../components/texts/RegularText';
+import React, { useState } from 'react';
+import { ScrollView, Dimensions, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { InnerContainer } from '../../components/containers/InnerContainer';
+import { StyledContainer } from '../../components/containers/StyledContainer';
+import { SmallText } from '../../components/texts/SmallText';
+import { RegularText } from '../../components/texts/RegularText';
 
-import { MaterialIcons } from '@expo/vector-icons';
+import { colors } from '../../assets/colors';
 
-import { colors } from '../../../assets/colors';
-
-import { auth, db, storage } from '../../../firebase/config';
-// Import Database
-import { ref, onValue } from 'firebase/database';
-import { ref as storageRef } from 'firebase/storage';
+// import auth
+import { auth } from '../../firebase/config';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import SelectDropdown from 'react-native-select-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { RegularButton } from '../../../components/buttons/RegularButton';
-import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWrapper';
+import { RegularButton } from '../../components/buttons/RegularButton';
+import { KeyboardAvoidingWrapper } from '../../components/KeyboardAvoidingWrapper';
 
-import editStallInfo from '../../../firebase/EditStallInfo';
-import LoadingScreen from '../../../components/screens/LoadingScreen';
+import addUser from '../../firebase/AddUser';
+import addStall from '../../firebase/AddNewStall';
 
-const StallOwnerEditStall = ({ navigation }) => {
-  const stallID = auth.currentUser.uid;
+// show toast notifs
+import Toast from 'react-native-root-toast';
+
+const FoodStallOwnerRegisterStall = ({ route }) => {
+  const name = route.params.name;
+  const email = route.params.email;
+  const password = route.params.password;
 
   // Fetch stall data
-  const [loaded, setLoaded] = useState(false);
   const [stallName, setStallName] = useState('');
   const [stallAddress, setStallAddress] = useState('');
   const [stallCuisine, setStallCuisine] = useState('');
@@ -50,30 +43,6 @@ const StallOwnerEditStall = ({ navigation }) => {
     'Thai',
     'Western',
   ];
-
-  useEffect(() => {
-    const reference = ref(db, 'stalls/' + stallID);
-    onValue(reference, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setLoaded(true);
-        setStallName(data.name);
-        setStallAddress(data.address);
-        setStallCuisine(data.cuisine);
-        setStallOpeningTime(data.openingTime);
-        setStallClosingTime(data.closingTime);
-      }
-    });
-
-    return () => {
-      setStallName('');
-      setStallAddress('');
-      setStallCuisine('');
-      setStallOpeningTime('');
-      setStallClosingTime('');
-      setLoaded(false);
-    };
-  }, [db]);
 
   const [isOpeningClockVisible, setOpeningClockVisibility] = useState(false);
   const [isClosingClockVisible, setClosingClockVisibility] = useState(false);
@@ -108,21 +77,73 @@ const StallOwnerEditStall = ({ navigation }) => {
     hideDatePicker();
   };
 
-  const handleSave = () => {
-    editStallInfo(
-      stallID,
-      stallName,
-      stallAddress,
-      stallOpeningTime,
-      stallClosingTime,
-      stallCuisine
-    );
-    navigation.navigate('StallOwnerHome');
+  const toastOptions = {
+    duration: 5000,
+    position: -120,
+    shadow: true,
+    shadowColor: colors.pale,
+    animation: true,
+    hideOnPress: true,
+    delay: 0,
+    opacity: 1,
+    backgroundColor: colors.primary, //'#FFDC7C', // FFDC7C // FFF7D6
+    textColor: colors.white, //'red',
   };
 
-  if (!loaded) {
-    return <LoadingScreen />;
-  }
+  const handleSave = () => {
+    if (
+      !stallName.replace(/\s/g, '').length ||
+      stallAddress == '' ||
+      stallCuisine == '' ||
+      stallOpeningTime == '' ||
+      stallClosingTime == ''
+    ) {
+      Toast.show('Please fill in all the fields', toastOptions);
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+
+        // Update profile
+        updateProfile(user, {
+          displayName: name,
+        })
+          .then(() => {
+            // Add user to db
+            addUser(user, 'foodStallOwner');
+            // Add stall to db
+            addStall(
+              user.uid,
+              stallName,
+              stallAddress,
+              stallOpeningTime,
+              stallClosingTime,
+              stallCuisine
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
+
+        if (error.code === 'auth/invalid-email') {
+          errorMessage = 'Invalid email address';
+        }
+        if (error.code === 'auth/email-already-in-use') {
+          errorMessage = 'Email already in use';
+        }
+        if (error.code === 'auth/weak-password') {
+          errorMessage = 'Password should be at least 6 characters';
+        }
+
+        Toast.show(errorMessage, toastOptions);
+      });
+  };
 
   return (
     <StyledContainer style={styles.mainContainer}>
@@ -343,4 +364,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StallOwnerEditStall;
+export default FoodStallOwnerRegisterStall;

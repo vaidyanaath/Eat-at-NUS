@@ -25,14 +25,14 @@ import addStall from '../../firebase/AddNewStall';
 // show toast notifs
 import Toast from 'react-native-root-toast';
 
-const FoodStallOwnerSignUp = () => {
+const FoodStallOwnerSignUp = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const toastOptions = {
-    duration: 5000,
+    duration: 3000,
     position: -120,
     shadow: true,
     shadowColor: colors.pale,
@@ -54,69 +54,11 @@ const FoodStallOwnerSignUp = () => {
       Toast.show("Passwords don't match", toastOptions);
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-
-        // Update profile
-        updateProfile(user, {
-          displayName: name,
-        })
-          .then(() => {
-            // Add user to db
-            addUser(user, 'foodStallOwner');
-            // Add stall to db
-            addStall(user.uid, 'New Stall', '', '', '', '');
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        // Add user to db
-        addUser(user, 'foodStallOwner');
-
-        // set(ref(db, 'users/' + user.uid), {
-        //   name: name,
-        //   email: email,
-        //   type: 'foodStallOwner',
-        // });
-
-        // Make a stall
-        addStall(user.uid, '', '', '', '', '');
-
-        // set(ref(db, 'stalls/' + user.uid), {
-        //   address: '',
-        //   cuisine: '',
-        //   openingTime: '',
-        //   closingTime: '',
-        //   imageURL: '',
-        //   name: '',
-        //   rating: 0,
-        // });
-
-        // set(ref(db, 'stallsMetadata/' + user.uid), {
-        //   cuisine: '',
-        //   imageURL: '',
-        //   name: '',
-        //   rating: '',
-        // });
-      })
-      .catch((error) => {
-        let errorMessage = error.message.replace('Firebase: ', '').replace('.', '');
-
-        if (error.code === 'auth/invalid-email') {
-          errorMessage = 'Invalid email address';
-        }
-        if (error.code === 'auth/email-already-in-use') {
-          errorMessage = 'Email already in use';
-        }
-        if (error.code === 'auth/weak-password') {
-          errorMessage = 'Password should be at least 6 characters';
-        }
-
-        Toast.show(errorMessage, toastOptions);
-      });
+    navigation.navigate('FoodStallOwnerRegisterStall', {
+      name: name,
+      email: email,
+      password: password,
+    });
   };
 
   return (
