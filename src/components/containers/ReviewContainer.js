@@ -7,29 +7,26 @@ import { SmallText } from '../texts/SmallText';
 
 import { AirbnbRating } from 'react-native-ratings';
 
-/*
+import { getTimeDifference } from '../../utils/getTimeDifference';
 
-reviewerName={item.reviewerName}
-              review={item.review}
-              rating={item.rating}
-              timeStamp={item.timeStamp}
-*/
-
-export const ReviewContainer = ({ reviewerName, review, rating, timeStamp }) => {
+export const ReviewContainer = ({ author, review, rating, timeStamp }) => {
   return (
     <View style={cardStyles.container}>
       <View style={cardStyles.topSection}>
-        <SmallText style={cardStyles.reviewerName}>{reviewerName}</SmallText>
-        <SmallText style={cardStyles.timeStamp}>{timeStamp}</SmallText>
-        <AirbnbRating 
-        isDisabled={true}
-        showRating={false}
-        size={20}
-        defaultRating={rating}
+        <SmallText style={cardStyles.author}>{author}</SmallText>
+        <AirbnbRating
+          isDisabled={true}
+          showRating={false}
+          size={20}
+          selectedColor={colors.primary}
+          defaultRating={rating}
         />
       </View>
-      <View style={cardStyles.bottomSection}>
+      <View style={cardStyles.reviewSection}>
         <SmallText style={cardStyles.review}>{review}</SmallText>
+      </View>
+      <View style={cardStyles.bottomSection}>
+        <SmallText style={cardStyles.timeStamp}>{getTimeDifference(timeStamp, Date.now())}</SmallText>
       </View>
     </View>
   );
@@ -38,13 +35,13 @@ export const ReviewContainer = ({ reviewerName, review, rating, timeStamp }) => 
 const cardStyles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 100,
-    width: '98%',
+    alignSelf: 'center',
+    width: '99%',
+    minHeight: 125,
+    paddingHorizontal: 25,
+    paddingVertical: 15,
     marginVertical: 5,
-    activeOpacity: 0.8,
     borderRadius: 20,
-    borderColor: colors.gray,
-    borderWidth: 0,
     backgroundColor: colors.white,
     shadowColor: '#000',
     shadowOffset: { width: 5, height: 5 },
@@ -55,44 +52,21 @@ const cardStyles = StyleSheet.create({
   topSection: {
     flex: 1,
     flexDirection: 'row',
-  },
-  imageContainer: {
-    flex: 1,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    // backgroundColor: "#fef342",
-    maxWidth: 140,
-    // width: 150,
-  },
-  image: {
-    flex: 1,
-    borderRadius: 20,
-    resizeMode: 'cover',
-    width: 125,
-  },
-  textContainer: {
-    flex: 1,
-    borderBottomRightRadius: 20,
-    borderTopRightRadius: 20,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    flexDirection: 'column',
-    paddingVertical: 10,
-    //backgroundColor: "#abcdef",
+    marginBottom: 10,
+    // backgroundColor: '#cefe',
   },
-  stallName: {
-    fontSize: 20,
+  author: {
+    fontWeight: 'bold',
   },
-  stallDistance: {
-    flex: 2,
-    fontSize: 15,
+  reviewSection: {
   },
-  stallRating: {
-    fontSize: 15,
+  bottomSection: {
+    marginVertical: 5,
+    alignSelf: 'flex-end',
   },
-  ratingBG: {
-    paddingHorizontal: 4,
-    borderRadius: 3,
-    backgroundColor: '#FFB81C',
-  },
+  timeStamp: {
+    color: colors.darkGray,
+  }
 });

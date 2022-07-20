@@ -19,7 +19,7 @@ import { db } from '../../../firebase/config';
 
 const Stall = ({ navigation, route }) => {
   const stallID = route.params.stall.id;
-  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
+  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   // Fetch stall data
   const [stallData, setStallData] = useState(null);
@@ -30,6 +30,10 @@ const Stall = ({ navigation, route }) => {
       const data = snapshot.val();
       setStallData(data);
     });
+
+    return () => {
+      setStallData(null);
+    };
   }, [db]);
 
   // Fetch dishes metadata
@@ -51,6 +55,10 @@ const Stall = ({ navigation, route }) => {
       });
       setDishesMetadataArr(items);
     });
+
+    return () => {
+      setDishesMetadataArr(null);
+    };
   }, [db]);
 
   return (

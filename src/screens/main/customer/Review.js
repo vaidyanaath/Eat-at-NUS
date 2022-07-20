@@ -14,6 +14,7 @@ import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 import LoadingScreen from '../../../components/screens/LoadingScreen';
 import { ReviewContainer } from '../../../components/containers/ReviewContainer';
+import { colors } from '../../../assets/colors';
 
 const Review = ({ navigation, route }) => {
   const dishID = route.params.dishID;
@@ -30,7 +31,7 @@ const Review = ({ navigation, route }) => {
       var items = [];
       snapshot.forEach((child) => {
         items.push({
-          reviewerName: child.val().reviewerName,
+          author: child.val().author,
           review: child.val().review,
           rating: child.val().rating,
           timeStamp: child.val().timeStamp,
@@ -51,9 +52,16 @@ const Review = ({ navigation, route }) => {
   return (
     <StyledContainer style={styles.mainContainer}>
       <InnerContainer style={styles.infoContainer}>
-        <RegularText style={styles.heading}>REVIEWS</RegularText>
+        {/* <RegularText style={styles.heading}>REVIEWS</RegularText> */}
         <BigText style={styles.rating}>{dishRating}</BigText>
-        <Rating readonly={true} fractions={1} imageSize={30} startingValue={dishRating} />
+        <Rating
+          type="custom"
+          readonly={true}
+          fractions={1}
+          imageSize={30}
+          startingValue={dishRating}
+          ratingColor={colors.secondary}
+        />
       </InnerContainer>
 
       <InnerContainer style={styles.reviewsContainer}>
@@ -61,7 +69,7 @@ const Review = ({ navigation, route }) => {
           data={reviewData}
           renderItem={({ item }) => (
             <ReviewContainer
-              reviewerName={item.reviewerName}
+              author={item.author}
               review={item.review}
               rating={item.rating}
               timeStamp={item.timeStamp}
@@ -70,6 +78,7 @@ const Review = ({ navigation, route }) => {
           ListFooterComponent={<View marginBottom={15} />}
           showsVerticalScrollIndicator={false}
           vertical={true}
+          style={styles.reviewsList}
         />
       </InnerContainer>
 
@@ -85,49 +94,48 @@ const Review = ({ navigation, route }) => {
   );
 };
 
-const reviewContent = (review) => {
-  return (
-    <InnerContainer style={styles.reviewItemContainer}>
-      <SmallText>{review.reviewerName}</SmallText>
-      <SmallText>{review.review}</SmallText>
-    </InnerContainer>
-  );
-};
-
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: '#E389B9',
+    // backgroundColor: '#E389B9',
     paddingTop: 0,
+    paddingBottom: 5,
   },
   infoContainer: {
     flex: 1,
-    paddingTop: 10,
     alignItems: 'center',
-    maxHeight: '30%',
-    backgroundColor: '#288BA8',
+    maxHeight: '20%',
+    marginBottom: 10,
+    // backgroundColor: '#288BA8',
   },
   heading: {
     fontWeight: 'bold',
-    backgroundColor: '#FFCE30',
+    // backgroundColor: '#FFCE30',
   },
   rating: {
-    marginVertical: 10,
+    marginVertical: 5,
     fontSize: 50,
   },
-  reviewsContainer: {
-    maxHeight: '60%',
+  reviewsContainer: {},
+  reviewsList: {
+    maxWidth: '98%',
+    // backgroundColor: '#E389B9',
   },
-  reviewItemContainer: {},
   buttonContainer: {
-    width: '100%',
-    marginTop: '10%',
+    alignSelf: 'center',
+    width: '95%',
+    marginTop: 5,
     maxHeight: '10%',
-    backgroundColor: '#288BA8',
+    // backgroundColor: '#288BA8',
   },
-  button: { width: '100%', backgroundColor: '#FFCE30' },
-  buttonText: {},
+  button: {
+    width: '100%',
+    backgroundColor: colors.secondary,
+  },
+  buttonText: {
+    color: colors.bg,
+  },
 });
 
 export default Review;
