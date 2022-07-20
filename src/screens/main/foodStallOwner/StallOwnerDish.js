@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  ImageBackground,
+  Alert,
 } from 'react-native';
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 import { StyledContainer } from '../../../components/containers/StyledContainer';
@@ -24,11 +24,12 @@ import { ref, onValue } from 'firebase/database';
 import { db, auth } from '../../../firebase/config';
 
 import retrieveDishImage from '../../../firebase/RetrieveDishImage';
+import deleteDish from '../../../firebase/DeleteDish';
 
 const StallOwnerDish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
   const user = auth.currentUser;
-  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
+  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   const [dishData, setDishData] = useState(null);
   const [dishImage, setDishImage] = useState(null);
@@ -46,8 +47,28 @@ const StallOwnerDish = ({ navigation, route }) => {
     });
     return () => {
       setDishData(null);
-    }
+    };
   }, [db]);
+
+  const handleEditDish = () => {
+    navigation.navigate('StallOwnerEditDish', { dishID: dishID });
+  };
+
+  const handleDeleteDish = () => {
+    Alert.alert('Delete Dish', 'Are you sure you want to delete ' + dishData.name + '?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          deleteDish(user.uid, dishID);
+          navigation.navigate('StallOwnerHome');
+        },
+      },
+    ]);
+  };
 
   return (
     dishData && (
@@ -60,16 +81,21 @@ const StallOwnerDish = ({ navigation, route }) => {
             <BigText style={styles.price}>$ {dishData.price}</BigText>
           </InnerContainer>
 
-          <TouchableOpacity
-            style={styles.editIconButton}
-            onPress={() => navigation.navigate('StallOwnerEditDish', { dishID: dishID })}
-          >
-            <Feather name="edit-2" size={20} color={colors.secondary}/>
-          </TouchableOpacity>
+          <InnerContainer style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.iconButton} onPress={handleEditDish}>
+              <Feather name="edit-2" size={20} color={colors.secondary} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.iconButton} onPress={handleDeleteDish}>
+              <Feather name="trash-2" size={20} color={colors.secondary} />
+            </TouchableOpacity>
+          </InnerContainer>
         </InnerContainer>
 
         <InnerContainer style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }} />
+          <Image
+            style={styles.image}
+            source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }}
+          />
         </InnerContainer>
         <ScrollView style={{ flex: 1 }}>
           <InnerContainer style={styles.section}>
@@ -105,7 +131,9 @@ const StallOwnerDish = ({ navigation, route }) => {
           <InnerContainer style={{ marginBottom: 15 }}>
             <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
           </InnerContainer>
-          <RegularText style={{ marginTop: 5, marginBottom: 10, fontSize: 20, }}>Contains allergens: </RegularText>
+          <RegularText style={{ marginTop: 5, marginBottom: 10, fontSize: 20 }}>
+            Contains allergens:{' '}
+          </RegularText>
           <InnerContainer
             style={{
               flex: 1,
@@ -153,7 +181,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     maxHeight: 95,
     // backgroundColor: "#34adaa",
     marginBottom: 10,
@@ -162,6 +190,17 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'flex-start',
+    height: '100%',
+    // backgroundColor: '#8c84c1',
+  },
+  buttonsContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    maxWidth: 30,
+    height: '80%',
+    // backgroundColor: "#99636a"
   },
   name: {
     fontSize: 30,
@@ -170,7 +209,7 @@ const styles = StyleSheet.create({
   price: {
     color: colors.primary,
   },
-  editIconButton: {
+  iconButton: {
     minWidth: 30,
     minHeight: 30,
     alignItems: 'center',
@@ -178,8 +217,7 @@ const styles = StyleSheet.create({
     // borderRadius: 30,
     // borderColor: colors.primary,
     // borderWidth: 2,
-    // backgroundColor: colors.secondary,
-    marginTop: 7,
+    // backgroundColor: '#42faac',
   },
   section: {
     flex: 1,

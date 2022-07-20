@@ -52,6 +52,10 @@ const Home = ({ navigation }) => {
       });
       setStallsMetadataArr(items);
     });
+
+    return () => {
+      setStallsMetadataArr(null);
+    }
   }, [db]);
 
   const [showFilter, setShowFilter] = useState(false);
