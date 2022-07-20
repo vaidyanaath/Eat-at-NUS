@@ -16,16 +16,16 @@ import { colors } from '../../../assets/colors';
 import { BigText } from '../../../components/texts/BigText';
 import { RegularText } from '../../../components/texts/RegularText';
 
-import { FontAwesome, FontAwesome5, Entypo } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { SmallText } from '../../../components/texts/SmallText';
 
 // Import Database
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
-const Dish = ({ route }) => {
+const Dish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
-  const DISH_PLACEHOLDER = "https://cdn-icons-png.flaticon.com/512/857/857681.png";
+  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   // Fetch dish data
   const [dishData, setDishData] = useState(null);
@@ -39,7 +39,7 @@ const Dish = ({ route }) => {
 
     return () => {
       setDishData(null);
-    }
+    };
   }, [db]);
 
   return (
@@ -47,70 +47,81 @@ const Dish = ({ route }) => {
       <StyledContainer style={styles.mainContainer}>
         <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
-        <InnerContainer style={styles.infoContainer}>
-          <InnerContainer style={styles.topContainer}>
-            <InnerContainer style={styles.namePriceContainer}>
-              <RegularText style={styles.name}>{dishData.name}</RegularText>
-              <BigText style={styles.price}>$ {dishData.price}</BigText>
-            </InnerContainer>
-
-            <TouchableOpacity style={styles.heartIconButton}>
-              <Image
-                source={require('../../../assets/images/heart.png')}
-                style={styles.heartIcon}
-              />
-            </TouchableOpacity>
+        <InnerContainer style={styles.topContainer}>
+          <InnerContainer style={styles.namePriceContainer}>
+            <RegularText style={styles.name}>{dishData.name}</RegularText>
+            <BigText style={styles.price}>$ {dishData.price}</BigText>
           </InnerContainer>
-          <InnerContainer style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }} />
-          </InnerContainer>
-          <ScrollView style={{ flex: 1 }}>
-            <InnerContainer style={styles.section}>
-              <View flex={1} flexDirection="row" paddingHorizontal={10} alignItems="center">
-                {dishData.availability == true ? (
-                  <FontAwesome name="check-circle" size={22} color="green" />
-                ) : (
-                  <Entypo name="circle-with-cross" size={22} color="red" />
-                )}
-                {dishData.availability == true ? (
-                  <RegularText style={styles.sectionText}>Available</RegularText>
-                ) : (
-                  <RegularText style={styles.sectionText}>Not Available</RegularText>
-                )}
-              </View>
 
-              <View
-                flex={1}
-                flexDirection="row"
-                paddingHorizontal={10}
-                marginHorizontal={10}
-                alignItems="center"
-              >
-                <FontAwesome5 name="fire-alt" size={20} color={colors.primary} />
-                <RegularText style={styles.sectionText}>{dishData.calories} kcal</RegularText>
-              </View>
-
-              <View style={styles.ratingBG}>
-                <Text style={styles.stallRating}>{dishData.rating}</Text>
-              </View>
-            </InnerContainer>
-
-            <InnerContainer style={{ marginBottom: 15 }}>
-              <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
-            </InnerContainer>
-            <RegularText style={{ marginVertical: 5, fontSize: 20, paddingHorizontal: 10, }}>Contains allergens: </RegularText>
-            <InnerContainer
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-evenly',
-              }}
-            >
-              <SmallText>{dishData.allergenInfo}</SmallText>
-            </InnerContainer>
-          </ScrollView>
+          <TouchableOpacity
+            style={styles.reviewIconButton}
+            onPress={() =>
+              navigation.navigate('Review', {
+                dishID: dishID,
+                dishName: dishData.name,
+                dishRating: dishData.rating,
+              })
+            }
+          >
+            <MaterialCommunityIcons name="comment-text-outline" size={24} color="black" />
+          </TouchableOpacity>
         </InnerContainer>
+
+        <InnerContainer style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }}
+          />
+        </InnerContainer>
+
+        <ScrollView style={{ flex: 1 }}>
+          <InnerContainer style={styles.section}>
+            <View flex={1} flexDirection="row" paddingHorizontal={10} alignItems="center">
+              {dishData.availability == true ? (
+                <FontAwesome name="check-circle" size={22} color="green" />
+              ) : (
+                <Entypo name="circle-with-cross" size={22} color="red" />
+              )}
+              {dishData.availability == true ? (
+                <RegularText style={styles.sectionText}>Available</RegularText>
+              ) : (
+                <RegularText style={styles.sectionText}>Not Available</RegularText>
+              )}
+            </View>
+
+            <View
+              flex={1}
+              flexDirection="row"
+              paddingHorizontal={10}
+              marginHorizontal={10}
+              alignItems="center"
+            >
+              <FontAwesome5 name="fire-alt" size={20} color={colors.primary} />
+              <RegularText style={styles.sectionText}>{dishData.calories} kcal</RegularText>
+            </View>
+
+            <View style={styles.ratingBG}>
+              <Text style={styles.stallRating}>{dishData.rating}</Text>
+            </View>
+          </InnerContainer>
+
+          <InnerContainer style={{ marginBottom: 15 }}>
+            <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
+          </InnerContainer>
+          <RegularText style={{ marginVertical: 5, fontSize: 20, paddingHorizontal: 10 }}>
+            Contains allergens:{' '}
+          </RegularText>
+          <InnerContainer
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-evenly',
+            }}
+          >
+            <SmallText>{dishData.allergenInfo}</SmallText>
+          </InnerContainer>
+        </ScrollView>
       </StyledContainer>
     )
   );
@@ -119,10 +130,12 @@ const Dish = ({ route }) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     // backgroundColor: colors.primary,
     paddingTop: 0,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
     paddingBottom: 0,
     marginTop: 0,
   },
@@ -141,24 +154,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 25,
-  },
-  infoContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    marginTop: 2,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    padding: 35,
-    paddingTop: 20,
-    backgroundColor: colors.bg,
-    shadowColor: '#000',
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   topContainer: {
     flex: 1,
@@ -181,17 +176,13 @@ const styles = StyleSheet.create({
   price: {
     color: colors.primary,
   },
-  heartIconButton: {
+  reviewIconButton: {
     maxWidth: 40,
     maxHeight: 40,
     tintColor: colors.secondary,
+    marginTop: 10,
+    // backgroundColor: "#810cc2",
   },
-  heartIcon: {
-    width: 40,
-    height: 40,
-    tintColor: colors.secondary,
-  },
-
   section: {
     flex: 1,
     width: 260,

@@ -117,7 +117,7 @@ const Home = ({ navigation }) => {
             )}
             ListHeaderComponent={discover}
             style={styles.discoverList}
-            ListFooterComponent={<View marginBottom={15}></View>}
+            ListFooterComponent={<View marginBottom={15}/>}
             showsVerticalScrollIndicator={false}
             vertical={true}
           />

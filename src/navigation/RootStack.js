@@ -19,6 +19,8 @@ import CustomerSignUp from '../screens/auth/CustomerSignUp';
 import Home from '../screens/main/customer/Home';
 import Stall from '../screens/main/customer/Stall';
 import Dish from '../screens/main/customer/Dish';
+import Review from '../screens/main/customer/Review';
+import WriteReview from '../screens/main/customer/WriteReview';
 
 import FoodStallOwnerSignIn from '../screens/auth/FoodStallOwnerSignIn';
 import FoodStallOwnerSignUp from '../screens/auth/FoodStallOwnerSignUp';
@@ -107,6 +109,16 @@ const RootStack = () => {
                 options={({ route }) => ({ title: route.params.stall.name })}
               />
               <Stack.Screen name="Dish" component={Dish} options={{ title: null }} />
+              <Stack.Screen
+                name="Review"
+                component={Review}
+                options={({ route }) => ({ title: route.params.dishName })}
+              />
+              <Stack.Screen
+                name="WriteReview"
+                component={WriteReview}
+                options={{ title: 'Write a Review' }}
+              />
             </>
           ) : (
             <>
