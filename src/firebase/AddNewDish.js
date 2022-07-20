@@ -25,8 +25,9 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
 
         // Average Rating = 0 => No Ratings Yet
         rating: 0,
-        
-        numberOfRatings: 0
+
+        numRatings: 0,
+        totalRating: 0,
     });
 
     // Adding the data to dishesMetadata

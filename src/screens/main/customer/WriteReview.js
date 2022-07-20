@@ -12,7 +12,7 @@ import {
 
 // Import Database
 import { ref, onValue } from 'firebase/database';
-import { db } from '../../../firebase/config';
+import { auth, db } from '../../../firebase/config';
 import { StyledContainer } from '../../../components/containers/StyledContainer';
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 import LoadingScreen from '../../../components/screens/LoadingScreen';
@@ -23,9 +23,12 @@ import { AirbnbRating } from 'react-native-ratings';
 import { RegularButton } from '../../../components/buttons/RegularButton';
 import { colors } from '../../../assets/colors';
 import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWrapper';
+import addReview from '../../../firebase/AddReview';
 
 const WriteReview = ({ navigation, route }) => {
   const dishID = route.params.dishID;
+  const stallID = route.params.stallID;
+  const user = auth.currentUser;
   const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   const [rating, setRating] = useState(3);
@@ -43,6 +46,12 @@ const WriteReview = ({ navigation, route }) => {
       setDishData(null);
     };
   }, [db]);
+
+  const handleSubmitReview = () => {
+    addReview(dishID, stallID, rating, review, user.displayName);
+    console.log("Review Submitted!");
+    navigation.goBack;
+  }
 
   if (!dishData) {
     return <LoadingScreen />;
@@ -70,6 +79,7 @@ const WriteReview = ({ navigation, route }) => {
               size={30}
               selectedColor={colors.primary}
               defaultRating={rating}
+              onFinishRating={rating => setRating(rating)}
             />
           </InnerContainer>
 
@@ -85,7 +95,7 @@ const WriteReview = ({ navigation, route }) => {
           </InnerContainer>
 
           <InnerContainer style={styles.buttonSection}>
-            <RegularButton style={styles.button}>
+            <RegularButton style={styles.button} onPress={handleSubmitReview}>
               <RegularText style={styles.buttonText}>Submit</RegularText>
             </RegularButton>
           </InnerContainer>

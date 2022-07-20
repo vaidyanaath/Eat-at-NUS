@@ -17,6 +17,7 @@ import { ReviewContainer } from '../../../components/containers/ReviewContainer'
 
 const Review = ({ navigation, route }) => {
   const dishID = route.params.dishID;
+  const stallID = route.params.stallID;
   const dishRating = route.params.dishRating;
 
   const [reviewData, setReviewData] = React.useState(null);
@@ -73,7 +74,10 @@ const Review = ({ navigation, route }) => {
       </InnerContainer>
 
       <InnerContainer style={styles.buttonContainer}>
-        <RegularButton style={styles.button} onPress={() => navigation.navigate('WriteReview', {dishID: dishID})}>
+        <RegularButton
+          style={styles.button}
+          onPress={() => navigation.navigate('WriteReview', { dishID: dishID, stallID: stallID })}
+        >
           <RegularText style={styles.buttonText}>Write a Review</RegularText>
         </RegularButton>
       </InnerContainer>
