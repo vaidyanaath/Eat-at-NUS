@@ -16,7 +16,8 @@ export const HorizontalListContainer = ({ item, onPress }) => (
     <View style={cardStyles.container}>
       <View style={cardStyles.topContainer}>
         <ImageBackground
-          style={cardStyles.image}
+          style={cardStyles.imageContainer}
+          imageStyle={cardStyles.image}
           resizeMode="cover"
           source={require('../../assets/images/food2.jpg')} // replace with imageURL
         >
@@ -77,6 +78,9 @@ const cardStyles = StyleSheet.create({
     borderTopRightRadius: 20,
     minHeight: 50,
   },
+  imageContainer: {
+    flex: 1,
+  },
   image: {
     height: '100%',
     width: '100%',
@@ -99,6 +103,7 @@ const cardStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'center',
+    paddingTop: 3,
     // justifyContent: 'flex-start',
     flexDirection: 'column',
     maxWidth: '60%',
@@ -128,5 +133,7 @@ const cardStyles = StyleSheet.create({
     paddingHorizontal: 4,
     borderRadius: 3,
     backgroundColor: '#FFB81C',
+    marginTop: 8,
+    marginRight: 8,
   },
 });

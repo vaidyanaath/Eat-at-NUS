@@ -24,10 +24,6 @@ import { auth } from '../../../firebase/config';
 import { ref, onValue, query, orderByChild } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
-const Discover = () => (
-  <RegularText style={{ fontSize: 25, marginVertical: 10, alignSelf: 'flex-start' }}>Discover</RegularText>
-);
-
 const Home = ({ navigation }) => {
   const user = auth.currentUser;
   const placeholderAvatar =
@@ -114,7 +110,7 @@ const Home = ({ navigation }) => {
             <FilterSection />
           </Overlay>
 
-          <RegularText style={{ fontSize: 25, alignSelf: 'flex-start', marginVertical: 10 }}>
+          <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 5 }}>
             Popular Near You
           </RegularText>
           <FlatList
@@ -131,7 +127,9 @@ const Home = ({ navigation }) => {
             minHeight={145}
             backgroundColor={colors.bg} //'#ff75'
           />
-          <Discover />
+          <RegularText style={{ fontSize: 22, marginVertical: 5, alignSelf: 'flex-start' }}>
+            Discover
+          </RegularText>
           <FlatList
             data={stallsMetadataArr}
             renderItem={({ item }) => (
@@ -158,8 +156,7 @@ const stallContent = (stallMetadata) => {
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={cardStyles.textContainer}>
         <RegularText style={cardStyles.stallName}>{stallMetadata.name}</RegularText>
-        <RegularText style={cardStyles.stallDistance}>{/* 5 Km away */}</RegularText>
-        <RegularText style={cardStyles.stallDistance}>{stallMetadata.cuisine}</RegularText>
+        <RegularText style={cardStyles.stallCuisine}>{stallMetadata.cuisine}</RegularText>
       </View>
       <View style={cardStyles.ratingContainer}>
         <View style={cardStyles.ratingBG}>
@@ -182,10 +179,10 @@ const cardStyles = StyleSheet.create({
     //backgroundColor: "#abcdef",
   },
   stallName: {
-    fontSize: 19,
+    fontSize: 18,
   },
-  stallDistance: {
-    flex: 2,
+  stallCuisine: {
+    color: colors.primary,
     fontSize: 15,
   },
   ratingContainer: {
