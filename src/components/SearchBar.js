@@ -50,12 +50,12 @@ const searchBarStyle = StyleSheet.create({
     // backgroundColor: 'purple',
   },
   filterIcon: {
-    width: 18,
-    height: 18,
-    tintColor: colors.gray,
+    width: 20,
+    height: 20,
+    tintColor: colors.secondary,
   },
   filterButton: {
-    backgroundColor: colors.primary,
+    // backgroundColor: colors.primary,
     padding: 10,
     borderRadius: 10,
   },

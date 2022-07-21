@@ -21,11 +21,11 @@ import { HorizontalListContainer } from '../../../components/containers/Horizont
 import { auth } from '../../../firebase/config';
 
 // Import Database
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, query, orderByChild } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
-const discover = () => (
-  <RegularText style={{ fontSize: 25, marginVertical: 10 }}>Discover</RegularText>
+const Discover = () => (
+  <RegularText style={{ fontSize: 25, marginVertical: 10, alignSelf: 'flex-start' }}>Discover</RegularText>
 );
 
 const Home = ({ navigation }) => {
@@ -33,6 +33,31 @@ const Home = ({ navigation }) => {
   const placeholderAvatar =
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
   const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
+
+  // Fetch popular dishes
+  const [popularDishes, setPopularDishes] = useState([]);
+  useEffect(() => {
+    const reference = ref(db, 'dishes/');
+    const topDishesRef = query(reference, orderByChild('rating'));
+    onValue(topDishesRef, (snapshot) => {
+      var dishes = [];
+      snapshot.forEach((child) => {
+        dishes.push({
+          id: child.key,
+          availability: child.val().availability,
+          name: child.val().name,
+          rating: child.val().rating,
+          imageURL: child.val().imageURL,
+          price: child.val().price,
+        });
+      });
+      setPopularDishes(dishes);
+    });
+
+    return () => {
+      setPopularDishes([]);
+    };
+  }, [db]);
 
   // Fetch stalls Metadata
   const [stallsMetadataArr, setStallsMetadataArr] = useState(null);
@@ -55,7 +80,7 @@ const Home = ({ navigation }) => {
 
     return () => {
       setStallsMetadataArr(null);
-    }
+    };
   }, [db]);
 
   const [showFilter, setShowFilter] = useState(false);
@@ -93,19 +118,20 @@ const Home = ({ navigation }) => {
             Popular Near You
           </RegularText>
           <FlatList
-            data={DUMMY_DATA.sort((a, b) => b.rating.localeCompare(a.rating))}
+            data={popularDishes}
             renderItem={({ item }) => (
               <HorizontalListContainer
                 item={item}
-                onPress={() => navigation.navigate('Dish', { name: item.name })}
+                onPress={() => navigation.navigate('Dish', { dishID: item.id })}
               />
             )}
             keyExtractor={(item) => item.id}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            minHeight={165}
+            minHeight={145}
             backgroundColor={colors.bg} //'#ff75'
           />
+          <Discover />
           <FlatList
             data={stallsMetadataArr}
             renderItem={({ item }) => (
@@ -115,9 +141,9 @@ const Home = ({ navigation }) => {
                 content={stallContent(item)}
               />
             )}
-            ListHeaderComponent={discover}
+            // ListHeaderComponent={discover}
             style={styles.discoverList}
-            ListFooterComponent={<View marginBottom={15}/>}
+            ListFooterComponent={<View marginBottom={15} />}
             showsVerticalScrollIndicator={false}
             vertical={true}
           />

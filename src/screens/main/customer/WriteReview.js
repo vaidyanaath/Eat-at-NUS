@@ -27,7 +27,6 @@ import addReview from '../../../firebase/AddReview';
 
 const WriteReview = ({ navigation, route }) => {
   const dishID = route.params.dishID;
-  const stallID = route.params.stallID;
   const user = auth.currentUser;
   const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
@@ -48,9 +47,11 @@ const WriteReview = ({ navigation, route }) => {
   }, [db]);
 
   const handleSubmitReview = () => {
-    addReview(dishID, stallID, rating, review, user.displayName);
+    addReview(dishID, dishData.stall, rating, review, user.displayName);
     console.log("Review Submitted!");
-    navigation.goBack;
+    // cleanup
+    // navigation.goBack();
+    navigation.navigate('Dish', { dishID: dishID });
   }
 
   if (!dishData) {

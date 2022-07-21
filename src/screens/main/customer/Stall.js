@@ -87,7 +87,7 @@ const Stall = ({ navigation, route }) => {
             renderItem={({ item }) => (
               <ListContainer
                 photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
-                onPress={() => navigation.navigate('Dish', { dishID: item.id, stallID: stallID })}
+                onPress={() => navigation.navigate('Dish', { dishID: item.id })}
                 content={dishContent(item)}
               />
             )}

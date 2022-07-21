@@ -25,7 +25,6 @@ import { db } from '../../../firebase/config';
 
 const Dish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
-  const stallID = route.params.stallID;
   const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   // Fetch dish data
@@ -61,7 +60,6 @@ const Dish = ({ navigation, route }) => {
                 dishID: dishID,
                 dishName: dishData.name,
                 dishRating: dishData.rating,
-                stallID: stallID,
               })
             }
           >
