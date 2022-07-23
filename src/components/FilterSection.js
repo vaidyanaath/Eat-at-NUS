@@ -16,8 +16,8 @@ export const FilterSection = () => {
   const [distance, setDistance] = React.useState(0);
 
   const handleApplyFilter = () => {
-    console.log("Apply filter button pressed!");
-  }
+    console.log('Apply filter button pressed!');
+  };
 
   return (
     <StyledContainer style={styles.mainContainer}>
@@ -62,7 +62,9 @@ export const FilterSection = () => {
       <InnerContainer style={styles.sliderContainer}>
         <InnerContainer style={styles.sliderHeader}>
           <RegularText style={styles.subHeadingRow}>Distance</RegularText>
-          <RegularText>&lt; {distance >= 1000 ? distance / 1000  + " km": distance + " m"} </RegularText>
+          <RegularText>
+            &lt; {distance >= 1000 ? distance / 1000 + ' km' : distance + ' m'}{' '}
+          </RegularText>
         </InnerContainer>
         <Slider
           onValueChange={(value) => setDistance(value)}
@@ -71,11 +73,10 @@ export const FilterSection = () => {
           step={100}
           style={styles.slider}
         />
-        
       </InnerContainer>
       <RegularButton style={styles.applyButton} onPress={handleApplyFilter}>
-          <RegularText style={styles.applyButtonText}>Apply</RegularText>
-        </RegularButton>
+        <RegularText style={styles.applyButtonText}>Apply</RegularText>
+      </RegularButton>
     </StyledContainer>
   );
 };
@@ -101,8 +102,8 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     maxHeight: 50,
     // backgroundColor: "#ffcdcc",
   },
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
   },
   slider: {
     flex: 1,
-    width: "100%",
+    width: '100%',
     // width: 200,
     // backgroundColor: "#23ada4",
   },
@@ -159,5 +160,4 @@ const styles = StyleSheet.create({
     color: colors.bg,
     fontSize: 19,
   },
-
 });

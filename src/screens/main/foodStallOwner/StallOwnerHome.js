@@ -182,39 +182,41 @@ const StallOwnerHome = ({ navigation }) => {
 // Content in each dish item
 const dishContent = (item) => {
   return (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
-      <View style={cardStyles.textContainer}>
-        <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
-        <RegularText style={cardStyles.stallDistance}>$ {item.price}</RegularText>
-      </View>
-      <View style={cardStyles.ratingContainer}>
-        <View style={cardStyles.ratingBG}>
-          <Text style={cardStyles.stallRating}>{item.rating}</Text>
+    item && (
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={cardStyles.textContainer}>
+          <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
+          <RegularText style={cardStyles.dishPrice}>$ {item.price}</RegularText>
         </View>
-        <SwitchToggle
-          switchOn={item.availability}
-          onPress={() => {
-            setDishAvailability(auth.currentUser.uid, item.id, !item.availability);
-          }}
-          circleColorOff="#ffffff"
-          circleColorOn="#ffffff"
-          backgroundColorOn="green"
-          backgroundColorOff="#D21F3C"
-          containerStyle={{
-            marginTop: 0,
-            width: 35,
-            height: 20,
-            borderRadius: 25,
-            padding: 5,
-          }}
-          circleStyle={{
-            width: 13,
-            height: 13,
-            borderRadius: 10,
-          }}
-        />
+        <View style={cardStyles.ratingContainer}>
+          <View style={cardStyles.ratingBG}>
+            <Text style={cardStyles.stallRating}>{item.rating}</Text>
+          </View>
+          <SwitchToggle
+            switchOn={item.availability}
+            onPress={() => {
+              setDishAvailability(auth.currentUser.uid, item.id, !item.availability);
+            }}
+            circleColorOff="#ffffff"
+            circleColorOn="#ffffff"
+            backgroundColorOn="green"
+            backgroundColorOff="#D21F3C"
+            containerStyle={{
+              marginTop: 0,
+              width: 35,
+              height: 20,
+              borderRadius: 25,
+              padding: 5,
+            }}
+            circleStyle={{
+              width: 13,
+              height: 13,
+              borderRadius: 10,
+            }}
+          />
+        </View>
       </View>
-    </View>
+    )
   );
 };
 
@@ -229,7 +231,7 @@ const cardStyles = StyleSheet.create({
     // backgroundColor: "#abcdef",
   },
   dishName: {
-    fontSize: 19,
+    fontSize: 18,
   },
   ratingContainer: {
     alignItems: 'center',
@@ -240,8 +242,7 @@ const cardStyles = StyleSheet.create({
     // backgroundColor: "#23af"
   },
   dishPrice: {
-    flex: 2,
-    fontSize: 23,
+    fontSize: 18,
   },
   dishRating: {
     fontSize: 15,

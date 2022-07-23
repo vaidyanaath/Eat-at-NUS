@@ -26,4 +26,7 @@ export const getTimeDifference = (date_future, date_now) => {
   if (minutes > 0) {
     return minutes + ((minutes == 1) ? ' minute ago' : ' minutes ago');
   }
+  if (seconds > 0) {
+    return "Just now";
+  }
 };

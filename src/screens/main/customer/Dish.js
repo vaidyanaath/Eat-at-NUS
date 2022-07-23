@@ -60,6 +60,7 @@ const Dish = ({ navigation, route }) => {
                 dishID: dishID,
                 dishName: dishData.name,
                 dishRating: dishData.rating,
+                userType: 'customer',
               })
             }
           >

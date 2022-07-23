@@ -21,7 +21,7 @@ import { HorizontalListContainer } from '../../../components/containers/Horizont
 import { auth } from '../../../firebase/config';
 
 // Import Database
-import { ref, onValue, query, orderByChild } from 'firebase/database';
+import { ref, onValue, query, orderByChild, limitToFirst } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
 const Home = ({ navigation }) => {
@@ -34,7 +34,7 @@ const Home = ({ navigation }) => {
   const [popularDishes, setPopularDishes] = useState([]);
   useEffect(() => {
     const reference = ref(db, 'dishes/');
-    const topDishesRef = query(reference, orderByChild('rating'));
+    const topDishesRef = query(reference, orderByChild('ratingIndex'), limitToFirst(8));
     onValue(topDishesRef, (snapshot) => {
       var dishes = [];
       snapshot.forEach((child) => {

@@ -73,8 +73,7 @@ const Stall = ({ navigation, route }) => {
             <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
             <RegularText> {stallData.address}</RegularText>
           </View>
-          <RegularText style={styles.infoText}>Opening Time: {stallData.openingTime}</RegularText>
-          <RegularText style={styles.infoText}>Closing Time: {stallData.closingTime}</RegularText>
+          <RegularText style={styles.infoText}>Opening Hours: {stallData.openingTime} - {stallData.closingTime}</RegularText>
           <RegularText style={styles.infoText}>Stall Rating: {stallData.rating}/5</RegularText>
         </InnerContainer>
 
@@ -107,7 +106,7 @@ const dishContent = (item) => (
   <View style={{ flex: 1, flexDirection: 'row' }}>
     <View style={cardStyles.textContainer}>
       <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
-      <RegularText style={cardStyles.stallDistance}>$ {item.price}</RegularText>
+      <RegularText style={cardStyles.dishPrice}>$ {item.price}</RegularText>
     </View>
     <View style={cardStyles.ratingContainer}>
       <View style={cardStyles.ratingBG}>
@@ -133,7 +132,7 @@ const cardStyles = StyleSheet.create({
     // backgroundColor: "#abcdef",
   },
   dishName: {
-    fontSize: 19,
+    fontSize: 18,
   },
   ratingContainer: {
     alignItems: 'center',
@@ -144,8 +143,7 @@ const cardStyles = StyleSheet.create({
     // backgroundColor: "#23af"
   },
   dishPrice: {
-    flex: 2,
-    fontSize: 23,
+    fontSize: 18,
   },
   dishRating: {
     fontSize: 15,
@@ -188,7 +186,7 @@ const styles = StyleSheet.create({
   },
   stallInfo: {
     flex: 1,
-    maxHeight: '30%',
+    maxHeight: '25%',
     padding: 30,
     borderRadius: 25,
     width: '95%',

@@ -147,6 +147,11 @@ const RootStack = () => {
                 component={StallOwnerEditStall}
                 options={{ title: null }}
               />
+              <Stack.Screen
+                name="Review"
+                component={Review}
+                options={({ route }) => ({ title: route.params.dishName })}
+              />
             </>
           )
         ) : (

@@ -24,6 +24,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
 
     // Average Rating = 0 => No Ratings Yet
     rating: 0,
+    ratingIndex: 0,
 
     numRatings: 0,
     totalRating: 0,

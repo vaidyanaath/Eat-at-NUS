@@ -19,6 +19,7 @@ import { colors } from '../../../assets/colors';
 const Review = ({ navigation, route }) => {
   const dishID = route.params.dishID;
   const dishRating = route.params.dishRating;
+  const userType = route.params.userType;
 
   const [reviewData, setReviewData] = React.useState(null);
 
@@ -81,14 +82,16 @@ const Review = ({ navigation, route }) => {
         />
       </InnerContainer>
 
-      <InnerContainer style={styles.buttonContainer}>
-        <RegularButton
-          style={styles.button}
-          onPress={() => navigation.navigate('WriteReview', { dishID: dishID })}
-        >
-          <RegularText style={styles.buttonText}>Write a Review</RegularText>
-        </RegularButton>
-      </InnerContainer>
+      {userType === 'customer' && (
+        <InnerContainer style={styles.buttonContainer}>
+          <RegularButton
+            style={styles.button}
+            onPress={() => navigation.navigate('WriteReview', { dishID: dishID })}
+          >
+            <RegularText style={styles.buttonText}>Write a Review</RegularText>
+          </RegularButton>
+        </InnerContainer>
+      )}
     </StyledContainer>
   );
 };
