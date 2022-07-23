@@ -22,6 +22,7 @@ import {
   FontAwesome,
   FontAwesome5,
   Entypo,
+  Ionicons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import { SmallText } from '../../../components/texts/SmallText';
@@ -61,6 +62,8 @@ const StallOwnerDish = ({ navigation, route }) => {
     navigation.navigate('StallOwnerEditDish', { dishID: dishID });
   };
 
+  const handleNotify = () => {};
+
   const handleDeleteDish = () => {
     Alert.alert('Delete Dish', 'Are you sure you want to delete ' + dishData.name + '?', [
       {
@@ -71,7 +74,7 @@ const StallOwnerDish = ({ navigation, route }) => {
         text: 'OK',
         onPress: () => {
           deleteDish(user.uid, dishID);
-          // react state cleanip
+          // react state cleanup
           setDishData(null);
           navigation.navigate('StallOwnerHome');
         },
@@ -90,7 +93,7 @@ const StallOwnerDish = ({ navigation, route }) => {
             <BigText style={styles.price}>$ {dishData.price}</BigText>
           </InnerContainer>
 
-          <InnerContainer style={styles.buttonsContainer}>
+          <InnerContainer style={styles.iconButtonsContainer}>
             <TouchableOpacity
               style={styles.iconButton}
               onPress={() =>
@@ -170,7 +173,10 @@ const StallOwnerDish = ({ navigation, route }) => {
             <SmallText>{dishData.allergenInfo}</SmallText>
           </InnerContainer>
           <InnerContainer style={styles.buttonContainer}>
-            <RegularButton style={styles.button} onPress={handleEditDish}>
+            <RegularButton style={styles.notifyButton} onPress={handleNotify}>
+            <Ionicons name="notifications" size={24} color="black" />
+            </RegularButton>
+            <RegularButton style={styles.editButton} onPress={handleEditDish}>
               <RegularText style={styles.buttonText}>Edit Dish</RegularText>
             </RegularButton>
           </InnerContainer>
@@ -223,7 +229,7 @@ const styles = StyleSheet.create({
     height: '100%',
     // backgroundColor: '#8c84c1',
   },
-  buttonsContainer: {
+  iconButtonsContainer: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'flex-end',
@@ -276,15 +282,21 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    // justifyContent: 'flex-end',
+    // paddingHorizontal: 5,
     alignSelf: 'center',
     width: '95%',
     marginTop: 40,
     // backgroundColor: '#288BA8',
   },
-  button: {
-    width: '100%',
-    justifyContent: 'flex-end',
+  notifyButton: {
+    borderWidth: 1,
+    borderColor: colors.secondary,
+    // flex: 1,
+  },
+  editButton: {
+    flex: 1,
     backgroundColor: colors.secondary,
   },
   buttonText: {

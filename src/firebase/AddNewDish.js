@@ -21,6 +21,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
     // Setting availability to false when a new dish is added
     // Food Stall Owners have to make it available after adding
     availability: false,
+    isRunningOutSoon: false,
 
     // Average Rating = 0 => No Ratings Yet
     rating: 0,
@@ -39,6 +40,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
     rating: 0,
     imageURL: '',
     availability: false,
+    isRunningOutSoon: false,
   });
 
   // uploadDishImage(stallID, newDishID, dishImageURL);

@@ -183,7 +183,7 @@ const StallOwnerHome = ({ navigation }) => {
 const dishContent = (item) => {
   return (
     item && (
-      <View style={{ flex: 1, flexDirection: 'row' }}>
+      <View style={{ flex: 1, flexDirection: 'row', backgroundColor: item.isRunningOutSoon ? colors.primary : colors.primary}}>
         <View style={cardStyles.textContainer}>
           <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
           <RegularText style={cardStyles.dishPrice}>$ {item.price}</RegularText>
