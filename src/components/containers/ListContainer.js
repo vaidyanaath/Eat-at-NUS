@@ -20,8 +20,9 @@ export const ListContainer = ({ photo, onPress, content }) => {
 const cardStyles = StyleSheet.create({
   button: {
     flex: 1,
-    height: 100,
-    width: '98%',
+    height: 90,
+    alignSelf: 'center',
+    width: '99%',
     marginVertical: 5,
     activeOpacity: 0.8,
     borderRadius: 20,
@@ -51,30 +52,5 @@ const cardStyles = StyleSheet.create({
     borderRadius: 20,
     resizeMode: 'cover',
     width: 125,
-  },
-  textContainer: {
-    flex: 1,
-    borderBottomRightRadius: 20,
-    borderTopRightRadius: 20,
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    paddingVertical: 10,
-    //backgroundColor: "#abcdef",
-  },
-  stallName: {
-    fontSize: 20,
-  },
-  stallDistance: {
-    flex: 2,
-    fontSize: 15,
-  },
-  stallRating: {
-    fontSize: 15,
-  },
-  ratingBG: {
-    paddingHorizontal: 4,
-    borderRadius: 3,
-    backgroundColor: '#FFB81C',
   },
 });

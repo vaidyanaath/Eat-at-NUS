@@ -28,6 +28,7 @@ import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWra
 
 const StallOwnerAddDish = ({ navigation, route }) => {
   const user = auth.currentUser;
+  const stallID = user.uid;
 
   // Fetch dish data
   const [dishData, setDishData] = useState(null);
@@ -60,13 +61,13 @@ const StallOwnerAddDish = ({ navigation, route }) => {
 
   const handleAdd = () => {
     addDish(
-      user.uid,
+      stallID,
       dishName,
       dishPrice,
       dishDescription,
       dishCalories,
       dishAllergens,
-      dishImageURL
+      dishImageURL,
     );
     navigation.navigate('StallOwnerHome');
   };
