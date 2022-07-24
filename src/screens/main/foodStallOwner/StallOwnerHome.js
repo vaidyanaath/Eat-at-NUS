@@ -62,6 +62,7 @@ const StallOwnerHome = ({ navigation }) => {
         items.push({
           id: child.key,
           availability: child.val().availability,
+          isRunningOutSoon: child.val().isRunningOutSoon,
           imageURL: child.val().imageURL,
           name: child.val().name,
           price: child.val().price,
@@ -183,7 +184,7 @@ const StallOwnerHome = ({ navigation }) => {
 const dishContent = (item) => {
   return (
     item && (
-      <View style={{ flex: 1, flexDirection: 'row', backgroundColor: item.isRunningOutSoon ? colors.primary : colors.primary}}>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
         <View style={cardStyles.textContainer}>
           <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
           <RegularText style={cardStyles.dishPrice}>$ {item.price}</RegularText>
@@ -199,7 +200,7 @@ const dishContent = (item) => {
             }}
             circleColorOff="#ffffff"
             circleColorOn="#ffffff"
-            backgroundColorOn="green"
+            backgroundColorOn= {item.isRunningOutSoon ? colors.primary : "green" }
             backgroundColorOff="#D21F3C"
             containerStyle={{
               marginTop: 0,

@@ -62,7 +62,9 @@ const StallOwnerDish = ({ navigation, route }) => {
     navigation.navigate('StallOwnerEditDish', { dishID: dishID });
   };
 
-  const handleNotify = () => {};
+  const handleNotify = () => {
+    
+  };
 
   const handleDeleteDish = () => {
     Alert.alert('Delete Dish', 'Are you sure you want to delete ' + dishData.name + '?', [
