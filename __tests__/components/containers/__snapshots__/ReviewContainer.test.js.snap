@@ -1,0 +1,317 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewContainer /> Renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "center",
+      "backgroundColor": "#FFFFFF",
+      "borderRadius": 20,
+      "elevation": 3,
+      "flex": 1,
+      "marginVertical": 5,
+      "minHeight": 125,
+      "paddingHorizontal": 25,
+      "paddingVertical": 15,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 5,
+        "width": 5,
+      },
+      "shadowOpacity": 0.22,
+      "shadowRadius": 2.22,
+      "width": "99%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginBottom": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#2C365A",
+            "fontFamily": "SourceSansPro-Regular",
+            "fontSize": 15,
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "flexDirection": "column",
+            "justifyContent": "center",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "center",
+            },
+          ]
+        }
+      >
+        <View
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            collapsable={false}
+            source={1}
+            style={
+              Object {
+                "height": 20,
+                "margin": 3,
+                "tintColor": "#ff7f50",
+                "transform": Array [
+                  Object {
+                    "scale": 1,
+                  },
+                ],
+                "width": 20,
+              }
+            }
+          />
+        </View>
+        <View
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            collapsable={false}
+            source={1}
+            style={
+              Object {
+                "height": 20,
+                "margin": 3,
+                "tintColor": "#ff7f50",
+                "transform": Array [
+                  Object {
+                    "scale": 1,
+                  },
+                ],
+                "width": 20,
+              }
+            }
+          />
+        </View>
+        <View
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            collapsable={false}
+            source={1}
+            style={
+              Object {
+                "height": 20,
+                "margin": 3,
+                "tintColor": "#ff7f50",
+                "transform": Array [
+                  Object {
+                    "scale": 1,
+                  },
+                ],
+                "width": 20,
+              }
+            }
+          />
+        </View>
+        <View
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            collapsable={false}
+            source={1}
+            style={
+              Object {
+                "height": 20,
+                "margin": 3,
+                "tintColor": "#BDC3C7",
+                "transform": Array [
+                  Object {
+                    "scale": 1,
+                  },
+                ],
+                "width": 20,
+              }
+            }
+          />
+        </View>
+        <View
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            collapsable={false}
+            source={1}
+            style={
+              Object {
+                "height": 20,
+                "margin": 3,
+                "tintColor": "#BDC3C7",
+                "transform": Array [
+                  Object {
+                    "scale": 1,
+                  },
+                ],
+                "width": 20,
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={Object {}}
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#2C365A",
+            "fontFamily": "SourceSansPro-Regular",
+            "fontSize": 15,
+          },
+        ]
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "alignSelf": "flex-end",
+        "marginVertical": 5,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#2C365A",
+            "fontFamily": "SourceSansPro-Regular",
+            "fontSize": 15,
+          },
+          Object {
+            "color": "#828282",
+          },
+        ]
+      }
+    />
+  </View>
+</View>
+`;
