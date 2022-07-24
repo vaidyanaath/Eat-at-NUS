@@ -11,12 +11,19 @@ import {
 } from 'react-native';
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 import { StyledContainer } from '../../../components/containers/StyledContainer';
+import { RegularButton } from '../../../components/buttons/RegularButton';
 
 import { colors } from '../../../assets/colors';
 import { BigText } from '../../../components/texts/BigText';
 import { RegularText } from '../../../components/texts/RegularText';
 
-import { Feather, FontAwesome, FontAwesome5, Entypo } from '@expo/vector-icons';
+import {
+  Feather,
+  FontAwesome,
+  FontAwesome5,
+  Entypo,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
 import { SmallText } from '../../../components/texts/SmallText';
 
 // Import Database
@@ -64,6 +71,8 @@ const StallOwnerDish = ({ navigation, route }) => {
         text: 'OK',
         onPress: () => {
           deleteDish(user.uid, dishID);
+          // react state cleanip
+          setDishData(null);
           navigation.navigate('StallOwnerHome');
         },
       },
@@ -82,11 +91,25 @@ const StallOwnerDish = ({ navigation, route }) => {
           </InnerContainer>
 
           <InnerContainer style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.iconButton} onPress={handleEditDish}>
-              <Feather name="edit-2" size={20} color={colors.secondary} />
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() =>
+                navigation.navigate('Review', {
+                  dishID: dishID,
+                  dishName: dishData.name,
+                  dishRating: dishData.rating,
+                  userType: 'stallOwner',
+                })
+              }
+            >
+              <MaterialCommunityIcons
+                name="comment-text-outline"
+                size={24}
+                color={colors.secondary}
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconButton} onPress={handleDeleteDish}>
-              <Feather name="trash-2" size={20} color={colors.secondary} />
+              <Feather name="trash-2" size={24} color={colors.secondary} />
             </TouchableOpacity>
           </InnerContainer>
         </InnerContainer>
@@ -131,9 +154,11 @@ const StallOwnerDish = ({ navigation, route }) => {
           <InnerContainer style={{ marginBottom: 15 }}>
             <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
           </InnerContainer>
-          <RegularText style={{ marginTop: 5, marginBottom: 10, fontSize: 20 }}>
-            Contains allergens:{' '}
-          </RegularText>
+          <InnerContainer style={{ marginBottom: 10, alignItems: 'flex-start' }}>
+            <RegularText style={{ paddingHorizontal: 10, fontSize: 20 }}>
+              Contains allergens:{' '}
+            </RegularText>
+          </InnerContainer>
           <InnerContainer
             style={{
               flex: 1,
@@ -143,6 +168,11 @@ const StallOwnerDish = ({ navigation, route }) => {
             }}
           >
             <SmallText>{dishData.allergenInfo}</SmallText>
+          </InnerContainer>
+          <InnerContainer style={styles.buttonContainer}>
+            <RegularButton style={styles.button} onPress={handleEditDish}>
+              <RegularText style={styles.buttonText}>Edit Dish</RegularText>
+            </RegularButton>
           </InnerContainer>
         </ScrollView>
       </StyledContainer>
@@ -243,6 +273,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     borderRadius: 3,
     backgroundColor: '#FFB81C',
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignSelf: 'center',
+    width: '95%',
+    marginTop: 40,
+    // backgroundColor: '#288BA8',
+  },
+  button: {
+    width: '100%',
+    justifyContent: 'flex-end',
+    backgroundColor: colors.secondary,
+  },
+  buttonText: {
+    color: colors.bg,
   },
 });
 

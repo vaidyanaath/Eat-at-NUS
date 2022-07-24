@@ -21,18 +21,39 @@ import { HorizontalListContainer } from '../../../components/containers/Horizont
 import { auth } from '../../../firebase/config';
 
 // Import Database
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, query, orderByChild, limitToFirst } from 'firebase/database';
 import { db } from '../../../firebase/config';
-
-const discover = () => (
-  <RegularText style={{ fontSize: 25, marginVertical: 10 }}>Discover</RegularText>
-);
 
 const Home = ({ navigation }) => {
   const user = auth.currentUser;
   const placeholderAvatar =
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
   const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
+
+  // Fetch popular dishes
+  const [popularDishes, setPopularDishes] = useState([]);
+  useEffect(() => {
+    const reference = ref(db, 'dishes/');
+    const topDishesRef = query(reference, orderByChild('ratingIndex'), limitToFirst(8));
+    onValue(topDishesRef, (snapshot) => {
+      var dishes = [];
+      snapshot.forEach((child) => {
+        dishes.push({
+          id: child.key,
+          availability: child.val().availability,
+          name: child.val().name,
+          rating: child.val().rating,
+          imageURL: child.val().imageURL,
+          price: child.val().price,
+        });
+      });
+      setPopularDishes(dishes);
+    });
+
+    return () => {
+      setPopularDishes([]);
+    };
+  }, [db]);
 
   // Fetch stalls Metadata
   const [stallsMetadataArr, setStallsMetadataArr] = useState(null);
@@ -55,7 +76,7 @@ const Home = ({ navigation }) => {
 
     return () => {
       setStallsMetadataArr(null);
-    }
+    };
   }, [db]);
 
   const [showFilter, setShowFilter] = useState(false);
@@ -89,23 +110,26 @@ const Home = ({ navigation }) => {
             <FilterSection />
           </Overlay>
 
-          <RegularText style={{ fontSize: 25, alignSelf: 'flex-start', marginVertical: 10 }}>
+          <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 5 }}>
             Popular Near You
           </RegularText>
           <FlatList
-            data={DUMMY_DATA.sort((a, b) => b.rating.localeCompare(a.rating))}
+            data={popularDishes}
             renderItem={({ item }) => (
               <HorizontalListContainer
                 item={item}
-                onPress={() => navigation.navigate('Dish', { name: item.name })}
+                onPress={() => navigation.navigate('Dish', { dishID: item.id })}
               />
             )}
             keyExtractor={(item) => item.id}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            minHeight={165}
+            minHeight={145}
             backgroundColor={colors.bg} //'#ff75'
           />
+          <RegularText style={{ fontSize: 22, marginVertical: 5, alignSelf: 'flex-start' }}>
+            Discover
+          </RegularText>
           <FlatList
             data={stallsMetadataArr}
             renderItem={({ item }) => (
@@ -115,9 +139,9 @@ const Home = ({ navigation }) => {
                 content={stallContent(item)}
               />
             )}
-            ListHeaderComponent={discover}
+            // ListHeaderComponent={discover}
             style={styles.discoverList}
-            ListFooterComponent={<View marginBottom={15}></View>}
+            ListFooterComponent={<View marginBottom={15} />}
             showsVerticalScrollIndicator={false}
             vertical={true}
           />
@@ -132,8 +156,7 @@ const stallContent = (stallMetadata) => {
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={cardStyles.textContainer}>
         <RegularText style={cardStyles.stallName}>{stallMetadata.name}</RegularText>
-        <RegularText style={cardStyles.stallDistance}>{/* 5 Km away */}</RegularText>
-        <RegularText style={cardStyles.stallDistance}>{stallMetadata.cuisine}</RegularText>
+        <RegularText style={cardStyles.stallCuisine}>{stallMetadata.cuisine}</RegularText>
       </View>
       <View style={cardStyles.ratingContainer}>
         <View style={cardStyles.ratingBG}>
@@ -156,10 +179,10 @@ const cardStyles = StyleSheet.create({
     //backgroundColor: "#abcdef",
   },
   stallName: {
-    fontSize: 19,
+    fontSize: 18,
   },
-  stallDistance: {
-    flex: 2,
+  stallCuisine: {
+    color: colors.primary,
     fontSize: 15,
   },
   ratingContainer: {

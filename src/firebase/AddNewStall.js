@@ -17,7 +17,7 @@ const addStall = (stallID, name, address, openingTime, closingTime, cuisine) => 
         // Average Rating 0 => No Ratings Yet
         rating: 0,
 
-        numberOfRatings: 0
+        numRatings: 0
     });
 
     // Adding the data to stallsMetadata

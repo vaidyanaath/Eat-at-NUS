@@ -1,38 +1,54 @@
 import React from 'react';
-import { TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Image, Text, StyleSheet, ImageBackground } from 'react-native';
 
 // import texts
 import { RegularText } from '../../components/texts/RegularText';
 import { SmallText } from '../../components/texts/SmallText';
 
 // import icon
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Entypo } from '@expo/vector-icons';
 
 // import colors
 import { colors } from '../../assets/colors';
+
+/*
+Each item has the following properties:
+  id: string
+  availability: boolean
+  imageURL: string
+  name: string
+  price: number
+  rating: number
+*/
 
 export const HorizontalListContainer = ({ item, onPress }) => (
   <TouchableOpacity style={cardStyles.button} onPress={onPress}>
     <View style={cardStyles.container}>
       <View style={cardStyles.topContainer}>
-        <Image
-          style={cardStyles.image}
+        <ImageBackground
+          style={cardStyles.imageContainer}
+          imageStyle={cardStyles.image}
           resizeMode="cover"
-          source={require('../../assets/images/food2.jpg')}
-        />
-      </View>
-      <View style={cardStyles.bottomContainer}>
-        {/*left section*/}
-        <View style={cardStyles.textContainer}>
-          <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
-          <SmallText style={cardStyles.dishInfo}>{item.id} Km away</SmallText>
-        </View>
-        {/*right section*/}
-        <View style={cardStyles.iconContainer}>
-          <FontAwesome name="check-circle" size={20} color="green" />
+          source={{uri: item.imageURL}} // replace with imageURL
+        >
           <View style={cardStyles.ratingBG}>
             <Text style={cardStyles.stallRating}>{item.rating}</Text>
           </View>
+        </ImageBackground>
+      </View>
+      <View style={cardStyles.bottomContainer}>
+        {/*top section*/}
+        <View style={cardStyles.textContainer}>
+          <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
+        </View>
+        {/*bottom section*/}
+        <View style={cardStyles.iconContainer}>
+          <SmallText style={cardStyles.dishPrice}>$ {item.price}</SmallText>
+          {item.availability == true ? (
+            <FontAwesome name="check-circle" size={16} color="green" />
+          ) : (
+            <Entypo name="circle-with-cross" size={16} color="red" />
+          )}
         </View>
       </View>
     </View>
@@ -57,8 +73,8 @@ const cardStyles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-    minHeight: 155,
-    minWidth: 150,
+    height: 135,
+    width: 140,
   },
   container: {
     flex: 1,
@@ -69,43 +85,53 @@ const cardStyles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
     minHeight: 50,
   },
+  imageContainer: {
+    flex: 1,
+  },
   image: {
-    height: '95%',
+    height: '100%',
     width: '100%',
-    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   bottomContainer: {
     flex: 1,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
-    alignItems: 'flex-start',
+    // minHeight: 50,
+    alignItems: 'center',
     justifyContent: 'space-between',
-    flexDirection: 'row',
+    flexDirection: 'column',
     paddingBottom: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     // backgroundColor: "#2ba",
   },
   textContainer: {
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+    paddingTop: 2,
+    width: '100%',
+    // justifyContent: 'flex-start',
     flexDirection: 'column',
+    // maxHeight: '50%',
     // backgroundColor: "#abcdef",
   },
   iconContainer: {
-    minHeight: 45,
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    paddingBottom: 3,
     // backgroundColor: '#eada'
   },
   dishName: {
-    fontSize: 20,
+    fontSize: 14,
+    textAlignVertical: 'center',
   },
-  dishInfo: {
+  dishPrice: {
     flex: 1,
     fontSize: 15,
   },
@@ -117,5 +143,7 @@ const cardStyles = StyleSheet.create({
     paddingHorizontal: 4,
     borderRadius: 3,
     backgroundColor: '#FFB81C',
+    marginTop: 8,
+    marginRight: 8,
   },
 });
