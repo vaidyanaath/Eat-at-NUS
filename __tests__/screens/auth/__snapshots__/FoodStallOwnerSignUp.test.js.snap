@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FoodStallOwnerSignUp /> Renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#FFFFFF",
+        "flexBasis": 0,
+        "flexDirection": "column",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "height": "100%",
+        "paddingBottom": 15,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "paddingTop": 30,
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "center",
+          "width": "100%",
+        },
+        Object {},
+      ]
+    }
+  >
+    <View
+      onLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "flex": 1,
+          },
+          Object {
+            "paddingBottom": 0,
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#2C365A",
+                "fontFamily": "SourceSansPro-Regular",
+                "fontSize": 22,
+              },
+              Object {
+                "marginVertical": 10,
+              },
+            ]
+          }
+        >
+          Food Stall Owner
+        </Text>
+        <TextInput
+          autoCorrect={false}
+          onChangeText={[Function]}
+          placeholder="Full Name"
+          style={
+            Object {
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "height": 45,
+              "marginVertical": 5,
+              "padding": 10,
+              "width": 280,
+            }
+          }
+          value=""
+        />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={[Function]}
+          placeholder="Email"
+          style={
+            Object {
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "height": 45,
+              "marginVertical": 5,
+              "padding": 10,
+              "width": 280,
+            }
+          }
+          value=""
+        />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={[Function]}
+          placeholder="Password"
+          secureTextEntry={true}
+          style={
+            Object {
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "height": 45,
+              "marginVertical": 5,
+              "padding": 10,
+              "width": 280,
+            }
+          }
+          value=""
+        />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={[Function]}
+          placeholder="Confirm Password"
+          secureTextEntry={true}
+          style={
+            Object {
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "height": 45,
+              "marginVertical": 5,
+              "padding": 10,
+              "width": 280,
+            }
+          }
+          value=""
+        />
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "backgroundColor": "#2C365A",
+              "borderRadius": 10,
+              "elevation": 3,
+              "height": 48,
+              "justifyContent": "center",
+              "marginBottom": 5,
+              "marginLeft": 5,
+              "marginRight": 5,
+              "marginTop": 5,
+              "opacity": 1,
+              "paddingBottom": 10,
+              "paddingLeft": 10,
+              "paddingRight": 10,
+              "paddingTop": 10,
+              "shadowcolor": "#000",
+              "shadowoffset": "0 1px",
+              "shadowopacity": 0.22,
+              "shadowradius": 2.22,
+              "width": 280,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#2C365A",
+                  "fontFamily": "SourceSansPro-Regular",
+                  "fontSize": 22,
+                },
+                Object {
+                  "color": "#FFFFFF",
+                  "fontSize": 17,
+                },
+              ]
+            }
+          >
+            Sign Up
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
