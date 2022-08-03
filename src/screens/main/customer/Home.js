@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList, Image, Modal } from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
@@ -9,11 +18,17 @@ import { FilterSection } from '../../../components/FilterSection';
 
 import Overlay from 'react-native-modal-overlay';
 
+// Filter modal popup
+import SelectableChips from 'react-native-chip/SelectableChips';
+import Slider from 'react-native-slider';
+
 // import colors
 import { colors } from '../../../assets/colors';
 import { InnerContainer } from '../../../components/containers/InnerContainer';
+import { RegularButton } from '../../../components/buttons/RegularButton';
 
 import { RegularText } from '../../../components/texts/RegularText';
+import { BigText } from '../../../components/texts/BigText';
 
 import { ListContainer } from '../../../components/containers/ListContainer';
 import { HorizontalListContainer } from '../../../components/containers/HorizontalListContainer';
@@ -23,6 +38,9 @@ import { auth } from '../../../firebase/config';
 // Import Database
 import { ref, onValue, query, orderByChild, limitToFirst } from 'firebase/database';
 import { db } from '../../../firebase/config';
+
+import filter from '../../../firebase/Filter';
+import filterData from '../../../firebase/FilterData';
 
 const Home = ({ navigation }) => {
   const user = auth.currentUser;
@@ -81,10 +99,24 @@ const Home = ({ navigation }) => {
 
   const [showFilter, setShowFilter] = useState(false);
 
-  const handleFilter = () => {
+  const handleFilterButtonPress = () => {
     setShowFilter(true);
     console.log('Filter button pressed!');
   };
+
+  const applyFilter = () => {
+    const result = filter(searchText, cuisines);
+    console.log(result[0]);
+    console.log(result[1]);
+    setShowFilter(false);
+    console.log('Filter applied!');
+  };
+
+  // Search and filter data
+  const [searchText, setSearchText] = useState('');
+  const [cuisines, setCuisines] = useState([]);
+  const [priceEnd, setPriceEnd] = useState(0);
+  const [distance, setDistance] = useState(0);
 
   return (
     user &&
@@ -98,7 +130,28 @@ const Home = ({ navigation }) => {
           <ProfileButton source={{ uri: avatar }} />
         </InnerContainer>
         <InnerContainer style={styles.body}>
-          <SearchBar onPress={handleFilter} />
+          {/* SearchBar */}
+          <View style={searchBarStyle.container}>
+            <View style={searchBarStyle.searchContainer}>
+              <Image
+                source={require('../../../assets/images/search.png')}
+                style={searchBarStyle.searchIcon}
+              />
+              <TextInput
+                placeholder="Search"
+                selectionColor={colors.secondary}
+                style={searchBarStyle.searchTextInput}
+                onChangeText={(text) => setSearchText(text)}
+              />
+            </View>
+            <TouchableOpacity style={searchBarStyle.filterButton} onPress={handleFilterButtonPress}>
+              <Image
+                source={require('../../../assets/images/filter.png')}
+                style={searchBarStyle.filterIcon}
+              />
+            </TouchableOpacity>
+          </View>
+
           <Overlay
             visible={showFilter}
             onClose={() => setShowFilter(false)}
@@ -107,7 +160,67 @@ const Home = ({ navigation }) => {
             containerStyle={styles.overlayWrapper}
             childrenWrapperStyle={styles.filterOverlay}
           >
-            <FilterSection />
+            {/* Filter popup */}
+            <StyledContainer style={filterStyles.mainContainer}>
+              <InnerContainer style={filterStyles.headerContainer}>
+                <BigText style={{ fontSize: 30 }}>Filter</BigText>
+              </InnerContainer>
+              <InnerContainer style={filterStyles.cuisineContainer}>
+                <RegularText style={filterStyles.subHeading}>Cuisine</RegularText>
+                <SelectableChips
+                  chipStyle={filterStyles.chipContainer}
+                  valueStyle={filterStyles.chipValue}
+                  chipStyleSelected={filterStyles.chipSelectedContainer}
+                  valueStyleSelected={filterStyles.chipSelectedValue}
+                  initialChips={[
+                    'Chinese',
+                    'Japanese',
+                    'Korean',
+                    'Thai',
+                    'Western',
+                    'Indian',
+                    'Malay',
+                    'Taiwanese',
+                  ]}
+                  onChangeChips={(chips) => setCuisines(chips)}
+                  alertRequired={false}
+                />
+              </InnerContainer>
+              <InnerContainer style={filterStyles.sliderContainer}>
+                <InnerContainer style={filterStyles.sliderHeader}>
+                  <RegularText style={filterStyles.subHeadingRow}>Price</RegularText>
+                  <RegularText>&lt; ${priceEnd}</RegularText>
+                </InnerContainer>
+                <Slider
+                  onValueChange={(value) => setPriceEnd(value)}
+                  minimumValue={0}
+                  maximumValue={50}
+                  step={2}
+                  style={filterStyles.slider}
+                />
+              </InnerContainer>
+
+              {/* {filterData(searchText, cuisines)} */}
+
+              <InnerContainer style={filterStyles.sliderContainer}>
+                <InnerContainer style={filterStyles.sliderHeader}>
+                  <RegularText style={filterStyles.subHeadingRow}>Distance</RegularText>
+                  <RegularText>
+                    &lt; {distance >= 1000 ? distance / 1000 + ' km' : distance + ' m'}{' '}
+                  </RegularText>
+                </InnerContainer>
+                <Slider
+                  onValueChange={(value) => setDistance(value)}
+                  minimumValue={0}
+                  maximumValue={3000}
+                  step={100}
+                  style={filterStyles.slider}
+                />
+              </InnerContainer>
+              <RegularButton style={filterStyles.applyButton} onPress={applyFilter}>
+                <RegularText style={filterStyles.applyButtonText}>Apply</RegularText>
+              </RegularButton>
+            </StyledContainer>
           </Overlay>
 
           <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 5 }}>
@@ -202,6 +315,131 @@ const cardStyles = StyleSheet.create({
   },
 });
 
+const searchBarStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    minHeight: 50,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // backgroundColor: '#e71837'
+  },
+  searchContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    minHeight: 20,
+    marginRight: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    backgroundColor: colors.gray,
+    paddingRight: 20,
+  },
+  searchIcon: {
+    width: 40,
+    height: 40,
+    tintColor: colors.secondary,
+    // backgroundColor: 'purple',
+  },
+  filterIcon: {
+    width: 20,
+    height: 20,
+    tintColor: colors.secondary,
+  },
+  filterButton: {
+    // backgroundColor: colors.primary,
+    padding: 10,
+    borderRadius: 10,
+  },
+  searchTextInput: {
+    flex: 1,
+    // backgroundColor: '#fed34a', // turquoise
+  },
+});
+
+const filterStyles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    // alignItems: "center",
+    // justifyContent: "center",
+    // backgroundColor: '#ffc',
+    borderRadius: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  cuisineContainer: {
+    flex: 1,
+    // alignItems: "flex-start",
+    justifyContent: 'flex-start',
+    // backgroundColor: "#ac3",
+    maxHeight: 160,
+  },
+  headerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxHeight: 50,
+    // backgroundColor: "#ffcdcc",
+  },
+  sliderContainer: {
+    flex: 1,
+    maxHeight: 80,
+    // backgroundColor: '#cff',
+  },
+  sliderHeader: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: '#aaf',
+  },
+  subHeading: {
+    alignSelf: 'flex-start',
+    marginVertical: 5,
+    // backgroundColor: '#ffc',
+  },
+  subHeadingRow: {
+    justifyContent: 'flex-start',
+    alignSelf: 'center',
+  },
+  chipContainer: {
+    maxHeight: 30,
+    padding: 2,
+    borderColor: colors.primary,
+  },
+  chipValue: {
+    fontSize: 14,
+    color: colors.primary,
+  },
+  chipSelectedContainer: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  chipSelectedValue: {
+    color: colors.white,
+    fontSize: 14,
+  },
+  slider: {
+    flex: 1,
+    width: '100%',
+    // width: 200,
+    // backgroundColor: "#23ada4",
+  },
+  applyButton: {
+    paddingBottom: 5,
+    paddingTop: 5,
+    backgroundColor: colors.primary,
+  },
+  applyButtonText: {
+    color: colors.bg,
+    fontSize: 19,
+  },
+});
+
 const styles = StyleSheet.create({
   mainContainer: {
     paddingBottom: 0,
@@ -242,73 +480,5 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-const DUMMY_DATA = [
-  {
-    id: 1,
-    name: 'Western',
-    rating: '4.5',
-  },
-  {
-    id: 2,
-    name: 'Fried Wok',
-    rating: '4.3',
-  },
-  {
-    id: 3,
-    name: 'Chicken',
-    rating: '4.2',
-  },
-  {
-    id: 4,
-    name: 'Duck',
-    rating: '3.8',
-  },
-  {
-    id: 5,
-    name: 'Cow',
-    rating: '4.8',
-  },
-  {
-    id: 6,
-    name: 'Deer',
-    rating: '3.0',
-  },
-  {
-    id: 7,
-    name: 'Horse',
-    rating: '4.2',
-  },
-  {
-    id: 8,
-    name: 'Pig',
-    rating: '4.7',
-  },
-  {
-    id: 9,
-    name: 'Rabbit',
-    rating: '3.2',
-  },
-  {
-    id: 10,
-    name: 'Sheep',
-    rating: '3.8',
-  },
-  {
-    id: 11,
-    name: 'Goat',
-    rating: '4.2',
-  },
-  {
-    id: 12,
-    name: 'Llama',
-    rating: '4.2',
-  },
-  {
-    id: 13,
-    name: 'Panda',
-    rating: '1.0',
-  },
-];
 
 export default Home;

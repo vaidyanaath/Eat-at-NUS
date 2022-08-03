@@ -12,7 +12,6 @@ const firebaseConfig = {
   messagingSenderId: '995649684976',
   appId: '1:995649684976:web:7cc0c479843ef76e990935',
   measurementId: 'G-MDH1QNYS7W',
-  storageBucket: 'https://console.firebase.google.com/project/eat-at-nus/storage/eat-at-nus.appspot.com/files',
 };
 
 // Initialize firebase

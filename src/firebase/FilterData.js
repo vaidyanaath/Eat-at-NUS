@@ -1,10 +1,10 @@
 // Importing the required stuff
 import { useState, useEffect } from "react";
 
-import { db } from "../../../firebase/Eat-at-NUS_config";
+import { db } from "./config";
 import { onValue, ref, query, orderByChild, equalTo } from "firebase/database";
 
-const filterData = (name, cuisines) => {
+const FilterData = (name, cuisines) => {
 
     const [stallIDs, setStallIDs] = useState(new Set());
     const [dishResult, setDishResult] = useState([]);
@@ -135,9 +135,13 @@ const filterData = (name, cuisines) => {
         }
         
     }, [db]);
+    console.log(dishResult);
+    console.log(stallResult);
 
-    return [dishResult, stallResult];
+    return (<></>);
+
+    // return [dishResult, stallResult];
 
 }
 
-export default filterData;
+export default FilterData;

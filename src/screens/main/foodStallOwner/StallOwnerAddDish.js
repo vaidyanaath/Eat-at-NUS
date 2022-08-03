@@ -35,7 +35,8 @@ const StallOwnerAddDish = ({ navigation, route }) => {
 
   const [dishName, setDishName] = useState('');
   const [dishPrice, setDishPrice] = useState('');
-  const [dishImageURL, setDishImageURL] = useState(null);
+  const [dishImage, setDishImage] = useState(null);
+  const [dishImageURL, setDishImageURL] = useState('');
   const [dishDescription, setDishDescription] = useState('');
   const [dishCalories, setDishCalories] = useState('');
   const [dishAllergens, setDishAllergens] = useState('');
@@ -51,12 +52,14 @@ const StallOwnerAddDish = ({ navigation, route }) => {
     console.log(result);
 
     if (!result.cancelled) {
-      setDishImageURL(result.uri);
+      setDishImage(result);
+      // setDishImageURL(result.uri);
     }
   };
 
   const deleteImage = () => {
-    setDishImageURL(null);
+    // setDishImageURL('');
+    setDishImage(null);
   };
 
   const handleAdd = () => {
@@ -67,7 +70,7 @@ const StallOwnerAddDish = ({ navigation, route }) => {
       dishDescription,
       dishCalories,
       dishAllergens,
-      dishImageURL,
+      dishImage.uri,
     );
     navigation.navigate('StallOwnerHome');
   };

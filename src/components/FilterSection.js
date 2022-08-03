@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { StyledContainer } from './containers/StyledContainer';
 import { InnerContainer } from './containers/InnerContainer';
@@ -11,26 +11,27 @@ import Slider from 'react-native-slider';
 import { colors } from '../assets/colors';
 import { SmallText } from './texts/SmallText';
 
-export const FilterSection = () => {
-  const [priceEnd, setPriceEnd] = React.useState(0);
-  const [distance, setDistance] = React.useState(0);
+export const FilterSection = ({ onPress }) => {
+  const [cuisines, setCuisines] = useState([]);
+  const [priceEnd, setPriceEnd] = useState(0);
+  const [distance, setDistance] = useState(0);
 
   const handleApplyFilter = () => {
     console.log('Apply filter button pressed!');
   };
 
   return (
-    <StyledContainer style={styles.mainContainer}>
-      <InnerContainer style={styles.headerContainer}>
+    <StyledContainer style={filterStyles.mainContainer}>
+      <InnerContainer style={filterStyles.headerContainer}>
         <BigText style={{ fontSize: 30 }}>Filter</BigText>
       </InnerContainer>
-      <InnerContainer style={styles.cuisineContainer}>
-        <RegularText style={styles.subHeading}>Cuisine</RegularText>
+      <InnerContainer style={filterStyles.cuisineContainer}>
+        <RegularText style={filterStyles.subHeading}>Cuisine</RegularText>
         <SelectableChips
-          chipStyle={styles.chipContainer}
-          valueStyle={styles.chipValue}
-          chipStyleSelected={styles.chipSelectedContainer}
-          valueStyleSelected={styles.chipSelectedValue}
+          chipStyle={filterStyles.chipContainer}
+          valueStyle={filterStyles.chipValue}
+          chipStyleSelected={filterStyles.chipSelectedContainer}
+          valueStyleSelected={filterStyles.chipSelectedValue}
           initialChips={[
             'Chinese',
             'Japanese',
@@ -41,13 +42,13 @@ export const FilterSection = () => {
             'Malay',
             'Taiwanese',
           ]}
-          onChangeChips={(chips) => console.log(chips)}
+          onChangeChips={(chips) => setCuisines(chips)}
           alertRequired={false}
         />
       </InnerContainer>
-      <InnerContainer style={styles.sliderContainer}>
-        <InnerContainer style={styles.sliderHeader}>
-          <RegularText style={styles.subHeadingRow}>Price</RegularText>
+      <InnerContainer style={filterStyles.sliderContainer}>
+        <InnerContainer style={filterStyles.sliderHeader}>
+          <RegularText style={filterStyles.subHeadingRow}>Price</RegularText>
           <RegularText>&lt; ${priceEnd}</RegularText>
         </InnerContainer>
         <Slider
@@ -59,9 +60,9 @@ export const FilterSection = () => {
         />
       </InnerContainer>
 
-      <InnerContainer style={styles.sliderContainer}>
-        <InnerContainer style={styles.sliderHeader}>
-          <RegularText style={styles.subHeadingRow}>Distance</RegularText>
+      <InnerContainer style={filterStyles.sliderContainer}>
+        <InnerContainer style={filterStyles.sliderHeader}>
+          <RegularText style={filterStyles.subHeadingRow}>Distance</RegularText>
           <RegularText>
             &lt; {distance >= 1000 ? distance / 1000 + ' km' : distance + ' m'}{' '}
           </RegularText>
@@ -71,17 +72,17 @@ export const FilterSection = () => {
           minimumValue={0}
           maximumValue={3000}
           step={100}
-          style={styles.slider}
+          style={filterStyles.slider}
         />
       </InnerContainer>
-      <RegularButton style={styles.applyButton} onPress={handleApplyFilter}>
-        <RegularText style={styles.applyButtonText}>Apply</RegularText>
+      <RegularButton style={filterStyles.applyButton} onPress={handleApplyFilter}>
+        <RegularText style={filterStyles.applyButtonText}>Apply</RegularText>
       </RegularButton>
     </StyledContainer>
   );
 };
 
-const styles = StyleSheet.create({
+const filterStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     // alignItems: "center",
