@@ -30,7 +30,6 @@ import { SmallText } from '../../../components/texts/SmallText';
 import { ref, onValue } from 'firebase/database';
 import { db, auth } from '../../../firebase/config';
 
-import retrieveDishImage from '../../../firebase/RetrieveDishImage';
 import deleteDish from '../../../firebase/DeleteDish';
 
 const StallOwnerDish = ({ navigation, route }) => {
@@ -39,11 +38,6 @@ const StallOwnerDish = ({ navigation, route }) => {
   const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   const [dishData, setDishData] = useState(null);
-  const [dishImage, setDishImage] = useState(null);
-
-  // Fetch dish image
-  // const image = retrieveDishImage(user.uid, dishID);
-  // setDishImage(image.url);
 
   // Fetch dish data
   useEffect(() => {

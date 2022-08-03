@@ -1,11 +1,12 @@
 // Importing the required stuff
-import { storage } from '../config';
-import { ref, uploadBytes } from 'firebase/storage';
+import { db, storage } from '../config';
+import { ref, update } from 'firebase/database';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-const uploadDishImage = async (stallID, dishID, imageURL) => {
-  const response = await fetch(imageURL);
+const uploadDishImage = async (stallID, dishID, imageURI) => {
+  const response = await fetch(imageURI);
   const blob = await response.blob();
-  const fileType = imageURL.substring(imageURL.lastIndexOf('.'));
+  const fileType = imageURI.substring(imageURI.lastIndexOf('.'));
   const dishImageFilePath = 'dishes/' + stallID + '/' + dishID + fileType;
 
   let dishImageURL = '';

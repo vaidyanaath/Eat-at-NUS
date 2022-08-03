@@ -1,9 +1,9 @@
 // Importing the required stuff
 import { push, ref, set } from 'firebase/database';
 import { db } from './config';
-import uploadDishImage from './UploadDishImage';
+import uploadDishImage from './imageHandling/UploadDishImage';
 
-const addDish = (stallID, name, price, description, calories, allergenInfo, dishImageURL) => {
+const addDish = (stallID, name, price, description, calories, allergenInfo, dishImageURI) => {
   // Adding the data to dishes
   const dishesReference = ref(db, 'dishes');
   const newdishReference = push(dishesReference);
@@ -19,7 +19,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
     stall: stallID,
 
     // Setting availability to false when a new dish is added
-    // Food Stall Owners have to make it available after adding
+    // Food Stall Owner has to make it available after adding
     availability: false,
 
     // Average Rating = 0 => No Ratings Yet
@@ -41,7 +41,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
     availability: false,
   });
 
-  // uploadDishImage(stallID, newDishID, dishImageURL);
+  uploadDishImage(stallID, newDishID, dishImageURI);
 };
 
 export default addDish;

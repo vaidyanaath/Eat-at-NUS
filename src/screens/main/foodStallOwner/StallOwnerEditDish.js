@@ -23,7 +23,6 @@ import { ref as storageRef } from 'firebase/storage';
 import { ref, onValue } from 'firebase/database';
 
 import editDishInfo from '../../../firebase/EditDishInfo';
-import uploadDishImage from '../../../firebase/UploadDishImage';
 
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../../assets/colors';
@@ -70,7 +69,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [10, 9],
       quality: 1,
