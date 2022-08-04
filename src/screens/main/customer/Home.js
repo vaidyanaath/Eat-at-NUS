@@ -39,8 +39,7 @@ import { auth } from '../../../firebase/config';
 import { ref, onValue, query, orderByChild, limitToFirst } from 'firebase/database';
 import { db } from '../../../firebase/config';
 
-import filter from '../../../firebase/Filter';
-import filterData from '../../../firebase/FilterData';
+import filterData from '../../../firebase/filter/FilterData';
 
 const Home = ({ navigation }) => {
   const user = auth.currentUser;
@@ -104,8 +103,8 @@ const Home = ({ navigation }) => {
     console.log('Filter button pressed!');
   };
 
-  const applyFilter = () => {
-    const result = filter(searchText, cuisines);
+  const applyFilter = async () => {
+    const result = await filterData(searchText, cuisines);
     console.log(result[0]);
     console.log(result[1]);
     setShowFilter(false);
