@@ -76,41 +76,6 @@ const StallOwnerHome = ({ navigation }) => {
     };
   }, [db]);
 
-  // Add dish footer
-  const addDishFooter = () => {
-    return (
-      <InnerContainer
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingVertical: 15,
-          paddingHorizontal: 20,
-        }}
-      >
-        <SmallText style={{ flex: 1 }}></SmallText>
-        <SmallText style={{ flex: 4, justifyContent: 'center' }}>
-          Click '+' to add a new dish
-        </SmallText>
-        <RegularButton
-          onPress={() => navigation.navigate('StallOwnerAddDish')}
-          style={{
-            flex: 1,
-            backgroundColor: colors.primary,
-            maxHeight: 30,
-            maxWidth: 30,
-            borderRadius: 30,
-            paddingTop: 0,
-            paddingBottom: 0,
-            paddingLeft: 0,
-            paddingRight: 0,
-          }}
-        >
-          <RegularText style={{ color: colors.white }}>+</RegularText>
-        </RegularButton>
-      </InnerContainer>
-    );
-  };
-
   if (!(user && stallData && dishesMetadataArr)) {
     return <LoadingScreen />;
   }
@@ -157,9 +122,35 @@ const StallOwnerHome = ({ navigation }) => {
       </InnerContainer>
 
       <InnerContainer style={styles.body}>
-        <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
-          Dishes
-        </RegularText>
+        <InnerContainer
+          style={{
+            flex: 1,
+            minHeight: 60,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            // backgroundColor: '#2ff3',
+          }}
+        >
+          <RegularText style={{ fontSize: 25 }}>Dishes</RegularText>
+          <RegularButton
+            onPress={() => navigation.navigate('StallOwnerAddDish')}
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              backgroundColor: colors.primary,
+              // maxHeight: 30,
+              maxWidth: 90,
+              // borderRadius: 30,
+              paddingTop: 0,
+              paddingBottom: 0,
+            }}
+          >
+            <SmallText style={{ color: colors.white }}>Add Dish</SmallText>
+            <RegularText style={{ color: colors.white }}>+</RegularText>
+          </RegularButton>
+        </InnerContainer>
+
         <FlatList
           data={dishesMetadataArr}
           renderItem={({ item }) => (
@@ -170,7 +161,7 @@ const StallOwnerHome = ({ navigation }) => {
             />
           )}
           style={styles.discoverList}
-          ListFooterComponent={addDishFooter}
+          // ListHeaderComponent={addDishFooter}
           showsVerticalScrollIndicator={false}
           vertical={true}
         />
@@ -280,10 +271,12 @@ const styles = StyleSheet.create({
   },
   body: {
     paddingHorizontal: 10,
+    marginBottom: 10,
     // backgroundColor: "#ff2"
   },
   discoverList: {
     width: '100%',
+    // backgroundColor: "#369963"
   },
   stallInfo: {
     flex: 1,

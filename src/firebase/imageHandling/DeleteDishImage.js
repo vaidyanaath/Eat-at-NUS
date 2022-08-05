@@ -8,6 +8,11 @@ const deleteDishImage = async (stallID, dishID) => {
 
   await get(ref(db, 'dishes/' + dishID + '/imageURL')).then((snapshot) => {
     const dishImageURL = snapshot.val();
+    // There is no image for specified dish
+    if (dishImageURL === null) {
+      console.log("Given dish doesn't have an image in firebase storage");
+      return;
+    }
     fileType = dishImageURL.slice(dishImageURL.lastIndexOf('.'), dishImageURL.lastIndexOf('?'));
   });
 

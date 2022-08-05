@@ -55,8 +55,8 @@ const StallOwnerAddDish = ({ navigation, route }) => {
     setDishImageURI('');
   };
 
-  const handleAdd = () => {
-    addDish(
+  const handleAdd = async () => {
+    await addDish(
       stallID,
       dishName,
       dishPrice,

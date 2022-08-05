@@ -63,10 +63,11 @@ const StallOwnerDish = ({ navigation, route }) => {
       },
       {
         text: 'OK',
-        onPress: () => {
-          deleteDish(user.uid, dishID);
-          // react state cleanip
+        onPress: async () => {
+          await deleteDish(user.uid, dishID);
+          // react state cleanup to avoid memory leak
           setDishData(null);
+
           navigation.navigate('StallOwnerHome');
         },
       },

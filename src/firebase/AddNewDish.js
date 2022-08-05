@@ -3,13 +3,13 @@ import { push, ref, set } from 'firebase/database';
 import { db } from './config';
 import uploadDishImage from './imageHandling/UploadDishImage';
 
-const addDish = (stallID, name, price, description, calories, allergenInfo, dishImageURI) => {
+const addDish = async (stallID, name, price, description, calories, allergenInfo, dishImageURI) => {
   // Adding the data to dishes
   const dishesReference = ref(db, 'dishes');
   const newdishReference = push(dishesReference);
   const newDishID = newdishReference.key;
 
-  set(newdishReference, {
+  await set(newdishReference, {
     name: name,
     price: price,
     description: description,
@@ -33,7 +33,7 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
   // Adding the data to dishesMetadata
   const dishMetadataReference = ref(db, 'dishesMetadata/' + stallID + '/' + newDishID);
 
-  set(dishMetadataReference, {
+  await set(dishMetadataReference, {
     name: name,
     price: price,
     rating: 0,
@@ -41,7 +41,9 @@ const addDish = (stallID, name, price, description, calories, allergenInfo, dish
     availability: false,
   });
 
-  uploadDishImage(stallID, newDishID, dishImageURI);
+  if (dishImageURI) {
+    await uploadDishImage(stallID, newDishID, dishImageURI);
+  }
 };
 
 export default addDish;
