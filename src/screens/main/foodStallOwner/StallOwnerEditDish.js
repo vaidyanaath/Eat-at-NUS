@@ -23,20 +23,23 @@ import { ref as storageRef } from 'firebase/storage';
 import { ref, onValue } from 'firebase/database';
 
 import editDishInfo from '../../../firebase/EditDishInfo';
-import uploadDishImage from '../../../firebase/UploadDishImage';
+import uploadDishImage from '../../../firebase/imageHandling/UploadDishImage';
 
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../../assets/colors';
 import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWrapper';
+import deleteDishImage from '../../../firebase/imageHandling/DeleteDishImage';
 
 const StallOwnerEditDish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
-  const user = auth.currentUser;
+  const stallID = auth.currentUser.uid;
 
   // Fetch dish data
   const [dishName, setDishName] = useState('');
   const [dishPrice, setDishPrice] = useState('');
-  const [dishImageURL, setDishImageURL] = useState(null);
+  const [dishImageURL, setDishImageURL] = useState('');
+  const [dishImageURI, setDishImageURI] = useState('');
+  const [displayImage, setDisplayImage] = useState('');
   const [dishDescription, setDishDescription] = useState('');
   const [dishCalories, setDishCalories] = useState('');
   const [dishAllergens, setDishAllergens] = useState('');
@@ -49,11 +52,11 @@ const StallOwnerEditDish = ({ navigation, route }) => {
         setDishName(data.name);
         setDishPrice(data.price);
         setDishImageURL(data.imageURL);
+        setDisplayImage(data.imageURL);
         setDishDescription(data.description);
         setDishCalories(data.calories);
         setDishAllergens(data.allergenInfo);
       } else {
-        setDishData(null);
         console.log('No data found!');
       }
     });
@@ -61,7 +64,9 @@ const StallOwnerEditDish = ({ navigation, route }) => {
     return () => {
       setDishName('');
       setDishPrice('');
-      setDishImageURL(null);
+      setDishImageURL('');
+      setDishImageURI('');
+      setDisplayImage('');
       setDishDescription('');
       setDishCalories('');
       setDishAllergens('');
@@ -70,7 +75,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [10, 9],
       quality: 1,
@@ -79,17 +84,19 @@ const StallOwnerEditDish = ({ navigation, route }) => {
     console.log(result);
 
     if (!result.cancelled) {
-      setDishImageURL(result.uri);
+      setDishImageURI(result.uri);
+      setDisplayImage(result.uri);
     }
   };
 
   const deleteImage = () => {
-    setDishImageURL(null);
+    setDishImageURI('');
+    setDisplayImage('');
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     editDishInfo(
-      user.uid,
+      stallID,
       dishID,
       dishName,
       dishPrice,
@@ -98,8 +105,22 @@ const StallOwnerEditDish = ({ navigation, route }) => {
       dishAllergens,
       dishImageURL
     );
-    // uploadDishImage(user.uid, dishID, dishImageURL);
-    navigation.navigate('StallOwnerHome');
+
+    // Image uploading
+    if (dishImageURL === displayImage) {
+      console.log('No image changes made');
+    } else {
+      if (displayImage === '') {
+        await deleteDishImage(stallID, dishID);
+        console.log('Image deleted');
+      } else {
+        await uploadDishImage(stallID, dishID, dishImageURI);
+        console.log('Image changed');
+      }
+    }
+
+    navigation.goBack();
+    //navigation.navigate('StallOwnerHome');
     //navigation.navigate('StallOwnerDish', { dishID: dishID });
   };
 
@@ -144,12 +165,12 @@ const StallOwnerEditDish = ({ navigation, route }) => {
             style={styles.ImageBackground}
             resizeMode={'contain'}
             source={
-              dishImageURL
-                ? { uri: dishImageURL }
+              displayImage
+                ? { uri: displayImage }
                 : require('../../../assets/images/bgbannerlight.png')
             }
           >
-            {dishImageURL ? (
+            {displayImage ? (
               <View
                 style={{
                   flex: 1,
@@ -292,7 +313,7 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    minHeight: "18%",
+    minHeight: '18%',
     marginVertical: 5,
     // backgroundColor: "#ff9",
   },
