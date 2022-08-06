@@ -5,16 +5,23 @@ import { ref as storageRef, deleteObject } from 'firebase/storage';
 
 const deleteDishImage = async (stallID, dishID) => {
   let fileType = '';
+  let imageExists = true;
 
   await get(ref(db, 'dishes/' + dishID + '/imageURL')).then((snapshot) => {
     const dishImageURL = snapshot.val();
     // There is no image for specified dish
-    if (dishImageURL === null) {
+    console.log('ImageURL', dishImageURL);
+    if (dishImageURL === '') {
       console.log("Given dish doesn't have an image in firebase storage");
-      return;
+      imageExists = false;
+    } else {
+      fileType = dishImageURL.slice(dishImageURL.lastIndexOf('.'), dishImageURL.lastIndexOf('?'));
     }
-    fileType = dishImageURL.slice(dishImageURL.lastIndexOf('.'), dishImageURL.lastIndexOf('?'));
   });
+
+  if (!imageExists) {
+    return;
+  }
 
   const dishImageFilePath = 'dishes/' + stallID + '/' + dishID + fileType;
 
