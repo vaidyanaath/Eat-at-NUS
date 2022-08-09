@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-// import navigation
+// navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// import components
-import { ProfileButton } from '../components/buttons/ProfileButton';
-
-// import colors
+// colors
 import { colors } from '../assets/colors';
 
-// import screens
+// screens
 import LoadingScreen from '../components/screens/LoadingScreen';
+import Profile from '../screens/main/Profile';
 
 import Landing from '../screens/auth/Landing';
 import CustomerSignIn from '../screens/auth/CustomerSignIn';
@@ -31,11 +29,11 @@ import StallOwnerEditDish from '../screens/main/foodStallOwner/StallOwnerEditDis
 import StallOwnerEditStall from '../screens/main/foodStallOwner/StallOwnerEditStall';
 import StallOwnerAddDish from '../screens/main/foodStallOwner/StallOwnerAddDish';
 
-// import auth
+// auth
 import { auth } from '../firebase/config';
 import { onAuthStateChanged } from 'firebase/auth';
 
-// Import Database
+// database
 import { ref, onValue } from 'firebase/database';
 import { db } from '../firebase/config';
 
@@ -71,7 +69,6 @@ const RootStack = () => {
         setLoaded(true);
       });
     }
-    console.log('loaded ? ' + loaded);
   }, [isSignedIn, db]);
 
   if (!loaded) {
@@ -88,7 +85,6 @@ const RootStack = () => {
             height: 120,
             // shadowColor: "transparent",
           },
-          headerRight: () => (isSignedIn ? <ProfileButton /> : null),
           headerShadowVisible: false,
           headerTintColor: colors.secondary,
           headerRightContainerStyle: {
@@ -152,6 +148,7 @@ const RootStack = () => {
                 component={Review}
                 options={({ route }) => ({ title: route.params.dishName })}
               />
+              <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
             </>
           )
         ) : (
@@ -186,6 +183,7 @@ const RootStack = () => {
               component={FoodStallOwnerRegisterStall}
               options={{ title: null }}
             />
+            <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
           </>
         )}
       </Stack.Navigator>

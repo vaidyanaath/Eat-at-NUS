@@ -8,11 +8,12 @@ import { colors } from '../../assets/colors';
 import { auth } from '../../firebase/config';
 import { signOut } from 'firebase/auth';
 
-const handleProfileButton = () => {
+const handleProfileButton = ({ navigation }) => {
   console.log('profile button pressed!');
-  signOut(auth).catch((error) => {
-    console.log(error);
-  });
+  navigation.navigate('Profile');
+  // signOut(auth).catch((error) => {
+  //   console.log(error);
+  // });
 };
 
 export const ProfileButton = ({ source }) => (

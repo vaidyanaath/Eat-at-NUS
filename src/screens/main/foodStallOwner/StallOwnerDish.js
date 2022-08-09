@@ -150,7 +150,7 @@ const StallOwnerDish = ({ navigation, route }) => {
             <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
           </InnerContainer>
           <InnerContainer style={{ marginBottom: 10, alignItems: 'flex-start' }}>
-            <RegularText style={{ paddingHorizontal: 10, fontSize: 20 }}>
+            <RegularText style={{ paddingHorizontal: 10, fontSize: 18, color: "orange" }}>
               Contains allergens:{' '}
             </RegularText>
           </InnerContainer>
