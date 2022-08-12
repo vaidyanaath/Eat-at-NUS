@@ -31,6 +31,7 @@ import { ref, onValue } from 'firebase/database';
 import { db, auth } from '../../../firebase/config';
 
 import deleteDish from '../../../firebase/DeleteDish';
+import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 const StallOwnerDish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
@@ -74,104 +75,106 @@ const StallOwnerDish = ({ navigation, route }) => {
     ]);
   };
 
+  if (!dishData) {
+    return <LoadingScreen />;
+  }
+
   return (
-    dishData && (
-      <StyledContainer style={styles.mainContainer}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
+    <StyledContainer style={styles.mainContainer}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
-        <InnerContainer style={styles.topContainer}>
-          <InnerContainer style={styles.namePriceContainer}>
-            <RegularText style={styles.name}>{dishData.name}</RegularText>
-            <BigText style={styles.price}>$ {dishData.price}</BigText>
-          </InnerContainer>
-
-          <InnerContainer style={styles.buttonsContainer}>
-            <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() =>
-                navigation.navigate('Review', {
-                  dishID: dishID,
-                  dishName: dishData.name,
-                  dishRating: dishData.rating,
-                  userType: 'stallOwner',
-                })
-              }
-            >
-              <MaterialCommunityIcons
-                name="comment-text-outline"
-                size={24}
-                color={colors.secondary}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton} onPress={handleDeleteDish}>
-              <Feather name="trash-2" size={24} color={colors.secondary} />
-            </TouchableOpacity>
-          </InnerContainer>
+      <InnerContainer style={styles.topContainer}>
+        <InnerContainer style={styles.namePriceContainer}>
+          <RegularText style={styles.name}>{dishData.name}</RegularText>
+          <BigText style={styles.price}>$ {dishData.price}</BigText>
         </InnerContainer>
 
-        <InnerContainer style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }}
-          />
-        </InnerContainer>
-        <ScrollView style={{ flex: 1 }}>
-          <InnerContainer style={styles.section}>
-            <View flex={1} flexDirection="row" alignItems="center">
-              {dishData.availability == true ? (
-                <FontAwesome name="check-circle" size={22} color="green" />
-              ) : (
-                <Entypo name="circle-with-cross" size={22} color="red" />
-              )}
-              {dishData.availability == true ? (
-                <RegularText style={styles.sectionText}>Available</RegularText>
-              ) : (
-                <RegularText style={styles.sectionText}>Not Available</RegularText>
-              )}
-            </View>
-
-            <View
-              flex={1}
-              flexDirection="row"
-              paddingHorizontal={10}
-              marginHorizontal={10}
-              alignItems="center"
-            >
-              <FontAwesome5 name="fire-alt" size={20} color={colors.primary} />
-              <RegularText style={styles.sectionText}>{dishData.calories} kcal</RegularText>
-            </View>
-
-            <View style={styles.ratingBG}>
-              <Text style={styles.stallRating}>{dishData.rating}</Text>
-            </View>
-          </InnerContainer>
-
-          <InnerContainer style={{ marginBottom: 15 }}>
-            <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
-          </InnerContainer>
-          <InnerContainer style={{ marginBottom: 10, alignItems: 'flex-start' }}>
-            <RegularText style={{ paddingHorizontal: 10, fontSize: 18, color: "orange" }}>
-              Contains allergens:{' '}
-            </RegularText>
-          </InnerContainer>
-          <InnerContainer
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'space-evenly',
-            }}
+        <InnerContainer style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() =>
+              navigation.navigate('Review', {
+                dishID: dishID,
+                dishName: dishData.name,
+                dishRating: dishData.rating,
+                userType: 'stallOwner',
+              })
+            }
           >
-            <SmallText>{dishData.allergenInfo}</SmallText>
-          </InnerContainer>
-          <InnerContainer style={styles.buttonContainer}>
-            <RegularButton style={styles.button} onPress={handleEditDish}>
-              <RegularText style={styles.buttonText}>Edit Dish</RegularText>
-            </RegularButton>
-          </InnerContainer>
-        </ScrollView>
-      </StyledContainer>
-    )
+            <MaterialCommunityIcons
+              name="comment-text-outline"
+              size={24}
+              color={colors.secondary}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton} onPress={handleDeleteDish}>
+            <Feather name="trash-2" size={24} color={colors.secondary} />
+          </TouchableOpacity>
+        </InnerContainer>
+      </InnerContainer>
+
+      <InnerContainer style={styles.imageContainer}>
+        <Image
+          style={styles.image}
+          source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }}
+        />
+      </InnerContainer>
+      <ScrollView style={{ flex: 1 }}>
+        <InnerContainer style={styles.section}>
+          <View flex={1} flexDirection="row" alignItems="center">
+            {dishData.availability == true ? (
+              <FontAwesome name="check-circle" size={22} color="green" />
+            ) : (
+              <Entypo name="circle-with-cross" size={22} color="red" />
+            )}
+            {dishData.availability == true ? (
+              <RegularText style={styles.sectionText}>Available</RegularText>
+            ) : (
+              <RegularText style={styles.sectionText}>Not Available</RegularText>
+            )}
+          </View>
+
+          <View
+            flex={1}
+            flexDirection="row"
+            paddingHorizontal={10}
+            marginHorizontal={10}
+            alignItems="center"
+          >
+            <FontAwesome5 name="fire-alt" size={20} color={colors.primary} />
+            <RegularText style={styles.sectionText}>{dishData.calories} kcal</RegularText>
+          </View>
+
+          <View style={styles.ratingBG}>
+            <Text style={styles.stallRating}>{dishData.rating}</Text>
+          </View>
+        </InnerContainer>
+
+        <InnerContainer style={{ marginBottom: 15 }}>
+          <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
+        </InnerContainer>
+        <InnerContainer style={{ marginBottom: 10, alignItems: 'flex-start' }}>
+          <RegularText style={{ paddingHorizontal: 10, fontSize: 18, color: 'orange' }}>
+            Contains allergens:{' '}
+          </RegularText>
+        </InnerContainer>
+        <InnerContainer
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-evenly',
+          }}
+        >
+          <SmallText>{dishData.allergenInfo}</SmallText>
+        </InnerContainer>
+        <InnerContainer style={styles.buttonContainer}>
+          <RegularButton style={styles.button} onPress={handleEditDish}>
+            <RegularText style={styles.buttonText}>Edit Dish</RegularText>
+          </RegularButton>
+        </InnerContainer>
+      </ScrollView>
+    </StyledContainer>
   );
 };
 

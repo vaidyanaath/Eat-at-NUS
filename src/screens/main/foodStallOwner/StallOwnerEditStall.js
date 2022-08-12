@@ -54,8 +54,8 @@ const StallOwnerEditStall = ({ navigation }) => {
   useEffect(() => {
     const reference = ref(db, 'stalls/' + stallID);
     onValue(reference, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
         setLoaded(true);
         setStallName(data.name);
         setStallAddress(data.address);
@@ -66,12 +66,12 @@ const StallOwnerEditStall = ({ navigation }) => {
     });
 
     return () => {
+      setLoaded(false);
       setStallName('');
       setStallAddress('');
       setStallCuisine('');
       setStallOpeningTime('');
       setStallClosingTime('');
-      setLoaded(false);
     };
   }, [db]);
 

@@ -39,6 +39,10 @@ const StallOwnerHome = ({ navigation }) => {
   const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
   const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
+  const handleProfileButton = () => {
+    navigation.navigate('Profile');
+  };
+
   // Fetch stall data
   useEffect(() => {
     const reference = ref(db, 'stalls/' + stallID);
@@ -78,10 +82,6 @@ const StallOwnerHome = ({ navigation }) => {
   if (!(user && stallData && dishesMetadataArr)) {
     return <LoadingScreen />;
   }
-
-  const handleProfileButton = () => {
-    navigation.navigate('Profile');
-  };
 
   return (
     <StyledContainer style={styles.mainContainer}>

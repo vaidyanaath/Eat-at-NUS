@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native';
 
 // import components
+import LoadingScreen from '../../../components/screens/LoadingScreen';
 import { StyledContainer } from '../../../components/containers/StyledContainer';
 import { ListContainer } from '../../../components/containers/ListContainer';
 import { ProfileButton } from '../../../components/buttons/ProfileButton';
@@ -30,16 +31,19 @@ const StallOwner = ({ navigation }) => {
 
   // Fetch stall data
   const [stallData, setStallData] = useState(null);
-  
 
   useEffect(() => {
     const reference = ref(db, 'stalls/' + stallID);
-    onValue(reference, (snapshot) => {
-      const data = snapshot.val();
-      setStallData(data);
-    }, {
-      once: true
-    });
+    onValue(
+      reference,
+      (snapshot) => {
+        const data = snapshot.val();
+        setStallData(data);
+      },
+      {
+        once: true,
+      }
+    );
   }, [db]);
 
   // Fetch dishes metadata
@@ -48,76 +52,70 @@ const StallOwner = ({ navigation }) => {
   useEffect(() => {
     const reference = ref(db, 'dishesMetadata/' + stallID);
     onValue(reference, (snapshot) => {
-        var items = [];
-        snapshot.forEach((child) => {
-            items.push({
-                availability: child.val().availability,
-                imageURL: child.val().imageURL,
-                name: child.val().name,
-                price: child.val().price,
-                rating: child.val().rating,
-            });
+      var items = [];
+      snapshot.forEach((child) => {
+        items.push({
+          availability: child.val().availability,
+          imageURL: child.val().imageURL,
+          name: child.val().name,
+          price: child.val().price,
+          rating: child.val().rating,
         });
-        setDishesMetadataArr(items);
-        console.log(dishesMetadataArr);
+      });
+      setDishesMetadataArr(items);
+      console.log(dishesMetadataArr);
     });
-    
   }, [db]);
 
+  if (!user || !stallData || !dishesMetadataArr) {
+    return <LoadingScreen />;
+  }
+
   return (
-    user &&
-    stallData &&
-    dishesMetadataArr && 
-    (
-      <StyledContainer style={styles.mainContainer}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
+    <StyledContainer style={styles.mainContainer}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
-        <InnerContainer style={styles.header}>
-          <RegularText style={styles.greeting}>My Stall:</RegularText>
-          <ProfileButton source={{ uri: avatar }} />
-        </InnerContainer>
+      <InnerContainer style={styles.header}>
+        <RegularText style={styles.greeting}>My Stall:</RegularText>
+        <ProfileButton source={{ uri: avatar }} />
+      </InnerContainer>
 
-        <InnerContainer style={styles.stallInfo}>
-          <View style={styles.nameSection}>
-            <RegularText style={styles.name}>{stallID}</RegularText>
-            <View style={styles.ratingContainer}>
-              <View style={styles.ratingBG}>
-                <Text style={styles.stallRating}>{stallData.rating}</Text>
-              </View>
+      <InnerContainer style={styles.stallInfo}>
+        <View style={styles.nameSection}>
+          <RegularText style={styles.name}>{stallID}</RegularText>
+          <View style={styles.ratingContainer}>
+            <View style={styles.ratingBG}>
+              <Text style={styles.stallRating}>{stallData.rating}</Text>
             </View>
           </View>
+        </View>
 
-          <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
-          <View style={styles.locationContainer}>
-            <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
-            <RegularText style={styles.infoText}> {stallData.address}</RegularText>
-          </View>
-          <RegularText style={styles.infoText}>
-            Hours: {stallData.openingTime} - {stallData.closingTime}
-          </RegularText>
-        </InnerContainer>
+        <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
+        <View style={styles.locationContainer}>
+          <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
+          <RegularText style={styles.infoText}> {stallData.address}</RegularText>
+        </View>
+        <RegularText style={styles.infoText}>
+          Hours: {stallData.openingTime} - {stallData.closingTime}
+        </RegularText>
+      </InnerContainer>
 
-        <InnerContainer style={styles.body}>
-          <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
-            Dishes
-          </RegularText>
-          <FlatList
-            data={dishesMetadataArr}
-            renderItem={({ item }) => (
-              <ListContainer
-                photo={item.imageURL}
-                onPress={() => {}}
-                content={dishContent(item)}
-              />
-            )}
-            style={styles.discoverList}
-            ListFooterComponent={<View marginBottom={10}></View>}
-            showsVerticalScrollIndicator={false}
-            vertical={true}
-          />
-        </InnerContainer>
-      </StyledContainer>
-    )
+      <InnerContainer style={styles.body}>
+        <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
+          Dishes
+        </RegularText>
+        <FlatList
+          data={dishesMetadataArr}
+          renderItem={({ item }) => (
+            <ListContainer photo={item.imageURL} onPress={() => {}} content={dishContent(item)} />
+          )}
+          style={styles.discoverList}
+          ListFooterComponent={<View marginBottom={10}></View>}
+          showsVerticalScrollIndicator={false}
+          vertical={true}
+        />
+      </InnerContainer>
+    </StyledContainer>
   );
 };
 
