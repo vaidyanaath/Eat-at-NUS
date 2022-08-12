@@ -87,6 +87,7 @@ const StallOwnerAddDish = ({ navigation, route }) => {
             <RegularText style={styles.headingText}>Price:</RegularText>
             <TextInput
               style={styles.input}
+              keyboardType="decimal-pad"
               onChangeText={(dishPrice) => setDishPrice(dishPrice)}
               value={dishPrice}
               placeholder="$"
@@ -98,6 +99,7 @@ const StallOwnerAddDish = ({ navigation, route }) => {
             <RegularText style={styles.headingText}>Calories:</RegularText>
             <TextInput
               style={styles.input}
+              keyboardType="numeric"
               onChangeText={(dishCalories) => setDishCalories(dishCalories)}
               value={dishCalories}
               placeholder="kcal"
@@ -268,14 +270,13 @@ const styles = StyleSheet.create({
     // backgroundColor: '#123456',
   },
   button: {
-    borderColor: 'green',
-    borderWidth: 2,
-    paddingHorizontal: 10,
-    paddingVertical: 1,
-    // backgroundColor: "green",
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: colors.secondary,
   },
   buttonText: {
-    color: 'green',
+    color: colors.bg,
   },
 });
 
