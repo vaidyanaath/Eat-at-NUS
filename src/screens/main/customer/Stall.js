@@ -16,6 +16,7 @@ import { Ionicons, FontAwesome, Entypo } from '@expo/vector-icons';
 // Import Database
 import { ref, onValue } from 'firebase/database';
 import { db } from '../../../firebase/config';
+import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 const Stall = ({ navigation, route }) => {
   const stallID = route.params.stall.id;
@@ -61,43 +62,46 @@ const Stall = ({ navigation, route }) => {
     };
   }, [db]);
 
+  if (!stallData || !dishesMetadataArr) {
+    return <LoadingScreen />;
+  }
+
   return (
-    stallData &&
-    dishesMetadataArr && ( // Load data before rendering
-      <StyledContainer style={styles.mainContainer}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
+    <StyledContainer style={styles.mainContainer}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
-        <InnerContainer style={styles.stallInfo}>
-          <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
-          <View style={styles.locationContainer}>
-            <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
-            <RegularText> {stallData.address}</RegularText>
-          </View>
-          <RegularText style={styles.infoText}>Opening Hours: {stallData.openingTime} - {stallData.closingTime}</RegularText>
-          <RegularText style={styles.infoText}>Stall Rating: {stallData.rating}/5</RegularText>
-        </InnerContainer>
+      <InnerContainer style={styles.stallInfo}>
+        <RegularText style={styles.infoText}>{stallData.cuisine}</RegularText>
+        <View style={styles.locationContainer}>
+          <Ionicons name="ios-location-outline" size={24} color={colors.primary} />
+          <RegularText> {stallData.address}</RegularText>
+        </View>
+        <RegularText style={styles.infoText}>
+          Opening Hours: {stallData.openingTime} - {stallData.closingTime}
+        </RegularText>
+        <RegularText style={styles.infoText}>Stall Rating: {stallData.rating}/5</RegularText>
+      </InnerContainer>
 
-        <InnerContainer style={styles.body}>
-          <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
-            Dishes
-          </RegularText>
-          <FlatList
-            data={dishesMetadataArr}
-            renderItem={({ item }) => (
-              <ListContainer
-                photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
-                onPress={() => navigation.navigate('Dish', { dishID: item.id })}
-                content={dishContent(item)}
-              />
-            )}
-            style={styles.discoverList}
-            ListFooterComponent={<View marginBottom={10}></View>}
-            showsVerticalScrollIndicator={false}
-            vertical={true}
-          />
-        </InnerContainer>
-      </StyledContainer>
-    )
+      <InnerContainer style={styles.body}>
+        <RegularText style={{ fontSize: 25, marginBottom: 5, alignSelf: 'flex-start' }}>
+          Dishes
+        </RegularText>
+        <FlatList
+          data={dishesMetadataArr}
+          renderItem={({ item }) => (
+            <ListContainer
+              photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
+              onPress={() => navigation.navigate('Dish', { dishID: item.id })}
+              content={dishContent(item)}
+            />
+          )}
+          style={styles.discoverList}
+          ListFooterComponent={<View marginBottom={10}></View>}
+          showsVerticalScrollIndicator={false}
+          vertical={true}
+        />
+      </InnerContainer>
+    </StyledContainer>
   );
 };
 

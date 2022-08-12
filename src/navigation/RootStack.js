@@ -115,6 +115,7 @@ const RootStack = () => {
                 component={WriteReview}
                 options={{ title: 'Write a Review' }}
               />
+              <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
             </>
           ) : (
             <>

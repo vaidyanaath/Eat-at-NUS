@@ -21,39 +21,43 @@ Each item has the following properties:
   rating: number
 */
 
-export const HorizontalListContainer = ({ item, onPress }) => (
-  <TouchableOpacity style={cardStyles.button} onPress={onPress}>
-    <View style={cardStyles.container}>
-      <View style={cardStyles.topContainer}>
-        <ImageBackground
-          style={cardStyles.imageContainer}
-          imageStyle={cardStyles.image}
-          resizeMode="cover"
-          source={{uri: item.imageURL}} // replace with imageURL
-        >
-          <View style={cardStyles.ratingBG}>
-            <Text style={cardStyles.stallRating}>{item.rating}</Text>
+export const HorizontalListContainer = ({ item, onPress }) => {
+  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
+
+  return (
+    <TouchableOpacity style={cardStyles.button} onPress={onPress}>
+      <View style={cardStyles.container}>
+        <View style={cardStyles.topContainer}>
+          <ImageBackground
+            style={cardStyles.imageContainer}
+            imageStyle={cardStyles.image}
+            resizeMode="cover"
+            source={{ uri: item.imageURL ? item.imageURL : DISH_PLACEHOLDER }}
+          >
+            <View style={cardStyles.ratingBG}>
+              <Text style={cardStyles.stallRating}>{item.rating}</Text>
+            </View>
+          </ImageBackground>
+        </View>
+        <View style={cardStyles.bottomContainer}>
+          {/*top section*/}
+          <View style={cardStyles.textContainer}>
+            <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
           </View>
-        </ImageBackground>
-      </View>
-      <View style={cardStyles.bottomContainer}>
-        {/*top section*/}
-        <View style={cardStyles.textContainer}>
-          <RegularText style={cardStyles.dishName}>{item.name}</RegularText>
-        </View>
-        {/*bottom section*/}
-        <View style={cardStyles.iconContainer}>
-          <SmallText style={cardStyles.dishPrice}>$ {item.price}</SmallText>
-          {item.availability == true ? (
-            <FontAwesome name="check-circle" size={16} color="green" />
-          ) : (
-            <Entypo name="circle-with-cross" size={16} color="red" />
-          )}
+          {/*bottom section*/}
+          <View style={cardStyles.iconContainer}>
+            <SmallText style={cardStyles.dishPrice}>$ {item.price}</SmallText>
+            {item.availability == true ? (
+              <FontAwesome name="check-circle" size={16} color="green" />
+            ) : (
+              <Entypo name="circle-with-cross" size={16} color="red" />
+            )}
+          </View>
         </View>
       </View>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
+};
 
 const cardStyles = StyleSheet.create({
   button: {

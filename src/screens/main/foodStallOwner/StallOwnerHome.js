@@ -37,9 +37,8 @@ const StallOwnerHome = ({ navigation }) => {
 
   const [stallData, setStallData] = useState(null);
   const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
-  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
-  const handleProfileButton = () => {
+  const handleProfileButtonPress = () => {
     navigation.navigate('Profile');
   };
 
@@ -91,7 +90,7 @@ const StallOwnerHome = ({ navigation }) => {
         <RegularText style={styles.greeting}>My Stall:</RegularText>
         {/* Profile Button */}
         <TouchableOpacity
-          onPress={handleProfileButton}
+          onPress={handleProfileButtonPress}
           backgroundColor={colors.black}
           style={styles.profilePic}
         >
@@ -165,7 +164,7 @@ const StallOwnerHome = ({ navigation }) => {
           data={dishesMetadataArr}
           renderItem={({ item }) => (
             <ListContainer
-              photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
+              photo={item.imageURL}
               onPress={() => navigation.navigate('StallOwnerDish', { dishID: item.id })}
               content={dishContent(item)}
             />

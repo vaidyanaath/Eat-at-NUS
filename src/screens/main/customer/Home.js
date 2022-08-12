@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList, Image, Modal } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
 import { SearchBar } from '../../../components/SearchBar';
-import { ProfileButton } from '../../../components/buttons/ProfileButton';
 import { FilterSection } from '../../../components/FilterSection';
+
+import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 import Overlay from 'react-native-modal-overlay';
 
@@ -28,7 +29,11 @@ const Home = ({ navigation }) => {
   const user = auth.currentUser;
   const placeholderAvatar =
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
-  const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
+  const AVATAR = user && user.photoURL ? user.photoURL : placeholderAvatar;
+
+  const handleProfileButtonPress = () => {
+    navigation.navigate('Profile');
+  };
 
   // Fetch popular dishes
   const [popularDishes, setPopularDishes] = useState([]);
@@ -86,68 +91,75 @@ const Home = ({ navigation }) => {
     console.log('Filter button pressed!');
   };
 
-  return (
-    user &&
-    stallsMetadataArr && (
-      <StyledContainer style={styles.mainContainer}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
-        <InnerContainer style={styles.header}>
-          <RegularText style={styles.greeting}>
-            Hello, {user.displayName ? user.displayName.split(' ')[0] : 'foodie'}
-          </RegularText>
-          <ProfileButton source={{ uri: avatar }} />
-        </InnerContainer>
-        <InnerContainer style={styles.body}>
-          <SearchBar onPress={handleFilter} />
-          <Overlay
-            visible={showFilter}
-            onClose={() => setShowFilter(false)}
-            closeOnTouchOutside
-            animationType="zoomIn"
-            containerStyle={styles.overlayWrapper}
-            childrenWrapperStyle={styles.filterOverlay}
-          >
-            <FilterSection />
-          </Overlay>
+  if (!user || !popularDishes || !stallsMetadataArr) {
+    return <LoadingScreen />;
+  }
 
-          <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 5 }}>
-            Popular Near You
-          </RegularText>
-          <FlatList
-            data={popularDishes}
-            renderItem={({ item }) => (
-              <HorizontalListContainer
-                item={item}
-                onPress={() => navigation.navigate('Dish', { dishID: item.id })}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            minHeight={145}
-            backgroundColor={colors.bg} //'#ff75'
-          />
-          <RegularText style={{ fontSize: 22, marginVertical: 5, alignSelf: 'flex-start' }}>
-            Discover
-          </RegularText>
-          <FlatList
-            data={stallsMetadataArr}
-            renderItem={({ item }) => (
-              <ListContainer
-                photo={item.imageURL}
-                onPress={() => navigation.navigate('Stall', { stall: item })}
-                content={stallContent(item)}
-              />
-            )}
-            // ListHeaderComponent={discover}
-            style={styles.discoverList}
-            ListFooterComponent={<View marginBottom={15} />}
-            showsVerticalScrollIndicator={false}
-            vertical={true}
-          />
-        </InnerContainer>
-      </StyledContainer>
-    )
+  return (
+    <StyledContainer style={styles.mainContainer}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
+      <InnerContainer style={styles.header}>
+        <RegularText style={styles.greeting}>
+          Hello, {user.displayName ? user.displayName.split(' ')[0] : 'foodie'}
+        </RegularText>
+        <TouchableOpacity
+          onPress={handleProfileButtonPress}
+          backgroundColor={colors.black}
+          style={styles.profilePic}
+        >
+          <Image style={styles.profilePic} source={{ uri: AVATAR }} />
+        </TouchableOpacity>
+      </InnerContainer>
+      <InnerContainer style={styles.body}>
+        <SearchBar onPress={handleFilter} />
+        <Overlay
+          visible={showFilter}
+          onClose={() => setShowFilter(false)}
+          closeOnTouchOutside
+          animationType="zoomIn"
+          containerStyle={styles.overlayWrapper}
+          childrenWrapperStyle={styles.filterOverlay}
+        >
+          <FilterSection />
+        </Overlay>
+
+        <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 5 }}>
+          Popular Near You
+        </RegularText>
+        <FlatList
+          data={popularDishes}
+          renderItem={({ item }) => (
+            <HorizontalListContainer
+              item={item}
+              onPress={() => navigation.navigate('Dish', { dishID: item.id })}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          minHeight={145}
+          backgroundColor={colors.bg} //'#ff75'
+        />
+        <RegularText style={{ fontSize: 22, marginVertical: 5, alignSelf: 'flex-start' }}>
+          Discover
+        </RegularText>
+        <FlatList
+          data={stallsMetadataArr}
+          renderItem={({ item }) => (
+            <ListContainer
+              photo={item.imageURL}
+              onPress={() => navigation.navigate('Stall', { stall: item })}
+              content={stallContent(item)}
+            />
+          )}
+          // ListHeaderComponent={discover}
+          style={styles.discoverList}
+          ListFooterComponent={<View marginBottom={15} />}
+          showsVerticalScrollIndicator={false}
+          vertical={true}
+        />
+      </InnerContainer>
+    </StyledContainer>
   );
 };
 
@@ -227,12 +239,17 @@ const styles = StyleSheet.create({
   filterOverlay: {
     flex: 1,
     borderRadius: 25,
-    maxHeight: '65%',
+    maxHeight: '45%',
     width: '90%',
     padding: 0,
   },
   greeting: {
     fontWeight: 'bold',
+  },
+  profilePic: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
   },
   body: {
     paddingHorizontal: 10,
