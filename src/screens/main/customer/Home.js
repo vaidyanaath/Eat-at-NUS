@@ -31,10 +31,6 @@ const Home = ({ navigation }) => {
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
   const AVATAR = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
-  const handleProfileButtonPress = () => {
-    navigation.navigate('Profile');
-  };
-
   // Fetch popular dishes
   const [popularDishes, setPopularDishes] = useState([]);
   useEffect(() => {
@@ -89,6 +85,10 @@ const Home = ({ navigation }) => {
   const handleFilter = () => {
     setShowFilter(true);
     console.log('Filter button pressed!');
+  };
+
+  const handleProfileButtonPress = () => {
+    navigation.navigate('Profile');
   };
 
   if (!user || !popularDishes || !stallsMetadataArr) {

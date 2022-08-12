@@ -68,8 +68,10 @@ const StallOwnerDish = ({ navigation, route }) => {
           await deleteDish(user.uid, dishID);
           // react state cleanup to avoid memory leak
           setDishData(null);
-
-          navigation.navigate('StallOwnerHome');
+          // delay to avoid lagging
+          setTimeout(() => {
+            navigation.navigate('StallOwnerHome');
+          }, 1000);
         },
       },
     ]);

@@ -38,10 +38,6 @@ const StallOwnerHome = ({ navigation }) => {
   const [stallData, setStallData] = useState(null);
   const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
 
-  const handleProfileButtonPress = () => {
-    navigation.navigate('Profile');
-  };
-
   // Fetch stall data
   useEffect(() => {
     const reference = ref(db, 'stalls/' + stallID);
@@ -77,6 +73,10 @@ const StallOwnerHome = ({ navigation }) => {
       setDishesMetadataArr(null);
     };
   }, [db]);
+
+  const handleProfileButtonPress = () => {
+    navigation.navigate('Profile');
+  };
 
   if (!(user && stallData && dishesMetadataArr)) {
     return <LoadingScreen />;

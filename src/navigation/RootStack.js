@@ -95,98 +95,104 @@ const RootStack = () => {
           },
         }}
       >
-        {isSignedIn ? (
-          userType === 'customer' ? (
-            <>
-              <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-              <Stack.Screen
-                name="Stall"
-                component={Stall}
-                options={({ route }) => ({ title: route.params.stall.name })}
-              />
-              <Stack.Screen name="Dish" component={Dish} options={{ title: null }} />
-              <Stack.Screen
-                name="Review"
-                component={Review}
-                options={({ route }) => ({ title: route.params.dishName })}
-              />
-              <Stack.Screen
-                name="WriteReview"
-                component={WriteReview}
-                options={{ title: 'Write a Review' }}
-              />
-              <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
-            </>
+        <>
+          {isSignedIn ? (
+            userType === 'customer' ? (
+              <>
+                <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="Stall"
+                  component={Stall}
+                  options={({ route }) => ({ title: route.params.stall.name })}
+                />
+                <Stack.Screen name="Dish" component={Dish} options={{ title: null }} />
+                <Stack.Screen
+                  name="Review"
+                  component={Review}
+                  options={({ route }) => ({ title: route.params.dishName })}
+                />
+                <Stack.Screen
+                  name="WriteReview"
+                  component={WriteReview}
+                  options={{ title: 'Write a Review' }}
+                />
+                <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
+              </>
+            ) : (
+              <>
+                <Stack.Screen
+                  name="StallOwnerHome"
+                  component={StallOwnerHome}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="StallOwnerDish"
+                  component={StallOwnerDish}
+                  options={{ title: null }}
+                />
+                <Stack.Screen
+                  name="StallOwnerEditDish"
+                  component={StallOwnerEditDish}
+                  options={{ title: null }}
+                />
+                <Stack.Screen
+                  name="StallOwnerAddDish"
+                  component={StallOwnerAddDish}
+                  options={{ title: null }}
+                />
+                <Stack.Screen
+                  name="StallOwnerEditStall"
+                  component={StallOwnerEditStall}
+                  options={{ title: null }}
+                />
+                <Stack.Screen
+                  name="Review"
+                  component={Review}
+                  options={({ route }) => ({ title: route.params.dishName })}
+                />
+              </>
+            )
           ) : (
             <>
               <Stack.Screen
-                name="StallOwnerHome"
-                component={StallOwnerHome}
-                options={{ headerShown: false }}
+                name="Landing"
+                component={Landing}
+                options={{ headerShown: false }} // animationTypeForReplace: isSignedIn ? 'push' : 'pop'
               />
               <Stack.Screen
-                name="StallOwnerDish"
-                component={StallOwnerDish}
+                name="CustomerSignIn"
+                component={CustomerSignIn}
                 options={{ title: null }}
               />
               <Stack.Screen
-                name="StallOwnerEditDish"
-                component={StallOwnerEditDish}
+                name="CustomerSignUp"
+                component={CustomerSignUp}
                 options={{ title: null }}
               />
               <Stack.Screen
-                name="StallOwnerAddDish"
-                component={StallOwnerAddDish}
+                name="FoodStallOwnerSignIn"
+                component={FoodStallOwnerSignIn}
                 options={{ title: null }}
               />
               <Stack.Screen
-                name="StallOwnerEditStall"
-                component={StallOwnerEditStall}
+                name="FoodStallOwnerSignUp"
+                component={FoodStallOwnerSignUp}
                 options={{ title: null }}
               />
               <Stack.Screen
-                name="Review"
-                component={Review}
-                options={({ route }) => ({ title: route.params.dishName })}
+                name="FoodStallOwnerRegisterStall"
+                component={FoodStallOwnerRegisterStall}
+                options={{ title: null }}
               />
-              <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
             </>
-          )
-        ) : (
-          <>
-            <Stack.Screen
-              name="Landing"
-              component={Landing}
-              options={{ headerShown: false }} // animationTypeForReplace: isSignedIn ? 'push' : 'pop'
-            />
-            <Stack.Screen
-              name="CustomerSignIn"
-              component={CustomerSignIn}
-              options={{ title: null }}
-            />
-            <Stack.Screen
-              name="CustomerSignUp"
-              component={CustomerSignUp}
-              options={{ title: null }}
-            />
-            <Stack.Screen
-              name="FoodStallOwnerSignIn"
-              component={FoodStallOwnerSignIn}
-              options={{ title: null }}
-            />
-            <Stack.Screen
-              name="FoodStallOwnerSignUp"
-              component={FoodStallOwnerSignUp}
-              options={{ title: null }}
-            />
-            <Stack.Screen
-              name="FoodStallOwnerRegisterStall"
-              component={FoodStallOwnerRegisterStall}
-              options={{ title: null }}
-            />
-            <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
-          </>
-        )}
+          )}
+          <Stack.Screen
+            navigationKey={isSignedIn ? 'user' : 'guest'}
+            name="Profile"
+            component={Profile}
+            options={{ title: 'Profile' }}
+          />
+        </>
       </Stack.Navigator>
     </NavigationContainer>
   );
