@@ -1,5 +1,5 @@
 // Importing the required stuff
-import { db } from '../../../../firebase/Eat-at-NUS_config';
+import { db } from '../config';
 import { ref, get, remove } from 'firebase/database';
 import deleteDish from '../DeleteDish';
 

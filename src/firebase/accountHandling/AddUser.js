@@ -1,6 +1,6 @@
 // Importing the required stuff
 import { ref, set } from 'firebase/database';
-import { db } from './config';
+import { db } from '../config';
 
 const addUser = (user, type) => {
   const email = user.email.replace('.', '%2E');
