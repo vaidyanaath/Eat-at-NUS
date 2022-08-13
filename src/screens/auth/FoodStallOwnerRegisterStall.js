@@ -16,7 +16,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { RegularButton } from '../../components/buttons/RegularButton';
 import { KeyboardAvoidingWrapper } from '../../components/KeyboardAvoidingWrapper';
 
-import addUser from '../../firebase/AddUser';
+import addUser from '../../firebase/accountHandling/AddUser';
 import addStall from '../../firebase/AddNewStall';
 
 // show toast notifs

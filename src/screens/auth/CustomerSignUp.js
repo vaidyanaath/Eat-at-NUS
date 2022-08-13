@@ -18,7 +18,7 @@ import { colors } from '../../assets/colors';
 import { auth } from '../../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
-import addUser from '../../firebase/AddUser';
+import addUser from '../../firebase/accountHandling/AddUser';
 
 // show toast notifs
 import Toast from 'react-native-root-toast';

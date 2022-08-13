@@ -27,6 +27,7 @@ const addStall = (stallID, name, address, openingTime, closingTime, cuisine) => 
     cuisine: cuisine,
     rating: 0,
     ratingIndex: 0,
+    imageURL: '',
   });
 };
 
