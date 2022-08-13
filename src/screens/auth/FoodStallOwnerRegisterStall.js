@@ -353,14 +353,13 @@ const styles = StyleSheet.create({
     // backgroundColor: '#123456',
   },
   button: {
-    borderColor: 'green',
-    borderWidth: 2,
-    paddingHorizontal: 10,
-    paddingVertical: 1,
-    // backgroundColor: "green",
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: colors.secondary,
   },
   buttonText: {
-    color: 'green',
+    color: colors.bg,
   },
 });
 

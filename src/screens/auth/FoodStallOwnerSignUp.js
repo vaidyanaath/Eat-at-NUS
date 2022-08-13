@@ -14,14 +14,6 @@ import { RegularText } from '../../components/texts/RegularText';
 // import colors
 import { colors } from '../../assets/colors';
 
-// import auth
-import { auth } from '../../firebase/config';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-
-// import db writing functions
-import addUser from '../../firebase/AddUser';
-import addStall from '../../firebase/AddNewStall';
-
 // show toast notifs
 import Toast from 'react-native-root-toast';
 
