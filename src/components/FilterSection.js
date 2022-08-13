@@ -7,14 +7,10 @@ import { RegularText } from './texts/RegularText';
 import { BigText } from './texts/BigText';
 
 import SelectableChips from 'react-native-chip/SelectableChips';
-import Slider from 'react-native-slider';
 import { colors } from '../assets/colors';
 import { SmallText } from './texts/SmallText';
 
 export const FilterSection = () => {
-  const [priceEnd, setPriceEnd] = React.useState(0);
-  const [distance, setDistance] = React.useState(0);
-
   const handleApplyFilter = () => {
     console.log('Apply filter button pressed!');
   };
@@ -45,35 +41,8 @@ export const FilterSection = () => {
           alertRequired={false}
         />
       </InnerContainer>
-      <InnerContainer style={styles.sliderContainer}>
-        <InnerContainer style={styles.sliderHeader}>
-          <RegularText style={styles.subHeadingRow}>Price</RegularText>
-          <RegularText>&lt; ${priceEnd}</RegularText>
-        </InnerContainer>
-        <Slider
-          onValueChange={(value) => setPriceEnd(value)}
-          minimumValue={0}
-          maximumValue={50}
-          step={2}
-          style={styles.slider}
-        />
-      </InnerContainer>
 
-      <InnerContainer style={styles.sliderContainer}>
-        <InnerContainer style={styles.sliderHeader}>
-          <RegularText style={styles.subHeadingRow}>Distance</RegularText>
-          <RegularText>
-            &lt; {distance >= 1000 ? distance / 1000 + ' km' : distance + ' m'}{' '}
-          </RegularText>
-        </InnerContainer>
-        <Slider
-          onValueChange={(value) => setDistance(value)}
-          minimumValue={0}
-          maximumValue={3000}
-          step={100}
-          style={styles.slider}
-        />
-      </InnerContainer>
+      {/* Apply Button */}
       <RegularButton style={styles.applyButton} onPress={handleApplyFilter}>
         <RegularText style={styles.applyButtonText}>Apply</RegularText>
       </RegularButton>
@@ -84,8 +53,8 @@ export const FilterSection = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
     // backgroundColor: '#ffc',
     borderRadius: 25,
     paddingTop: 10,
@@ -154,7 +123,7 @@ const styles = StyleSheet.create({
   applyButton: {
     paddingBottom: 5,
     paddingTop: 5,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
   },
   applyButtonText: {
     color: colors.bg,

@@ -18,6 +18,7 @@ import { RegularText } from '../../../components/texts/RegularText';
 
 import { FontAwesome, FontAwesome5, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { SmallText } from '../../../components/texts/SmallText';
+import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 // Import Database
 import { ref, onValue } from 'firebase/database';
@@ -42,89 +43,91 @@ const Dish = ({ navigation, route }) => {
     };
   }, [db]);
 
+  if (!dishData) {
+    return <LoadingScreen />;
+  }
+
   return (
-    dishData && (
-      <StyledContainer style={styles.mainContainer}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
+    <StyledContainer style={styles.mainContainer}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
-        <InnerContainer style={styles.topContainer}>
-          <InnerContainer style={styles.namePriceContainer}>
-            <RegularText style={styles.name}>{dishData.name}</RegularText>
-            <BigText style={styles.price}>$ {dishData.price}</BigText>
-          </InnerContainer>
-
-          <TouchableOpacity
-            style={styles.reviewIconButton}
-            onPress={() =>
-              navigation.navigate('Review', {
-                dishID: dishID,
-                dishName: dishData.name,
-                dishRating: dishData.rating,
-                userType: 'customer',
-              })
-            }
-          >
-            <MaterialCommunityIcons name="comment-text-outline" size={24} color="black" />
-          </TouchableOpacity>
+      <InnerContainer style={styles.topContainer}>
+        <InnerContainer style={styles.namePriceContainer}>
+          <RegularText style={styles.name}>{dishData.name}</RegularText>
+          <BigText style={styles.price}>$ {dishData.price}</BigText>
         </InnerContainer>
 
-        <InnerContainer style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }}
-          />
+        <TouchableOpacity
+          style={styles.reviewIconButton}
+          onPress={() =>
+            navigation.navigate('Review', {
+              dishID: dishID,
+              dishName: dishData.name,
+              dishRating: dishData.rating,
+              userType: 'customer',
+            })
+          }
+        >
+          <MaterialCommunityIcons name="comment-text-outline" size={24} color="black" />
+        </TouchableOpacity>
+      </InnerContainer>
+
+      <InnerContainer style={styles.imageContainer}>
+        <Image
+          style={styles.image}
+          source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }}
+        />
+      </InnerContainer>
+
+      <ScrollView style={{ flex: 1 }}>
+        <InnerContainer style={styles.section}>
+          <View flex={1} flexDirection="row" paddingHorizontal={10} alignItems="center">
+            {dishData.availability == true ? (
+              <FontAwesome name="check-circle" size={22} color="green" />
+            ) : (
+              <Entypo name="circle-with-cross" size={22} color="red" />
+            )}
+            {dishData.availability == true ? (
+              <RegularText style={styles.sectionText}>Available</RegularText>
+            ) : (
+              <RegularText style={styles.sectionText}>Not Available</RegularText>
+            )}
+          </View>
+
+          <View
+            flex={1}
+            flexDirection="row"
+            paddingHorizontal={10}
+            marginHorizontal={10}
+            alignItems="center"
+          >
+            <FontAwesome5 name="fire-alt" size={20} color={colors.primary} />
+            <RegularText style={styles.sectionText}>{dishData.calories} kcal</RegularText>
+          </View>
+
+          <View style={styles.ratingBG}>
+            <Text style={styles.stallRating}>{dishData.rating}</Text>
+          </View>
         </InnerContainer>
 
-        <ScrollView style={{ flex: 1 }}>
-          <InnerContainer style={styles.section}>
-            <View flex={1} flexDirection="row" paddingHorizontal={10} alignItems="center">
-              {dishData.availability == true ? (
-                <FontAwesome name="check-circle" size={22} color="green" />
-              ) : (
-                <Entypo name="circle-with-cross" size={22} color="red" />
-              )}
-              {dishData.availability == true ? (
-                <RegularText style={styles.sectionText}>Available</RegularText>
-              ) : (
-                <RegularText style={styles.sectionText}>Not Available</RegularText>
-              )}
-            </View>
-
-            <View
-              flex={1}
-              flexDirection="row"
-              paddingHorizontal={10}
-              marginHorizontal={10}
-              alignItems="center"
-            >
-              <FontAwesome5 name="fire-alt" size={20} color={colors.primary} />
-              <RegularText style={styles.sectionText}>{dishData.calories} kcal</RegularText>
-            </View>
-
-            <View style={styles.ratingBG}>
-              <Text style={styles.stallRating}>{dishData.rating}</Text>
-            </View>
-          </InnerContainer>
-
-          <InnerContainer style={{ marginBottom: 15 }}>
-            <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
-          </InnerContainer>
-          <RegularText style={{ marginVertical: 5, fontSize: 20, paddingHorizontal: 10 }}>
-            Contains allergens:{' '}
-          </RegularText>
-          <InnerContainer
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'space-evenly',
-            }}
-          >
-            <SmallText>{dishData.allergenInfo}</SmallText>
-          </InnerContainer>
-        </ScrollView>
-      </StyledContainer>
-    )
+        <InnerContainer style={{ marginBottom: 15 }}>
+          <SmallText style={{ fontSize: 16 }}>{dishData.description}</SmallText>
+        </InnerContainer>
+        <RegularText style={{ marginVertical: 5, fontSize: 20, paddingHorizontal: 10 }}>
+          Contains allergens:{' '}
+        </RegularText>
+        <InnerContainer
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-evenly',
+          }}
+        >
+          <SmallText>{dishData.allergenInfo}</SmallText>
+        </InnerContainer>
+      </ScrollView>
+    </StyledContainer>
   );
 };
 

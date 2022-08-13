@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
@@ -30,15 +30,13 @@ import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 const StallOwnerHome = ({ navigation }) => {
   const user = auth.currentUser;
-  const stallID = user.uid; //'Bhaiya khaana dedo';
+  const stallID = user.uid;
 
-  const placeholderAvatar =
+  const AVATAR =
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
-  const avatar = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
   const [stallData, setStallData] = useState(null);
   const [dishesMetadataArr, setDishesMetadataArr] = useState(null);
-  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   // Fetch stall data
   useEffect(() => {
@@ -76,6 +74,10 @@ const StallOwnerHome = ({ navigation }) => {
     };
   }, [db]);
 
+  const handleProfileButtonPress = () => {
+    navigation.navigate('Profile');
+  };
+
   if (!(user && stallData && dishesMetadataArr)) {
     return <LoadingScreen />;
   }
@@ -86,7 +88,14 @@ const StallOwnerHome = ({ navigation }) => {
 
       <InnerContainer style={styles.header}>
         <RegularText style={styles.greeting}>My Stall:</RegularText>
-        <ProfileButton source={{ uri: avatar }} />
+        {/* Profile Button */}
+        <TouchableOpacity
+          onPress={handleProfileButtonPress}
+          backgroundColor={colors.black}
+          style={styles.profilePic}
+        >
+          <Image style={styles.profilePic} source={{ uri: AVATAR }} />
+        </TouchableOpacity>
       </InnerContainer>
 
       <InnerContainer style={styles.stallInfo}>
@@ -155,7 +164,7 @@ const StallOwnerHome = ({ navigation }) => {
           data={dishesMetadataArr}
           renderItem={({ item }) => (
             <ListContainer
-              photo={item.imageURL ? item.imageURL : DISH_PLACEHOLDER}
+              photo={item.imageURL}
               onPress={() => navigation.navigate('StallOwnerDish', { dishID: item.id })}
               content={dishContent(item)}
             />
@@ -268,6 +277,11 @@ const styles = StyleSheet.create({
   greeting: {
     paddingLeft: 15,
     fontWeight: 'bold',
+  },
+  profilePic: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
   },
   body: {
     paddingHorizontal: 10,

@@ -5,11 +5,12 @@ import { TouchableOpacity, View, Image, StyleSheet } from 'react-native';
 import { colors } from '../../assets/colors';
 
 export const ListContainer = ({ photo, onPress, content }) => {
+  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
   return (
     <TouchableOpacity style={cardStyles.button} onPress={onPress}>
       <View style={cardStyles.container}>
         <View style={cardStyles.imageContainer}>
-          <Image style={cardStyles.image} source={{ uri: photo }} />
+          <Image style={cardStyles.image} source={{ uri: photo ? photo : DISH_PLACEHOLDER}} />
         </View>
         {content}
       </View>

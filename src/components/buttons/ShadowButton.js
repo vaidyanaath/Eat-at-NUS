@@ -7,7 +7,7 @@ export const ShadowButton = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     align-self: center;
-    shadow-color: #000;
+    shadow-color: #fff;
     shadow-offset: { width: 5, height: 5 };
     shadow-opacity: 0.22;
     shadow-radius: 2.22px;

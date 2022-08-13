@@ -29,11 +29,13 @@ import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../../assets/colors';
 import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWrapper';
 import deleteDishImage from '../../../firebase/imageHandling/DeleteDishImage';
+import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 const StallOwnerEditDish = ({ navigation, route }) => {
   const dishID = route.params.dishID;
   const stallID = auth.currentUser.uid;
 
+  const [loaded, setLoaded] = useState(false);
   // Fetch dish data
   const [dishName, setDishName] = useState('');
   const [dishPrice, setDishPrice] = useState('');
@@ -49,6 +51,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
     onValue(reference, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
+        setLoaded(true);
         setDishName(data.name);
         setDishPrice(data.price);
         setDishImageURL(data.imageURL);
@@ -62,6 +65,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
     });
 
     return () => {
+      setLoaded(false);
       setDishName('');
       setDishPrice('');
       setDishImageURL('');
@@ -124,6 +128,10 @@ const StallOwnerEditDish = ({ navigation, route }) => {
     //navigation.navigate('StallOwnerDish', { dishID: dishID });
   };
 
+  if (!loaded) {
+    return <LoadingScreen />;
+  }
+
   return (
     <StyledContainer style={styles.mainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -143,6 +151,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
             <RegularText style={styles.headingText}>Price:</RegularText>
             <TextInput
               style={styles.input}
+              keyboardType="decimal-pad"
               onChangeText={(dishPrice) => setDishPrice(dishPrice)}
               value={dishPrice}
               placeholder="$"
@@ -154,6 +163,7 @@ const StallOwnerEditDish = ({ navigation, route }) => {
             <RegularText style={styles.headingText}>Calories:</RegularText>
             <TextInput
               style={styles.input}
+              keyboardType="numeric"
               onChangeText={(dishCalories) => setDishCalories(dishCalories)}
               value={dishCalories}
               placeholder="kcal"
@@ -324,14 +334,13 @@ const styles = StyleSheet.create({
     // backgroundColor: '#123456',
   },
   button: {
-    borderColor: 'green',
-    borderWidth: 2,
-    paddingHorizontal: 10,
-    paddingVertical: 1,
-    // backgroundColor: "green",
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: colors.secondary,
   },
   buttonText: {
-    color: 'green',
+    color: colors.bg,
   },
 });
 

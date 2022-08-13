@@ -28,7 +28,6 @@ import addReview from '../../../firebase/AddReview';
 const WriteReview = ({ navigation, route }) => {
   const dishID = route.params.dishID;
   const user = auth.currentUser;
-  const DISH_PLACEHOLDER = 'https://cdn-icons-png.flaticon.com/512/857/857681.png';
 
   const [rating, setRating] = useState(3);
   const [review, setReview] = useState('');
@@ -69,7 +68,7 @@ const WriteReview = ({ navigation, route }) => {
             </InnerContainer>
             <Image
               style={styles.image}
-              source={{ uri: dishData.imageURL ? dishData.imageURL : DISH_PLACEHOLDER }}
+              source={{ uri: dishData.imageURL }}
             />
           </InnerContainer>
 
