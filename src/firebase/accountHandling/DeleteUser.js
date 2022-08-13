@@ -2,6 +2,7 @@
 import { db } from '../config';
 import { ref, get, remove } from 'firebase/database';
 import deleteDish from '../DeleteDish';
+import deleteStallImage from '../imageHandling/DeleteStallImage';
 
 const deleteCustomer = async (user) => {
   // Delete user from userType
@@ -23,6 +24,9 @@ const deleteFoodStallOwner = async (user) => {
   // Delete user from users
   const userReference = ref(db, 'users/' + user.uid);
   await remove(userReference);
+
+  // Delete stall image from Firebase Storage
+  await deleteStallImage(user.uid);
 
   // Get the list of dishes belonging to the user's stall
   let dishesList = [];
