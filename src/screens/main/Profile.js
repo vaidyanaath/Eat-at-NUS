@@ -5,6 +5,7 @@ import { InnerContainer } from '../../components/containers/InnerContainer';
 import { BigText } from '../../components/texts/BigText';
 import { RegularText } from '../../components/texts/RegularText';
 import { SmallText } from '../../components/texts/SmallText';
+import { Alert } from 'react-native';
 
 import { MaterialIcons, Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors } from '../../assets/colors';
@@ -37,13 +38,24 @@ const Profile = () => {
   };
 
   const handleDeleteAccount = () => {
-    signOut(auth)
-      .then(() => {
-        deleteUser(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    Alert.alert('Delete Account', 'Are you sure you want to delete your account?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          signOut(auth)
+            .then(() => {
+              deleteUser(user);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        },
+      },
+    ]);
   };
 
   return (

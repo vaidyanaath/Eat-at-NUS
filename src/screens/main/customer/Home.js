@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
@@ -97,7 +106,7 @@ const Home = ({ navigation }) => {
     console.log('Search text: ' + searchText);
     console.log('Cuisines: ' + cuisines);
     console.log('Filter applied!');
-  }
+  };
 
   const handleProfileButtonPress = () => {
     navigation.navigate('Profile');
@@ -179,10 +188,13 @@ const Home = ({ navigation }) => {
                 alertRequired={false}
               />
             </InnerContainer>
-            
-            <RegularButton style={filterStyles.applyButton} onPress={applyFilter}>
-              <RegularText style={filterStyles.applyButtonText}>Apply</RegularText>
-            </RegularButton>
+
+            <InnerContainer style={{ flex: 1, flexDirection: 'row' }}>
+              <RegularButton style={filterStyles.applyButton} onPress={applyFilter}>
+                <RegularText style={filterStyles.applyButtonText}>Apply</RegularText>
+              </RegularButton>
+              {/* <RegularButton style={filterStyles.cancelButton} onPress={resetFilter}> */}
+            </InnerContainer>
           </StyledContainer>
         </Overlay>
 
