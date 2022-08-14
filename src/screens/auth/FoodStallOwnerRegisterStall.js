@@ -103,10 +103,6 @@ const FoodStallOwnerRegisterStall = ({ route }) => {
     }
   };
 
-  const deleteImage = () => {
-    setStallImageURI('');
-  };
-
   const toastOptions = {
     duration: 5000,
     position: -120,
@@ -210,7 +206,7 @@ const FoodStallOwnerRegisterStall = ({ route }) => {
                 resizeMode={'contain'}
                 style={styles.stallImage}
               >
-                <TouchableOpacity style={styles.uploadButton} onPress={deleteImage}>
+                <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
                   <MaterialIcons name="add-photo-alternate" size={24} color={colors.secondary} />
                 </TouchableOpacity>
               </ImageBackground>
