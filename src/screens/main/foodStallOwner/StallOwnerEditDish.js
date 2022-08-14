@@ -29,7 +29,6 @@ import deleteDishImage from '../../../firebase/imageHandling/DeleteDishImage';
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../../assets/colors';
 import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWrapper';
-import deleteDishImage from '../../../firebase/imageHandling/DeleteDishImage';
 import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 const StallOwnerEditDish = ({ navigation, route }) => {
