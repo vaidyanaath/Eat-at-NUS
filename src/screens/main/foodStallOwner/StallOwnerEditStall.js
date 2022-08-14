@@ -29,6 +29,8 @@ import { RegularButton } from '../../../components/buttons/RegularButton';
 import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWrapper';
 
 import editStallInfo from '../../../firebase/EditStallInfo';
+import uploadStallImage from '../../../firebase/imageHandling/UploadStallImage';
+import deleteStallImage from '../../../firebase/imageHandling/DeleteStallImage';
 import LoadingScreen from '../../../components/screens/LoadingScreen';
 
 const StallOwnerEditStall = ({ navigation }) => {
@@ -128,7 +130,7 @@ const StallOwnerEditStall = ({ navigation }) => {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     editStallInfo(
       stallID,
       stallName,
@@ -141,7 +143,9 @@ const StallOwnerEditStall = ({ navigation }) => {
     if (displayImage === stallImageURL) {
       console.log('No image changes made');
     } else {
-      // add dish upload to firebase storage (use displayImage)
+      // add stall upload to firebase storage (use displayImage)
+      await deleteStallImage(stallID);
+      await uploadStallImage(stallID, displayImage);
       console.log('Stall image updated');
     }
 

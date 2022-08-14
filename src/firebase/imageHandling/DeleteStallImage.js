@@ -12,7 +12,7 @@ const deleteStallImage = async (stallID) => {
     // There is no image for specified stall
     console.log('ImageURL', stallImageURL);
     if (stallImageURL === '') {
-      console.log("Given dish doesn't have an image in firebase storage");
+      console.log("Given stall doesn't have an image in firebase storage");
       imageExists = false;
     } else {
       fileType = stallImageURL.slice(
