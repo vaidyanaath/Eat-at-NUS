@@ -107,15 +107,23 @@ const Home = ({ navigation }) => {
     const result = await filterData(searchText, cuisines);
     console.log(result[0]);
     console.log(result[1]);
+    setShowFilteredData(true);
     setShowFilter(false);
     console.log('Filter applied!');
   };
+
+  const clearFilter = () => {
+    setShowFilteredData(false);
+    setShowFilter(false);
+    console.log('Filter cleared!');
+  }
 
   // Search and filter data
   const [searchText, setSearchText] = useState('');
   const [cuisines, setCuisines] = useState([]);
   const [priceEnd, setPriceEnd] = useState(0);
   const [distance, setDistance] = useState(0);
+  const [showFilteredData, setShowFilteredData] = useState(false);
 
   return (
     user &&
@@ -219,11 +227,14 @@ const Home = ({ navigation }) => {
               <RegularButton style={filterStyles.applyButton} onPress={applyFilter}>
                 <RegularText style={filterStyles.applyButtonText}>Apply</RegularText>
               </RegularButton>
+              <RegularButton style={filterStyles.applyButton} onPress={clearFilter}>
+                <RegularText style={filterStyles.applyButtonText}>Clear</RegularText>
+              </RegularButton>
             </StyledContainer>
           </Overlay>
 
           <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 5 }}>
-            Popular Near You
+            {showFilteredData ? 'Matching dishes' : 'Popular Near You'}
           </RegularText>
           <FlatList
             data={popularDishes}
@@ -236,7 +247,8 @@ const Home = ({ navigation }) => {
             keyExtractor={(item) => item.id}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            minHeight={145}
+            maxHeight={145}
+            marginBottom={10}
             backgroundColor={colors.bg} //'#ff75'
           />
           <RegularText style={{ fontSize: 22, marginVertical: 5, alignSelf: 'flex-start' }}>
@@ -318,7 +330,7 @@ const searchBarStyle = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    minHeight: 50,
+    maxHeight: 50,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'space-between',
