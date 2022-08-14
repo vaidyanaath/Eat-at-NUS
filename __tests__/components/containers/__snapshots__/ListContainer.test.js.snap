@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ListContainer /> Renders correctly 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "activeOpacity": 0.8,
+      "backgroundColor": "#FFFFFF",
+      "borderColor": "#F5F5F5",
+      "borderRadius": 20,
+      "borderWidth": 0,
+      "elevation": 3,
+      "flex": 1,
+      "height": 100,
+      "marginVertical": 5,
+      "opacity": 1,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 5,
+        "width": 5,
+      },
+      "shadowOpacity": 0.22,
+      "shadowRadius": 2.22,
+      "width": "98%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "borderBottomLeftRadius": 20,
+          "borderTopLeftRadius": 20,
+          "flex": 1,
+          "maxWidth": 140,
+        }
+      }
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "borderRadius": 20,
+            "flex": 1,
+            "resizeMode": "cover",
+            "width": 125,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "borderBottomRightRadius": 20,
+          "borderTopRightRadius": 20,
+          "flex": 1,
+          "flexDirection": "column",
+          "justifyContent": "space-between",
+          "paddingVertical": 10,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#2C365A",
+              "fontFamily": "SourceSansPro-Regular",
+              "fontSize": 23,
+            },
+            Object {
+              "fontSize": 20,
+            },
+          ]
+        }
+      >
+        
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#2C365A",
+              "fontFamily": "SourceSansPro-Regular",
+              "fontSize": 23,
+            },
+            Object {
+              "flex": 2,
+              "fontSize": 15,
+            },
+          ]
+        }
+      >
+        
+         Km away
+      </Text>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#FFB81C",
+            "borderRadius": 3,
+            "paddingHorizontal": 4,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 15,
+            }
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
