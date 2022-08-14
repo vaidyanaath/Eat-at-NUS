@@ -5,35 +5,24 @@ import { deleteUser as firebaseDeleteUser } from 'firebase/auth';
 import deleteDish from '../DeleteDish';
 import deleteStallImage from '../imageHandling/DeleteStallImage';
 
-const deleteUser = (user) => {
-  Alert.alert('Delete Account', 'Are you sure you want to delete your account?', [
-    {
-      text: 'Cancel',
-      style: 'cancel',
-    },
-    {
-      text: 'OK',
-      onPress: async () => {
-        let userType = '';
-        const emailID = user.email.toLowerCase().replace('.', '%2E');
-        const userTypeReference = ref(db, 'userType/' + emailID);
-        await get(userTypeReference).then((snapshot) => {
-          userType = snapshot.val();
-        });
+const deleteUser = async (user) => {
+  let userType = '';
+  const emailID = user.email.toLowerCase().replace('.', '%2E');
+  const userTypeReference = ref(db, 'userType/' + emailID);
+  await get(userTypeReference).then((snapshot) => {
+    userType = snapshot.val();
+  });
 
-        if (userType == 'customer') {
-          await deleteCustomer(user);
-        } else {
-          await deleteFoodStallOwner(user);
-        }
+  if (userType == 'customer') {
+    await deleteCustomer(user);
+  } else {
+    await deleteFoodStallOwner(user);
+  }
 
-        // Delete user from firebase auth system
-        firebaseDeleteUser(user).catch((error) => {
-          console.log(error);
-        });
-      },
-    },
-  ]);
+  // Delete user from firebase auth system
+  firebaseDeleteUser(user).catch((error) => {
+    console.log(error);
+  });
 };
 
 const deleteCustomer = async (user) => {

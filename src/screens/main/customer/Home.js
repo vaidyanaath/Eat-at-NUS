@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
 
 import LoadingScreen from '../../../components/screens/LoadingScreen';
+import filterData from '../../../firebase/filter/FilterData';
 
 import Overlay from 'react-native-modal-overlay';
 
@@ -81,6 +91,7 @@ const Home = ({ navigation }) => {
   }, [db]);
 
   const [showFilter, setShowFilter] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
   const [showFilteredData, setShowFilteredData] = useState(false);
   // Search and filter data
   const [searchText, setSearchText] = useState('');
@@ -92,11 +103,19 @@ const Home = ({ navigation }) => {
   };
 
   const applyFilter = async () => {
+    const results = await filterData(searchText, cuisines);
+    setFilteredData(results);
     setShowFilteredData(true);
-    setShowFilter(false);
-    console.log('Search text: ' + searchText);
-    console.log('Cuisines: ' + cuisines);
     console.log('Filter applied!');
+    console.log(results);
+    setShowFilter(false);
+  };
+
+  const resetFilter = () => {
+    setSearchText('');
+    setCuisines([]);
+    setShowFilteredData(false);
+    setShowFilter(false);
   }
 
   const handleProfileButtonPress = () => {
@@ -132,6 +151,9 @@ const Home = ({ navigation }) => {
             />
             <TextInput
               placeholder="Search"
+              value={searchText}
+              returnKeyType="search"
+              onSubmitEditing={applyFilter}
               selectionColor={colors.secondary}
               style={searchBarStyle.searchTextInput}
               onChangeText={(text) => setSearchText(text)}
@@ -179,18 +201,23 @@ const Home = ({ navigation }) => {
                 alertRequired={false}
               />
             </InnerContainer>
-            
-            <RegularButton style={filterStyles.applyButton} onPress={applyFilter}>
-              <RegularText style={filterStyles.applyButtonText}>Apply</RegularText>
-            </RegularButton>
+
+            <InnerContainer style={{ flex: 1, flexDirection: 'row' }}>
+              <RegularButton style={filterStyles.applyButton} onPress={applyFilter}>
+                <RegularText style={filterStyles.applyButtonText}>Apply</RegularText>
+              </RegularButton>
+              <RegularButton style={filterStyles.applyButton} onPress={resetFilter}>
+                <RegularText style={filterStyles.applyButtonText}>Cancel</RegularText>
+              </RegularButton>
+            </InnerContainer>
           </StyledContainer>
         </Overlay>
 
         <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 10 }}>
-          Popular Near You
+          {showFilteredData ? 'Filtered Dishes' : 'Popular Dishes'}
         </RegularText>
         <FlatList
-          data={popularDishes}
+          data={showFilteredData ? filteredData[0] : popularDishes}
           renderItem={({ item }) => (
             <HorizontalListContainer
               item={item}
@@ -200,14 +227,15 @@ const Home = ({ navigation }) => {
           keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
+          minHeight={145}
           maxHeight={145}
           backgroundColor={colors.bg} //'#ff75'
         />
         <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 10 }}>
-          Discover
+          {showFilteredData ? 'Filtered Stalls' : 'Discover'}
         </RegularText>
         <FlatList
-          data={stallsMetadataArr}
+          data={showFilteredData ? filteredData[1] : stallsMetadataArr}
           renderItem={({ item }) => (
             <ListContainer
               photo={item.imageURL}
@@ -281,8 +309,10 @@ const searchBarStyle = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    maxHeight: 50,
+    maxHeight: 25,
     width: '100%',
+    marginTop: 20,
+    marginBottom: 25,
     alignItems: 'center',
     justifyContent: 'space-between',
     // backgroundColor: '#e71837'
@@ -291,6 +321,7 @@ const searchBarStyle = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     minHeight: 20,
+    minWidth: '85%',
     marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center',
