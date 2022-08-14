@@ -16,6 +16,7 @@ import { auth } from '../../firebase/config';
 
 // auth
 import { signOut } from 'firebase/auth';
+import deleteUser from '../../firebase/accountHandling/DeleteUser';
 
 const Profile = () => {
   const user = auth.currentUser;
@@ -35,6 +36,16 @@ const Profile = () => {
     });
   };
 
+  const handleDeleteAccount = () => {
+    signOut(auth)
+      .then(() => {
+        deleteUser(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <InnerContainer style={styles.container}>
       <InnerContainer style={styles.infoContainer}>
@@ -52,7 +63,7 @@ const Profile = () => {
           <MaterialCommunityIcons name="account-edit-outline" size={20} color="white" />
           <RegularText style={styles.buttonText}>Change Password</RegularText>
         </RegularButton>
-        <RegularButton style={styles.button}>
+        <RegularButton style={styles.button} onPress={handleDeleteAccount}>
           <Feather name="trash-2" size={20} color="white" />
           <RegularText style={styles.buttonText}>Delete Account</RegularText>
         </RegularButton>

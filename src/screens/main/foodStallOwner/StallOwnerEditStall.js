@@ -24,6 +24,7 @@ import { ref as storageRef } from 'firebase/storage';
 
 import SelectDropdown from 'react-native-select-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import * as ImagePicker from 'expo-image-picker';
 import { RegularButton } from '../../../components/buttons/RegularButton';
 import { KeyboardAvoidingWrapper } from '../../../components/KeyboardAvoidingWrapper';
 
@@ -38,6 +39,8 @@ const StallOwnerEditStall = ({ navigation }) => {
   const [stallName, setStallName] = useState('');
   const [stallAddress, setStallAddress] = useState('');
   const [stallCuisine, setStallCuisine] = useState('');
+  const [stallImageURL, setStallImageURL] = useState('');
+  const [displayImage, setDisplayImage] = useState('');
   const [stallOpeningTime, setStallOpeningTime] = useState('');
   const [stallClosingTime, setStallClosingTime] = useState('');
   const CUISINES = [
@@ -60,6 +63,8 @@ const StallOwnerEditStall = ({ navigation }) => {
         setStallName(data.name);
         setStallAddress(data.address);
         setStallCuisine(data.cuisine);
+        setStallImageURL(data.imageURL);
+        setDisplayImage(data.imageURL);
         setStallOpeningTime(data.openingTime);
         setStallClosingTime(data.closingTime);
       }
@@ -108,6 +113,21 @@ const StallOwnerEditStall = ({ navigation }) => {
     hideDatePicker();
   };
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [10, 9],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setDisplayImage(result.uri);
+    }
+  };
+
   const handleSave = () => {
     editStallInfo(
       stallID,
@@ -117,7 +137,15 @@ const StallOwnerEditStall = ({ navigation }) => {
       stallClosingTime,
       stallCuisine
     );
-    navigation.navigate('StallOwnerHome');
+
+    if (displayImage === stallImageURL) {
+      console.log('No image changes made');
+    } else {
+      // add dish upload to firebase storage (use displayImage)
+      console.log('Stall image updated');
+    }
+
+    navigation.goBack();
   };
 
   if (!loaded) {
@@ -149,6 +177,18 @@ const StallOwnerEditStall = ({ navigation }) => {
               autoCorrect={false}
               multiline={true}
             />
+          </InnerContainer>
+
+          <InnerContainer style={{ flex: 1, minHeight: '20%' }}>
+            <ImageBackground
+              source={{ uri: displayImage }}
+              resizeMode={'contain'}
+              style={styles.stallImage}
+            >
+              <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
+                <MaterialIcons name="add-photo-alternate" size={24} color={colors.secondary} />
+              </TouchableOpacity>
+            </ImageBackground>
           </InnerContainer>
 
           <InnerContainer style={styles.fieldContainer}>
@@ -257,6 +297,16 @@ const styles = StyleSheet.create({
     fontFamily: 'SourceSansPro-Regular',
     fontSize: 17,
   },
+  stallImage: {
+    flex: 1,
+    height: '100%',
+    width: '95%',
+    marginVertical: 10,
+    // backgroundColor: '#fcc',
+    resizeMode: 'contain',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
   dropdownButton: {
     flex: 1,
     paddingVertical: 3,
@@ -321,7 +371,7 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    maxHeight: '25%',
+    maxHeight: '20%',
     marginVertical: 5,
     // backgroundColor: '#ff9',
   },
@@ -332,14 +382,13 @@ const styles = StyleSheet.create({
     // backgroundColor: '#123456',
   },
   button: {
-    borderColor: 'green',
-    borderWidth: 2,
-    paddingHorizontal: 10,
-    paddingVertical: 1,
-    // backgroundColor: "green",
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: colors.secondary,
   },
   buttonText: {
-    color: 'green',
+    color: colors.bg,
   },
 });
 

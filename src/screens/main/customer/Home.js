@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
 
 // import components
 import { StyledContainer } from '../../../components/containers/StyledContainer';
-import { SearchBar } from '../../../components/SearchBar';
-import { FilterSection } from '../../../components/FilterSection';
 
 import LoadingScreen from '../../../components/screens/LoadingScreen';
 
@@ -15,6 +13,9 @@ import { colors } from '../../../assets/colors';
 import { InnerContainer } from '../../../components/containers/InnerContainer';
 
 import { RegularText } from '../../../components/texts/RegularText';
+import { BigText } from '../../../components/texts/BigText';
+import { RegularButton } from '../../../components/buttons/RegularButton';
+import SelectableChips from 'react-native-chip/SelectableChips';
 
 import { ListContainer } from '../../../components/containers/ListContainer';
 import { HorizontalListContainer } from '../../../components/containers/HorizontalListContainer';
@@ -27,9 +28,8 @@ import { db } from '../../../firebase/config';
 
 const Home = ({ navigation }) => {
   const user = auth.currentUser;
-  const placeholderAvatar =
+  const AVATAR =
     'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
-  const AVATAR = user && user.photoURL ? user.photoURL : placeholderAvatar;
 
   // Fetch popular dishes
   const [popularDishes, setPopularDishes] = useState([]);
@@ -81,11 +81,23 @@ const Home = ({ navigation }) => {
   }, [db]);
 
   const [showFilter, setShowFilter] = useState(false);
+  const [showFilteredData, setShowFilteredData] = useState(false);
+  // Search and filter data
+  const [searchText, setSearchText] = useState('');
+  const [cuisines, setCuisines] = useState([]);
 
-  const handleFilter = () => {
+  const handleFilterButtonPress = () => {
     setShowFilter(true);
     console.log('Filter button pressed!');
   };
+
+  const applyFilter = async () => {
+    setShowFilteredData(true);
+    setShowFilter(false);
+    console.log('Search text: ' + searchText);
+    console.log('Cuisines: ' + cuisines);
+    console.log('Filter applied!');
+  }
 
   const handleProfileButtonPress = () => {
     navigation.navigate('Profile');
@@ -111,7 +123,28 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </InnerContainer>
       <InnerContainer style={styles.body}>
-        <SearchBar onPress={handleFilter} />
+        {/* SearchBar */}
+        <View style={searchBarStyle.container}>
+          <View style={searchBarStyle.searchContainer}>
+            <Image
+              source={require('../../../assets/images/search.png')}
+              style={searchBarStyle.searchIcon}
+            />
+            <TextInput
+              placeholder="Search"
+              selectionColor={colors.secondary}
+              style={searchBarStyle.searchTextInput}
+              onChangeText={(text) => setSearchText(text)}
+            />
+          </View>
+          <TouchableOpacity style={searchBarStyle.filterButton} onPress={handleFilterButtonPress}>
+            <Image
+              source={require('../../../assets/images/filter.png')}
+              style={searchBarStyle.filterIcon}
+            />
+          </TouchableOpacity>
+        </View>
+
         <Overlay
           visible={showFilter}
           onClose={() => setShowFilter(false)}
@@ -120,10 +153,40 @@ const Home = ({ navigation }) => {
           containerStyle={styles.overlayWrapper}
           childrenWrapperStyle={styles.filterOverlay}
         >
-          <FilterSection />
+          {/* Filter popup */}
+          <StyledContainer style={filterStyles.mainContainer}>
+            <InnerContainer style={filterStyles.headerContainer}>
+              <BigText style={{ fontSize: 30 }}>Filter</BigText>
+            </InnerContainer>
+            <InnerContainer style={filterStyles.cuisineContainer}>
+              <RegularText style={filterStyles.subHeading}>Cuisine</RegularText>
+              <SelectableChips
+                chipStyle={filterStyles.chipContainer}
+                valueStyle={filterStyles.chipValue}
+                chipStyleSelected={filterStyles.chipSelectedContainer}
+                valueStyleSelected={filterStyles.chipSelectedValue}
+                initialChips={[
+                  'Chinese',
+                  'Japanese',
+                  'Korean',
+                  'Thai',
+                  'Western',
+                  'Indian',
+                  'Malay',
+                  'Taiwanese',
+                ]}
+                onChangeChips={(chips) => setCuisines(chips)}
+                alertRequired={false}
+              />
+            </InnerContainer>
+            
+            <RegularButton style={filterStyles.applyButton} onPress={applyFilter}>
+              <RegularText style={filterStyles.applyButtonText}>Apply</RegularText>
+            </RegularButton>
+          </StyledContainer>
         </Overlay>
 
-        <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 5 }}>
+        <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 10 }}>
           Popular Near You
         </RegularText>
         <FlatList
@@ -137,10 +200,10 @@ const Home = ({ navigation }) => {
           keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
-          minHeight={145}
+          maxHeight={145}
           backgroundColor={colors.bg} //'#ff75'
         />
-        <RegularText style={{ fontSize: 22, marginVertical: 5, alignSelf: 'flex-start' }}>
+        <RegularText style={{ fontSize: 22, alignSelf: 'flex-start', marginVertical: 10 }}>
           Discover
         </RegularText>
         <FlatList
@@ -211,6 +274,113 @@ const cardStyles = StyleSheet.create({
     minWidth: 28,
     alignItems: 'center',
     backgroundColor: '#FFB81C',
+  },
+});
+
+const searchBarStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    maxHeight: 50,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // backgroundColor: '#e71837'
+  },
+  searchContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    minHeight: 20,
+    marginRight: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    backgroundColor: colors.gray,
+    paddingRight: 20,
+  },
+  searchIcon: {
+    width: 40,
+    height: 40,
+    tintColor: colors.secondary,
+    // backgroundColor: 'purple',
+  },
+  filterIcon: {
+    width: 20,
+    height: 20,
+    tintColor: colors.secondary,
+  },
+  filterButton: {
+    // backgroundColor: colors.primary,
+    padding: 10,
+    borderRadius: 10,
+  },
+  searchTextInput: {
+    flex: 1,
+    // backgroundColor: '#fed34a', // turquoise
+  },
+});
+
+const filterStyles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    // alignItems: "center",
+    // justifyContent: "center",
+    // backgroundColor: '#ffc',
+    borderRadius: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  cuisineContainer: {
+    flex: 1,
+    // alignItems: "flex-start",
+    justifyContent: 'flex-start',
+    // backgroundColor: "#ac3",
+    maxHeight: 160,
+  },
+  headerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxHeight: 50,
+    // backgroundColor: "#ffcdcc",
+  },
+  subHeading: {
+    alignSelf: 'flex-start',
+    marginVertical: 5,
+    // backgroundColor: '#ffc',
+  },
+  subHeadingRow: {
+    justifyContent: 'flex-start',
+    alignSelf: 'center',
+  },
+  chipContainer: {
+    maxHeight: 30,
+    padding: 2,
+    borderColor: colors.primary,
+  },
+  chipValue: {
+    fontSize: 14,
+    color: colors.primary,
+  },
+  chipSelectedContainer: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  chipSelectedValue: {
+    color: colors.white,
+    fontSize: 14,
+  },
+  applyButton: {
+    paddingBottom: 5,
+    paddingTop: 5,
+    backgroundColor: colors.primary,
+  },
+  applyButtonText: {
+    color: colors.bg,
+    fontSize: 19,
   },
 });
 

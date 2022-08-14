@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
-import { ScrollView, Dimensions, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+  View,
+} from 'react-native';
 import { InnerContainer } from '../../components/containers/InnerContainer';
 import { StyledContainer } from '../../components/containers/StyledContainer';
 import { SmallText } from '../../components/texts/SmallText';
 import { RegularText } from '../../components/texts/RegularText';
 
 import { colors } from '../../assets/colors';
+import { MaterialIcons } from '@expo/vector-icons';
 
 // import auth
 import { auth } from '../../firebase/config';
@@ -13,6 +22,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import SelectDropdown from 'react-native-select-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import * as ImagePicker from 'expo-image-picker';
 import { RegularButton } from '../../components/buttons/RegularButton';
 import { KeyboardAvoidingWrapper } from '../../components/KeyboardAvoidingWrapper';
 
@@ -31,6 +41,7 @@ const FoodStallOwnerRegisterStall = ({ route }) => {
   const [stallName, setStallName] = useState('');
   const [stallAddress, setStallAddress] = useState('');
   const [stallCuisine, setStallCuisine] = useState('');
+  const [stallImageURI, setStallImageURI] = useState('');
   const [stallOpeningTime, setStallOpeningTime] = useState('');
   const [stallClosingTime, setStallClosingTime] = useState('');
   const CUISINES = [
@@ -77,6 +88,21 @@ const FoodStallOwnerRegisterStall = ({ route }) => {
     hideDatePicker();
   };
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [10, 9],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setStallImageURI(result.uri);
+    }
+  };
+
   const toastOptions = {
     duration: 5000,
     position: -120,
@@ -96,9 +122,10 @@ const FoodStallOwnerRegisterStall = ({ route }) => {
       stallAddress == '' ||
       stallCuisine == '' ||
       stallOpeningTime == '' ||
-      stallClosingTime == ''
+      stallClosingTime == '' ||
+      stallImageURI == ''
     ) {
-      Toast.show('Please fill in all the fields', toastOptions);
+      Toast.show('Please fill in all the fields \nand upload a Stall Image', toastOptions);
       return;
     }
 
@@ -172,6 +199,33 @@ const FoodStallOwnerRegisterStall = ({ route }) => {
             />
           </InnerContainer>
 
+          <InnerContainer style={{ flex: 1, minHeight: '20%' }}>
+            {stallImageURI ? (
+              <ImageBackground
+                source={{ uri: stallImageURI }}
+                resizeMode={'contain'}
+                style={styles.stallImage}
+              >
+                <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
+                  <MaterialIcons name="add-photo-alternate" size={24} color={colors.secondary} />
+                </TouchableOpacity>
+              </ImageBackground>
+            ) : (
+              // <View>
+              //   <Image source={{ uri: stallImageURI }} resizeMode={'contain'} style={styles.stallImage} />
+              // </View>
+              <View style={styles.imageUploadContainer}>
+                <SmallText style={styles.imageText}>
+                  Upload a clear image of your stall or a dish from your stall.
+                </SmallText>
+                <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
+                  <MaterialIcons name="add-photo-alternate" size={24} color={colors.bg} />
+                  <SmallText style={styles.imageText}>Upload Photo</SmallText>
+                </TouchableOpacity>
+              </View>
+            )}
+          </InnerContainer>
+
           <InnerContainer style={styles.fieldContainer}>
             <RegularText style={styles.headingText}>Cuisine Type:</RegularText>
             <SelectDropdown
@@ -232,7 +286,7 @@ const FoodStallOwnerRegisterStall = ({ route }) => {
 
           <InnerContainer style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={handleSave}>
-              <RegularText style={styles.buttonText}>Save</RegularText>
+              <RegularText style={styles.buttonText}>Register</RegularText>
             </TouchableOpacity>
           </InnerContainer>
         </KeyboardAvoidingWrapper>
@@ -260,7 +314,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     // backgroundColor: '#ff2324',
-    maxHeight: '8%',
+    maxHeight: '7%',
     marginVertical: 10,
   },
   headingText: {
@@ -277,6 +331,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bg,
     fontFamily: 'SourceSansPro-Regular',
     fontSize: 17,
+  },
+  uploadButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'space-between',
+    maxHeight: 40,
+    padding: 5,
   },
   dropdownButton: {
     flex: 1,
@@ -315,12 +376,12 @@ const styles = StyleSheet.create({
   imageUploadContainer: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    maxWidth: '55%',
-    padding: 10,
+    maxWidth: '100%',
+    padding: 20,
     marginVertical: 5,
-    // backgroundColor: '#DBDBDB',
+    backgroundColor: colors.secondary,
   },
   ImageBackground: {
     flex: 1,
@@ -329,8 +390,17 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginVertical: 10,
   },
+  stallImage: {
+    flex: 1,
+    height: '100%',
+    width: '95%',
+    marginVertical: 10,
+    // backgroundColor: '#fcc',
+    resizeMode: 'contain',
+    justifyContent: 'center',
+  },
   imageText: {
-    color: '#123456',
+    color: colors.bg,
   },
   uploadButton: {
     flex: 1,
@@ -342,7 +412,7 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    maxHeight: '25%',
+    maxHeight: '20%',
     marginVertical: 5,
     // backgroundColor: '#ff9',
   },
@@ -353,14 +423,13 @@ const styles = StyleSheet.create({
     // backgroundColor: '#123456',
   },
   button: {
-    borderColor: 'green',
-    borderWidth: 2,
-    paddingHorizontal: 10,
-    paddingVertical: 1,
-    // backgroundColor: "green",
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: colors.secondary,
   },
   buttonText: {
-    color: 'green',
+    color: colors.bg,
   },
 });
 

@@ -134,7 +134,7 @@ const StallOwnerHome = ({ navigation }) => {
         <InnerContainer
           style={{
             flex: 1,
-            minHeight: 60,
+            maxHeight: 60,
             flexDirection: 'row',
             justifyContent: 'space-between',
             // backgroundColor: '#2ff3',
