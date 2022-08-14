@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RegularText /> Renders correctly 1`] = `
+<Text
+  style={
+    Array [
+      Object {
+        "color": "#2C365A",
+        "fontFamily": "SourceSansPro-Regular",
+        "fontSize": 23,
+      },
+    ]
+  }
+/>
+`;

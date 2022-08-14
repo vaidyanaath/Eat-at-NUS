@@ -1,0 +1,3486 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> Renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#FFFFFF",
+        "flexBasis": 0,
+        "flexDirection": "column",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "height": "100%",
+        "paddingBottom": 15,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "paddingTop": 30,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "#FFFFFF",
+        "paddingBottom": 0,
+        "paddingHorizontal": 30,
+        "paddingTop": 10,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "center",
+          "width": "100%",
+        },
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "maxHeight": "10%",
+          "paddingHorizontal": 10,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#2C365A",
+            "fontFamily": "SourceSansPro-Regular",
+            "fontSize": 23,
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Hello, foodie
+    </Text>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderRadius": 20,
+          "height": 40,
+          "opacity": 1,
+          "width": 40,
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+          }
+        }
+        style={
+          Object {
+            "borderRadius": 20,
+            "height": 40,
+            "width": 40,
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "center",
+          "width": "100%",
+        },
+        Object {
+          "paddingHorizontal": 10,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "minHeight": 50,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#F5F5F5",
+            "borderRadius": 10,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "marginRight": 10,
+            "minHeight": 20,
+            "paddingHorizontal": 5,
+            "paddingRight": 20,
+          }
+        }
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": 40,
+              "tintColor": "#2C365A",
+              "width": 40,
+            }
+          }
+        />
+        <TextInput
+          placeholder="Search"
+          selectionColor="#2C365A"
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
+        />
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={false}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#ff7f50",
+            "borderRadius": 10,
+            "opacity": 1,
+            "padding": 10,
+          }
+        }
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": 18,
+              "tintColor": "#F5F5F5",
+              "width": 18,
+            }
+          }
+        />
+      </View>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#2C365A",
+            "fontFamily": "SourceSansPro-Regular",
+            "fontSize": 23,
+          },
+          Object {
+            "alignSelf": "flex-start",
+            "fontSize": 25,
+            "marginVertical": 10,
+          },
+        ]
+      }
+    >
+      Popular Near You
+    </Text>
+    <RCTScrollView
+      backgroundColor="#FFFFFF"
+      data={
+        Array [
+          Object {
+            "id": 5,
+            "name": "Cow",
+            "rating": "4.8",
+          },
+          Object {
+            "id": 8,
+            "name": "Pig",
+            "rating": "4.7",
+          },
+          Object {
+            "id": 1,
+            "name": "Western",
+            "rating": "4.5",
+          },
+          Object {
+            "id": 2,
+            "name": "Fried Wok",
+            "rating": "4.3",
+          },
+          Object {
+            "id": 3,
+            "name": "Chicken",
+            "rating": "4.2",
+          },
+          Object {
+            "id": 7,
+            "name": "Horse",
+            "rating": "4.2",
+          },
+          Object {
+            "id": 11,
+            "name": "Goat",
+            "rating": "4.2",
+          },
+          Object {
+            "id": 12,
+            "name": "Llama",
+            "rating": "4.2",
+          },
+          Object {
+            "id": 4,
+            "name": "Duck",
+            "rating": "3.8",
+          },
+          Object {
+            "id": 10,
+            "name": "Sheep",
+            "rating": "3.8",
+          },
+          Object {
+            "id": 9,
+            "name": "Rabbit",
+            "rating": "3.2",
+          },
+          Object {
+            "id": 6,
+            "name": "Deer",
+            "rating": "3.0",
+          },
+          Object {
+            "id": 13,
+            "name": "Panda",
+            "rating": "1.0",
+          },
+        ]
+      }
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={true}
+      keyExtractor={[Function]}
+      minHeight={165}
+      onContentSizeChange={[Function]}
+      onLayout={[Function]}
+      onMomentumScrollBegin={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      showsHorizontalScrollIndicator={false}
+      stickyHeaderIndices={Array []}
+      viewabilityConfigCallbackPairs={Array []}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Cow
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    5
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    4.8
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Pig
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    8
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    4.7
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Western
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    1
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    4.5
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Fried Wok
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    2
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    4.3
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Chicken
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    3
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    4.2
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Horse
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    7
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    4.2
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Goat
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    11
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    4.2
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Llama
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    12
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    4.2
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Duck
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    4
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    3.8
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderTopLeftRadius": 20,
+                "borderTopRightRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "marginHorizontal": 10,
+                "marginVertical": 5,
+                "minHeight": 155,
+                "minWidth": 150,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "minWidth": 130,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderTopLeftRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "justifyContent": "flex-start",
+                    "minHeight": 50,
+                  }
+                }
+              >
+                <Image
+                  resizeMode="cover"
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "height": "95%",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomLeftRadius": 20,
+                    "borderBottomRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingBottom": 5,
+                    "paddingHorizontal": 10,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "alignItems": "flex-start",
+                      "flex": 1,
+                      "flexDirection": "column",
+                      "justifyContent": "flex-start",
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 23,
+                        },
+                        Object {
+                          "fontSize": 20,
+                        },
+                      ]
+                    }
+                  >
+                    Sheep
+                  </Text>
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#2C365A",
+                          "fontFamily": "SourceSansPro-Regular",
+                          "fontSize": 15,
+                        },
+                        Object {
+                          "flex": 1,
+                          "fontSize": 15,
+                        },
+                      ]
+                    }
+                  >
+                    10
+                     Km away
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "alignSelf": "flex-end",
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "marginBottom": 5,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 13,
+                      }
+                    }
+                  >
+                    3.8
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "width": 0,
+            }
+          }
+        />
+      </View>
+    </RCTScrollView>
+    <RCTScrollView
+      ListFooterComponent={
+        <View
+          marginBottom={20}
+        />
+      }
+      ListHeaderComponent={[Function]}
+      data={
+        Array [
+          Object {
+            "id": 5,
+            "name": "Cow",
+            "rating": "4.8",
+          },
+          Object {
+            "id": 8,
+            "name": "Pig",
+            "rating": "4.7",
+          },
+          Object {
+            "id": 1,
+            "name": "Western",
+            "rating": "4.5",
+          },
+          Object {
+            "id": 2,
+            "name": "Fried Wok",
+            "rating": "4.3",
+          },
+          Object {
+            "id": 3,
+            "name": "Chicken",
+            "rating": "4.2",
+          },
+          Object {
+            "id": 7,
+            "name": "Horse",
+            "rating": "4.2",
+          },
+          Object {
+            "id": 11,
+            "name": "Goat",
+            "rating": "4.2",
+          },
+          Object {
+            "id": 12,
+            "name": "Llama",
+            "rating": "4.2",
+          },
+          Object {
+            "id": 4,
+            "name": "Duck",
+            "rating": "3.8",
+          },
+          Object {
+            "id": 10,
+            "name": "Sheep",
+            "rating": "3.8",
+          },
+          Object {
+            "id": 9,
+            "name": "Rabbit",
+            "rating": "3.2",
+          },
+          Object {
+            "id": 6,
+            "name": "Deer",
+            "rating": "3.0",
+          },
+          Object {
+            "id": 13,
+            "name": "Panda",
+            "rating": "1.0",
+          },
+        ]
+      }
+      getItem={[Function]}
+      getItemCount={[Function]}
+      keyExtractor={[Function]}
+      onContentSizeChange={[Function]}
+      onLayout={[Function]}
+      onMomentumScrollBegin={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      showsVerticalScrollIndicator={false}
+      stickyHeaderIndices={Array []}
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+      vertical={true}
+      viewabilityConfigCallbackPairs={Array []}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#2C365A",
+                  "fontFamily": "SourceSansPro-Regular",
+                  "fontSize": 23,
+                },
+                Object {
+                  "fontSize": 25,
+                  "marginVertical": 10,
+                },
+              ]
+            }
+          >
+            Discover
+          </Text>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Cow
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  5
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    4.8
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Pig
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  8
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    4.7
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Western
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  1
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    4.5
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Fried Wok
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  2
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    4.3
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Chicken
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  3
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    4.2
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Horse
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  7
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    4.2
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Goat
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  11
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    4.2
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Llama
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  12
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    4.2
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Duck
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  4
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    3.8
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "activeOpacity": 0.8,
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#F5F5F5",
+                "borderRadius": 20,
+                "borderWidth": 0,
+                "elevation": 3,
+                "flex": 1,
+                "height": 100,
+                "marginVertical": 5,
+                "opacity": 1,
+                "shadowColor": "#000",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 5,
+                },
+                "shadowOpacity": 0.22,
+                "shadowRadius": 2.22,
+                "width": "98%",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "borderBottomLeftRadius": 20,
+                    "borderTopLeftRadius": 20,
+                    "flex": 1,
+                    "maxWidth": 140,
+                  }
+                }
+              >
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "borderRadius": 20,
+                      "flex": 1,
+                      "resizeMode": "cover",
+                      "width": 125,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "borderBottomRightRadius": 20,
+                    "borderTopRightRadius": 20,
+                    "flex": 1,
+                    "flexDirection": "column",
+                    "justifyContent": "space-between",
+                    "paddingVertical": 10,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "fontSize": 20,
+                      },
+                    ]
+                  }
+                >
+                  Sheep
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#2C365A",
+                        "fontFamily": "SourceSansPro-Regular",
+                        "fontSize": 23,
+                      },
+                      Object {
+                        "flex": 2,
+                        "fontSize": 15,
+                      },
+                    ]
+                  }
+                >
+                  10
+                   Km away
+                </Text>
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "#FFB81C",
+                      "borderRadius": 3,
+                      "paddingHorizontal": 4,
+                    }
+                  }
+                >
+                  <Text
+                    style={
+                      Object {
+                        "fontSize": 15,
+                      }
+                    }
+                  >
+                    3.8
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "height": 0,
+            }
+          }
+        />
+        <View
+          onLayout={[Function]}
+        >
+          <View
+            marginBottom={20}
+          />
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;
