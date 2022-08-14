@@ -28,6 +28,7 @@ import { KeyboardAvoidingWrapper } from '../../components/KeyboardAvoidingWrappe
 
 import addUser from '../../firebase/accountHandling/AddUser';
 import addStall from '../../firebase/AddNewStall';
+import uploadStallImage from '../../firebase/imageHandling/UploadStallImage';
 
 // show toast notifs
 import Toast from 'react-native-root-toast';
@@ -150,6 +151,7 @@ const FoodStallOwnerRegisterStall = ({ route }) => {
               stallClosingTime,
               stallCuisine
             );
+            uploadStallImage(user.uid, stallImageURI);
           })
           .catch((error) => {
             console.log(error);

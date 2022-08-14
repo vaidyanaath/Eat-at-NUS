@@ -24,6 +24,7 @@ import { ref, onValue } from 'firebase/database';
 
 import editDishInfo from '../../../firebase/EditDishInfo';
 import uploadDishImage from '../../../firebase/imageHandling/UploadDishImage';
+import deleteDishImage from '../../../firebase/imageHandling/DeleteDishImage';
 
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../../../assets/colors';
@@ -118,6 +119,9 @@ const StallOwnerEditDish = ({ navigation, route }) => {
         await deleteDishImage(stallID, dishID);
         console.log('Image deleted');
       } else {
+        if (dishImageURL != '') {
+          await deleteDishImage(stallID, dishID);
+        }
         await uploadDishImage(stallID, dishID, dishImageURI);
         console.log('Image changed');
       }
