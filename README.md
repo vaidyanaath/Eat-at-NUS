@@ -3,7 +3,7 @@
 ## Description
 
 Eat @ NUS is a mobile application that aims to revolutionize the dining experience for students and staff at the National University of Singapore (NUS). By providing real-time availability of food options at various food stalls within the NUS campus, the app offers convenience, variety, and enhanced publicity for food stall owners. With a user-friendly interface and a range of features, Eat @ NUS is designed to cater to the needs of both customers and food stall owners.
-
+<br>
 ## Features
 
 ### Customer:
@@ -20,6 +20,14 @@ Eat @ NUS is a mobile application that aims to revolutionize the dining experien
 1. **Easy Dish Management:** Add your dishes to the app effortlessly, making it simpler for customers to discover and explore your offerings.
 2. **Visual Attraction:** Upload enticing pictures of your food, capturing the attention of potential customers and creating a visual appeal for your stall.
 3. **Effortless Updates:** Edit dish information and stall details with just a few clicks, ensuring that your listings are always up-to-date and accurate.
+
+<br>
+
+## Feature Showcase
+
+https://github.com/vaidyanaath/Eat-at-NUS/assets/55879468/bffb3279-3ae7-4ece-b917-0d897e64231b
+
+<br>
 
 ## Tech Stack
 
